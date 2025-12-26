@@ -48,32 +48,64 @@ This project is independent and not for commercial use. I do not own the name or
 
 ## Technical
 ### Classes
-`SabaccGame` which represents the data and state of a single game of Sabacc.
+`SabaccGame` which represents a single game of Sabacc.
 
-Attributes
+Attributes:
+- `players`, an array of `Player`s (array bc size won't change)
+- `rounds`, a list of `SabaccRound` data (list bc unknown size)
+- `buyIn`, integer amount that each player buys in, winner receives `buyIn * players.length` credits
+
+Methods:
 - TODO
 
 
-`Player`
+`SabaccRound`?? which represents a single round of 3 turns in a `SabaccGame`.
 
 Attributes:
-- shiftTokens, ENUM ShiftToken {...}
-Methods:
+- `tokensInPlay`, a list of `ShiftToken`s active (list bc unknown size)
+- `players`, an array of `Player`s (array bc size won't change, no setter bc should be set by `SabaccGame`)
 - 
+
+Methods:
+- TODO
+
+
+`Person` which represents an individual outside of a `SabaccGame` context
+
+Attributes:
+- `credits`, integer value of credits owned
+- `shiftTokens`, list of `ShiftToken`s owned (list bc can gain more)
+
+
+  > `Player`, subclass of `Person` and represents an individual in the `SabaccGame` context
+  >
+  > Attributes:
+  > - `hand`, array of `Card`s, the **Sand** and **Blood** cards in hand (array bc only 2)
+  > - `selectedTokens`, array of `ShiftToken`s owned (when played set to null or special value e.g. UNAVAILABLE, array because can only have 3)
+  >
+  > Methods:
+  > - TODO
+
 
 `Card`
 
 Attributes:
-- Family, ENUM {BLOOD, SAND}
-- Rank, ENUM {1-6, IMPOSTER, SYLOP} (need method to compare rank)
+- `family`, ENUM {BLOOD, SAND}
+- `rank`, ENUM {1-6, IMPOSTER, SYLOP}
 
 Methods:
 - Constructor, getters & setters (validation for rank)
-- Compare cards (GT, LT, EQ)
+- Compare rank (GT, LT, EQ)
 
+
+`ShiftToken`, enum with values:
+- TODO
 
 
 `GameUtils`
 Methods:
 - Method to convert from integer to RANK
 - Sort list of cards by winning status
+
+## Notes
+- Logic for drawing and choosing? Need a class/attribute for drawn card?
