@@ -26,7 +26,7 @@ Players end their turn by either:
 A round ends after 3 turns by each player revealing their hand. If every player stands during a turn, the round ends prematurely and players reveal their hands.
 
 To win a round, a player must have the best hand at the end of 3 turns.
-- If multiple players have the same winning hand,
+- If multiple players have the same winning hand they are joint winners and each get back invested chips
 - If a revealed hand has a pair of **Sylop** cards (a *Pure Sabacc*), that is the best hand in the game
 - If no players have a **Sabacc** hand, *and* multiple players have an equal difference in their hand card ranks, then the lowest sum of ranks wins
 
@@ -43,3 +43,37 @@ Game modifiers that can be played once in the game, played before standing or dr
 The game "Sabacc" was created for Star Wars, and as such is intellectual property of Lucasfilm.
 
 This project is independent and not for commercial use. I do not own the name or game concept of "Sabacc".
+
+---
+
+## Technical
+### Classes
+`SabaccGame` which represents the data and state of a single game of Sabacc.
+
+Attributes
+- TODO
+
+
+`Player`
+
+Attributes:
+- shiftTokens, ENUM ShiftToken {...}
+Methods:
+- 
+
+`Card`
+
+Attributes:
+- Family, ENUM {BLOOD, SAND}
+- Rank, ENUM {1-6, IMPOSTER, SYLOP} (need method to compare rank)
+
+Methods:
+- Constructor, getters & setters (validation for rank)
+- Compare cards (GT, LT, EQ)
+
+
+
+`GameUtils`
+Methods:
+- Method to convert from integer to RANK
+- Sort list of cards by winning status
