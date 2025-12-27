@@ -62,7 +62,7 @@ Methods:
 `SabaccRound`?? which represents a single round of 3 turns in a `SabaccGame`.
 
 Attributes:
-- `tokensInPlay`, a list of `ShiftToken`s active (list bc unknown size)
+- `tokensActive`, a list of `ShiftToken`s active (list bc unknown size)
 - `players`, an array of `Player`s (array bc size won't change, no setter bc should be set by `SabaccGame`)
 - 
 
@@ -74,7 +74,7 @@ Methods:
 
 Attributes:
 - `credits`, integer value of credits owned
-- `shiftTokens`, list of `ShiftToken`s owned (list bc can gain more)
+- `tokens`, list of `ShiftToken`s owned (list bc can gain more)
 
 
   > `Player`, subclass of `Person` and represents an individual in the `SabaccGame` context
