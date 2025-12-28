@@ -1,7 +1,8 @@
 package com.johnm.sabacc.backend.util;
 
 import com.johnm.sabacc.backend.domain.components.Card;
-import com.johnm.sabacc.backend.domain.components.ShiftToken;
+import com.johnm.sabacc.backend.domain.components.CardFamily;
+import com.johnm.sabacc.backend.domain.components.CardRank;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +12,11 @@ public class GameUtils {
     public static List<Card> fullDeck() {
         List<Card> allCards = new ArrayList<>();
 
-        for (Card.CardFamily token : Card.CardFamily.values()) {
-            for (Card.CardRank rank : Card.CardRank.values()) {
+        //NOTE treats duplicates as separate objects
+        for (CardFamily token : CardFamily.values()) {
+            for (CardRank rank : CardRank.values()) {
                 // All combinations have 3 cards except Sylop, which has 1
-                if (!rank.equals(Card.CardRank.SYLOP)) {
+                if (!rank.equals(CardRank.SYLOP)) {
                     for (int i = 0; i < 2; i++) { allCards.add(new Card(token, rank)); }
                 }
                 allCards.add(new Card(token, rank));

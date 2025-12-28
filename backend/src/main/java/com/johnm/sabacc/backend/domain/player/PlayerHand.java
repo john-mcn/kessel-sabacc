@@ -1,4 +1,4 @@
-package com.johnm.sabacc.backend.domain;
+package com.johnm.sabacc.backend.domain.player;
 
 import com.johnm.sabacc.backend.domain.components.Card;
 
@@ -7,7 +7,7 @@ public class PlayerHand {
     private Card sandCard;
 
     public PlayerHand(Card bloodCard, Card sandCard) {
-        if (bloodCard.getFamily().equals(Card.CardFamily.BLOOD) && sandCard.getFamily().equals(Card.CardFamily.SAND)) {
+        if (bloodCard.isBlood() && sandCard.isSand()) {
             this.bloodCard = bloodCard;
             this.sandCard = sandCard;
         } else {
@@ -17,7 +17,7 @@ public class PlayerHand {
 
     public Card getBloodCard() { return bloodCard; }
     public void setBloodCard(Card bloodCard) {
-        if (sandCard.getFamily().equals(Card.CardFamily.BLOOD)) {
+        if (bloodCard.isSand()) {
             System.err.println("SAND CARD CANNOT BE SET AS BLOOD CARD");
         }
         this.bloodCard = bloodCard;
@@ -25,7 +25,7 @@ public class PlayerHand {
 
     public Card getSandCard() { return sandCard; }
     public void setSandCard(Card sandCard) {
-        if (sandCard.getFamily().equals(Card.CardFamily.BLOOD)) {
+        if (sandCard.isBlood()) {
             System.err.println("BLOOD CARD CANNOT BE SET AS SAND CARD");
         }
         this.sandCard = sandCard;
