@@ -1,13 +1,21 @@
 package com.johnm.sabacc.backend.domain.player;
 
 import com.johnm.sabacc.backend.domain.components.ShiftToken;
+import com.johnm.sabacc.backend.dto.player.PersonDTO;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
+import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Person {
+    @Id
     protected String name;
     protected int credits;
     protected List<ShiftToken> tokens;
+
+    public Person() {}
 
     public Person(String name, int credits, List<ShiftToken> tokens) {
         this.name = name;
@@ -23,4 +31,13 @@ public class Person {
 
     public List<ShiftToken> getTokens() { return tokens; }
     public void setTokens(List<ShiftToken> tokens) { this.tokens = tokens; }
+
+    public PersonDTO toDto() {
+        PersonDTO dto = new PersonDTO();
+        dto.setName(name);
+        dto.setCredits(credits);
+        dto.setTokens(tokens == null? new ArrayList<>() : tokens.stream().map(ShiftToken::toString).toList());
+
+        return dto;
+    }
 }
