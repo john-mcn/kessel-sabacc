@@ -26,7 +26,7 @@ Players end their turn by either:
 A round ends after 3 turns by each player revealing their hand. If every player stands during a turn, the round ends prematurely and players reveal their hands.
 
 To win a round, a player must have the best hand at the end of 3 turns.
-- If multiple players have the same winning hand,
+- If multiple players have the same winning hand they are joint winners and each get back invested chips
 - If a revealed hand has a pair of **Sylop** cards (a *Pure Sabacc*), that is the best hand in the game
 - If no players have a **Sabacc** hand, *and* multiple players have an equal difference in their hand card ranks, then the lowest sum of ranks wins
 
@@ -43,3 +43,69 @@ Game modifiers that can be played once in the game, played before standing or dr
 The game "Sabacc" was created for Star Wars, and as such is intellectual property of Lucasfilm.
 
 This project is independent and not for commercial use. I do not own the name or game concept of "Sabacc".
+
+---
+
+## Technical
+### Classes
+`SabaccGame` which represents a single game of Sabacc.
+
+Attributes:
+- `players`, an array of `Player`s (array bc size won't change)
+- `rounds`, a list of `SabaccRound` data (list bc unknown size)
+- `buyIn`, integer amount that each player buys in, winner receives `buyIn * players.length` credits
+
+Methods:
+- TODO
+
+
+`SabaccRound`?? which represents a single round of 3 turns in a `SabaccGame`.
+
+Attributes:
+- `tokensActive`, a list of `ShiftToken`s active (list bc unknown size)
+- `players`, an array of `Player`s (array bc size won't change, no setter bc should be set by `SabaccGame`)
+- 
+
+Methods:
+- TODO
+
+
+`Person` which represents an individual outside of a `SabaccGame` context
+
+Attributes:
+- `credits`, integer value of credits owned
+- `tokens`, list of `ShiftToken`s owned (list bc can gain more)
+
+
+  > `Player`, subclass of `Person` and represents an individual in the `SabaccGame` context
+  >
+  > Attributes:
+  > - `hand`, array of `Card`s, the **Sand** and **Blood** cards in hand (array bc only 2)
+  > - `selectedTokens`, array of `ShiftToken`s owned (when played set to null or special value e.g. UNAVAILABLE, array because can only have 3)
+  >
+  > Methods:
+  > - TODO
+
+
+`Card`
+
+Attributes:
+- `family`, ENUM {BLOOD, SAND}
+- `rank`, ENUM {1-6, IMPOSTER, SYLOP}
+
+Methods:
+- Constructor, getters & setters (validation for rank)
+- Compare rank (GT, LT, EQ)
+
+
+`ShiftToken`, enum with values:
+- TODO
+
+
+`GameUtils`
+Methods:
+- Method to convert from integer to RANK
+- Sort list of cards by winning status
+
+## Notes
+- Logic for drawing and choosing? Need a class/attribute for drawn card?
