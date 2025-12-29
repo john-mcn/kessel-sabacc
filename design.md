@@ -70,14 +70,14 @@ Methods:
 - TODO
 
 
-`Person` which represents an individual outside of a `SabaccGame` context
+`Player` which represents an individual outside of a `SabaccGame` context
 
 Attributes:
 - `credits`, integer value of credits owned
 - `tokens`, list of `ShiftToken`s owned (list bc can gain more)
 
 
-  > `Player`, subclass of `Person` and represents an individual in the `SabaccGame` context
+  > `Player`, subclass of `Player` and represents an individual in the `SabaccGame` context
   >
   > Attributes:
   > - `hand`, array of `Card`s, the **Sand** and **Blood** cards in hand (array bc only 2)
