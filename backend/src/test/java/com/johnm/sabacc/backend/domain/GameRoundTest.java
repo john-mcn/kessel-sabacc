@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class GameRoundTest {
 
     @Test
-    public void testSetup() {
+    void testSetup() {
         Player[] players = {
                 new Player("One", 100, null, null, null),
                 new Player("Two", 100, null, null, null),
@@ -41,5 +41,45 @@ public class GameRoundTest {
         assertTrue(cardsWereRemoved, "players' cards are removed from discard");
         assertTrue(firstPlayerHand.getBloodCard().isBlood() && firstPlayerHand.getSandCard().isSand(),
                 "a player's starting hand has one sand and one blood card");
+    }
+
+    @Test
+    void testSortPlayers() {
+        Player[] players = {
+                new Player("One", 100, null, new PlayerHand(new Card("blood", "one"), new Card("sand", "six")), null),
+                new Player("Two", 100, null, new PlayerHand(new Card("blood", "one"), new Card("sand", "one")), null),
+                new Player("Three", 100, null, new PlayerHand(new Card("blood", "one"), new Card("sand", "three")), null),
+        };
+        SabaccGame testGame = new SabaccGame(players, 50, 4);
+        GameRound testRound = new GameRound(testGame);
+
+        List<Player> correctOrder = new ArrayList<>(List.of(players[1], players[2], players[0]));
+        assertEquals(correctOrder, testRound.sortPlayers(), "Players should be sorted correctly");
+    }
+
+    @Test
+    void findWinners_shouldFindWinner() {
+        Player[] players = {
+                new Player("One", 100, null, new PlayerHand(new Card("blood", "one"), new Card("sand", "six")), null),
+                new Player("Two", 100, null, new PlayerHand(new Card("blood", "one"), new Card("sand", "one")), null),
+                new Player("Three", 100, null, new PlayerHand(new Card("blood", "one"), new Card("sand", "three")), null),
+        };
+        SabaccGame testGame = new SabaccGame(players, 50, 4);
+        GameRound testRound = new GameRound(testGame);
+
+        assertEquals(List.of(players[1]), testRound.findWinners(), "Correct winner should be found");
+    }
+
+    @Test
+    void findWinners_shouldFindWinners() {
+        Player[] players = {
+                new Player("One", 100, null, new PlayerHand(new Card("blood", "one"), new Card("sand", "one")), null),
+                new Player("Two", 100, null, new PlayerHand(new Card("blood", "one"), new Card("sand", "one")), null),
+                new Player("Three", 100, null, new PlayerHand(new Card("blood", "one"), new Card("sand", "three")), null),
+        };
+        SabaccGame testGame = new SabaccGame(players, 50, 4);
+        GameRound testRound = new GameRound(testGame);
+
+        assertEquals(List.of(players[0], players[1]), testRound.findWinners(), "Correct winner should be found");
     }
 }

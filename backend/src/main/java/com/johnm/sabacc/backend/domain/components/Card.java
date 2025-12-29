@@ -10,6 +10,11 @@ public class Card {
         this.rank = rank;
     }
 
+    public Card(String family, String rank) {
+        this.family = CardFamily.fromString(family);
+        this.rank = CardRank.fromString(rank);
+    }
+
     public CardFamily getFamily() { return family; }
     public void setFamily(CardFamily family) { this.family = family; }
     public boolean isSand() { return family.equals(CardFamily.SAND); }
@@ -17,6 +22,8 @@ public class Card {
 
     public CardRank getRank() { return rank; }
     public void setRank(CardRank rank) { this.rank = rank; }
+    public boolean isSylop() { return rank.equals(CardRank.SYLOP); }
+    public boolean isImposter() { return rank.equals(CardRank.IMPOSTER); }
 
     @Override
     public String toString() {

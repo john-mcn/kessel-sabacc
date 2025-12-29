@@ -1,6 +1,8 @@
 package com.johnm.sabacc.backend.domain.player;
 
 import com.johnm.sabacc.backend.domain.components.Card;
+import com.johnm.sabacc.backend.domain.components.CardFamily;
+import com.johnm.sabacc.backend.domain.components.CardRank;
 
 public class PlayerHand {
     private Card bloodCard;
@@ -15,20 +17,19 @@ public class PlayerHand {
         }
     }
 
+    public PlayerHand(CardRank bloodRank, CardRank sandRank) {
+        bloodCard = new Card(CardFamily.BLOOD, bloodRank);
+        sandCard = new Card(CardFamily.SAND, sandRank);
+    }
+
     public Card getBloodCard() { return bloodCard; }
-    public void setBloodCard(Card bloodCard) {
-        if (bloodCard.isSand()) {
-            System.err.println("SAND CARD CANNOT BE SET AS BLOOD CARD");
-        }
-        this.bloodCard = bloodCard;
+    public void setBloodCard(CardRank rank) {
+        bloodCard = new Card(CardFamily.BLOOD, rank);
     }
 
     public Card getSandCard() { return sandCard; }
-    public void setSandCard(Card sandCard) {
-        if (sandCard.isBlood()) {
-            System.err.println("BLOOD CARD CANNOT BE SET AS SAND CARD");
-        }
-        this.sandCard = sandCard;
+    public void setSandCard(CardRank rank) {
+        sandCard = new Card(CardFamily.SAND, rank);
     }
 
     // Change the existing card of the matching family to the new card, and return the previous card
@@ -38,11 +39,11 @@ public class PlayerHand {
         switch (newCard.getFamily()) {
             case BLOOD:
                 prevCard = bloodCard;
-                setBloodCard(newCard);
+                setBloodCard(newCard.getRank());
                 break;
             case SAND:
                 prevCard = sandCard;
-                setSandCard(newCard);
+                setSandCard(newCard.getRank());
                 break;
             default:
                 System.err.println("NOT SAND OR BLOOD CARD");

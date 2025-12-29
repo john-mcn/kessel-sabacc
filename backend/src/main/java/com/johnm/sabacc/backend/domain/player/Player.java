@@ -43,8 +43,8 @@ public class Player extends Person {
     @Override
     public String toString() {
         return "'" + name
-                + "', hand: " + hand
-                + ", chips: stock=" +  stock + " pot=" + pot
-                + ", tokens: " + (tokens != null ? Arrays.toString(selectedTokens) : "[]") + " ";
+                + "', hand=" + hand
+                + ", chips={stock=" +  stock + " pot=" + pot
+                + "}, tokens=" + (tokens != null ? Arrays.toString(selectedTokens) : "[]") + " ";
     }
 }

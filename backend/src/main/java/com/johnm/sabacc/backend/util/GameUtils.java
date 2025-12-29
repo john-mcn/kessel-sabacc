@@ -25,4 +25,11 @@ public class GameUtils {
 
         return allCards;
     }
+
+    public static int[] rollImposterDice() {
+        return new int[]{
+                (int) (Math.random() * 6) + 1,
+                (int) (Math.random() * 6) + 1
+        };
+    }
 }

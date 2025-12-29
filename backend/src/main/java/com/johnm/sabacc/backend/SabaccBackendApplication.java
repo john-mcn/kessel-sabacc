@@ -1,9 +1,13 @@
 package com.johnm.sabacc.backend;
 
 import com.johnm.sabacc.backend.domain.GameRound;
+import com.johnm.sabacc.backend.domain.components.CardRank;
 import com.johnm.sabacc.backend.domain.player.Player;
 import com.johnm.sabacc.backend.domain.SabaccGame;
+import com.johnm.sabacc.backend.domain.player.PlayerHand;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.Arrays;
 
 @SpringBootApplication
 public class SabaccBackendApplication {
@@ -20,12 +24,13 @@ public class SabaccBackendApplication {
         testGame.setup();
 
         GameRound testRound = new GameRound(testGame);
-        testRound.setup();
+        testRound.runFullgame();
+        // System.out.println(Arrays.toString(testRound.getPlayers()));
 
         // testRound.performTurn(players[0]);
         // testRound.performTurn(players[0]);
 
-        System.out.println(testRound.sortHands());
+        // System.out.println(testRound.revealCards());
 	}
 
 }

@@ -14,4 +14,13 @@ public class Person {
         this.credits = credits;
         this.tokens = tokens;
     }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public int getCredits() { return credits; }
+    public void setCredits(int credits) { this.credits = credits; }
+
+    public List<ShiftToken> getTokens() { return tokens; }
+    public void setTokens(List<ShiftToken> tokens) { this.tokens = tokens; }
 }

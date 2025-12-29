@@ -1,21 +1,25 @@
 package com.johnm.sabacc.backend.domain;
 
 import com.johnm.sabacc.backend.domain.components.Card;
+import com.johnm.sabacc.backend.domain.components.CardFamily;
+import com.johnm.sabacc.backend.domain.components.CardRank;
 import com.johnm.sabacc.backend.domain.components.ShiftToken;
-import com.johnm.sabacc.backend.domain.player.Player;
-import com.johnm.sabacc.backend.domain.player.PlayerHand;
+import com.johnm.sabacc.backend.domain.player.*;
 import com.johnm.sabacc.backend.exceptions.IllegalActionException;
 import com.johnm.sabacc.backend.util.GameUtils;
 
 import java.util.*;
 
 public class GameRound {
+    private SabaccGame game;
     private Player[] players;
     private List<ShiftToken> tokensActive;
     private List<Card> bloodDraw, sandDraw; // face down draw piles
     private List<Card> bloodDiscard, sandDiscard; // face up discard piles
     private int currPlayerIndex;
-    private SabaccGame game;
+    private int turnNumber;
+    public Set<Player> inStand;
+
 
     public GameRound(SabaccGame game) {
         this.game = game;
@@ -26,7 +30,8 @@ public class GameRound {
         bloodDiscard = new ArrayList<>();
         sandDiscard = new ArrayList<>();
         currPlayerIndex = 0;
-
+        turnNumber = 0;
+        inStand = new HashSet<>();
     }
 
     public Player[] getPlayers() { return players; }
@@ -40,6 +45,37 @@ public class GameRound {
 
     public List<Card> getSandDraw() { return sandDraw; }
     public void setSandDraw(List<Card> sandDraw) { this.sandDraw = sandDraw; }
+
+    public List<Player> runFullgame() {
+        setup();
+
+        turnNumber = 1;
+        System.out.println("=== Turn " + turnNumber + " ===");
+
+        // Perform 3 turns, or until all players stand
+        while (turnNumber < 4 && inStand.size() < players.length) {
+            System.out.println();
+            System.out.println("Players in stand = " + inStand.stream().map(Person::getName).toList());
+            System.out.println("Discard piles: "
+                    + "blood=" + (bloodDiscard.isEmpty() ? "[]" : "[" + bloodDiscard.get(0)) + "]]]"
+                    + " sand=" + (sandDiscard.isEmpty() ? "[]" : "[" + sandDiscard.get(0)) + "]]]");
+            System.out.println("Current player: " + players[currPlayerIndex]);
+
+            performTurn(players[currPlayerIndex]);
+            // If every player had a go, enter new turn, otherwise go to next player
+            if (currPlayerIndex == players.length - 1) {
+                System.out.println("== Turn " + turnNumber + " ===");
+                turnNumber++;
+                currPlayerIndex = 0;
+            } else {
+                currPlayerIndex++;
+            }
+        }
+
+        List<Player> winners = revealCards();
+        System.out.println("Winners=" + winners);
+        return winners;
+    }
 
     public void setup() {
         List<Card> fullDeck = GameUtils.fullDeck();
@@ -64,21 +100,30 @@ public class GameRound {
     public void performTurn(Player player) {
         Scanner reader = new Scanner(System.in);
 
-        System.out.println(player);
-        System.out.println("1=Stand, 2=Draw blood, 3=Draw sand");
+        System.out.print("1=Stand, Draw blood..(2=..from draw, 3=..from discard), Draw sand..(4=..from draw, 5=..from discard)\"");
         String move = reader.nextLine();
 
-        Card drawn;
         try {
             switch (move) {
                 case "1":
-                    System.out.println("MOVING TO NEXT PLAYER");
+                    inStand.add(player);
+                    // System.out.println("MOVING TO NEXT PLAYER");
                     break;
                 case "2":
+                    inStand.remove(player);
                     drawCard(player, bloodDraw, bloodDiscard, reader);
                     break;
                 case "3":
+                    inStand.remove(player);
+                    drawCard(player, bloodDiscard, bloodDiscard, reader);
+                    break;
+                case "4":
+                    inStand.remove(player);
                     drawCard(player, sandDraw, sandDiscard, reader);
+                    break;
+                case "5":
+                    inStand.remove(player);
+                    drawCard(player, sandDiscard, sandDiscard, reader);
                     break;
                 default:
                     System.err.println("INVALID");
@@ -88,8 +133,6 @@ public class GameRound {
             System.err.println(e.getMessage());
             performTurn(player);
         }
-
-        currPlayerIndex++;
     }
 
     private void drawCard (Player player, List<Card> drawPile, List<Card> discardPile, Scanner reader) {
@@ -97,10 +140,13 @@ public class GameRound {
         // if (player.getStock() < 1) {
         //     throw new IllegalActionException("INSUFFICIENT CHIPS TO DRAW");
         // }
+        if (drawPile.isEmpty()) {
+            throw new IllegalActionException("Draw pile is empty");
+        }
 
         player.spendChip();
         Card drawn = drawPile.get(0);
-        System.out.println("Drawn card: |" + drawn + "|, replace? (y/n)");
+        System.out.print("Drawn card: |" + drawn + "|, replace? (y/n) ");
         if (reader.nextLine().equals("y")) {
             Card swappedWith = player.getHand().swapCard(drawn);
             drawPile.remove(0);
@@ -110,15 +156,49 @@ public class GameRound {
         }
     }
 
+    public List<Player> revealCards() {
+        System.out.println("\n=== Reveal phase ===");
+
+        //NOTE for now, only need to set imposter value
+        for (Player player : players) {
+            PlayerHand playerHand = player.getHand();
+
+            // Determine Imposter values
+            //TODO shift token for imposter val = 6
+            if (playerHand.getBloodCard().isImposter()) {
+                int[] diceVals = GameUtils.rollImposterDice();
+                System.out.println("Dice rolled: " + Arrays.toString(diceVals));
+                //TODO for now just select the lowest of the two
+                playerHand.setBloodCard(CardRank.fromInt(Math.min(diceVals[0], diceVals[1])));
+            }
+            if (playerHand.getSandCard().isImposter()) {
+                int[] diceVals = GameUtils.rollImposterDice();
+                System.out.println("Dice rolled: " + Arrays.toString(diceVals));
+                //TODO for now just select the lowest of the two
+                playerHand.setSandCard(CardRank.fromInt(Math.min(diceVals[0], diceVals[1])));
+            }
+
+            System.out.println("Player '" + player.getName() + "' hand=" + player.getHand());
+        }
+
+        return findWinners();
+    }
+
     //TODO account for token effects (tokensActive)
-    public List<PlayerHand> sortHands() {
-        List<PlayerHand> hands = Arrays.stream(players).map(Player::getHand).toList();
+    public List<Player> sortPlayers() {
+        ArrayList<Player> playerLst = new ArrayList<>(Arrays.asList(players));
+        playerLst.sort(new PlayerComparator());
+        return playerLst;
+    }
 
-        // hands.stream().s
+    public List<Player> findWinners() {
+        PlayerComparator playerComparator = new PlayerComparator();
+        List<Player> sortedPlayers = sortPlayers();
 
-        System.out.println(hands);
+        Player winner = sortedPlayers.get(0);
+        List<Player> winners = new ArrayList<>(sortedPlayers.stream().filter(p -> playerComparator.compare(p, winner) == 0).toList());
 
-        return hands;
+        return winners;
     }
 
     //TODO expand
@@ -126,6 +206,6 @@ public class GameRound {
     public String toString() {
         String sandDiscardStr = (!sandDiscard.isEmpty())? sandDiscard.get(0).toString() : "";
         String bloodDiscardStr = (!bloodDiscard.isEmpty())? bloodDiscard.get(0).toString() : "";
-        return "Top of discard: sand=[" + sandDiscardStr + "], blood=[" + bloodDiscardStr + "]";
+        return "Top of discard: sand=[" + sandDiscardStr + "], blood=[" + bloodDiscardStr + "] | In stand: " + inStand;
     }
 }
