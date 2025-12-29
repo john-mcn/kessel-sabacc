@@ -16,6 +16,7 @@ public class GameRound {
     private List<ShiftToken> tokensActive;
     private List<Card> bloodDraw, sandDraw; // face down draw piles
     private List<Card> bloodDiscard, sandDiscard; // face up discard piles
+    private CardRank bestSabacc;
     private int currPlayerIndex;
     private int turnNumber;
     public Set<Player> inStand;
@@ -29,6 +30,7 @@ public class GameRound {
         sandDraw = new ArrayList<>();
         bloodDiscard = new ArrayList<>();
         sandDiscard = new ArrayList<>();
+        bestSabacc = CardRank.SYLOP;
         currPlayerIndex = 0;
         turnNumber = 0;
         inStand = new HashSet<>();
@@ -100,7 +102,7 @@ public class GameRound {
     public void performTurn(Player player) {
         Scanner reader = new Scanner(System.in);
 
-        System.out.print("1=Stand, Draw blood..(2=..from draw, 3=..from discard), Draw sand..(4=..from draw, 5=..from discard)\"");
+        System.out.print("1=Stand, Draw blood..(2=..from draw, 3=..from discard), Draw sand..(4=..from draw, 5=..from discard), 6=Play shift token");
         String move = reader.nextLine();
 
         try {
@@ -124,6 +126,10 @@ public class GameRound {
                 case "5":
                     inStand.remove(player);
                     drawCard(player, sandDiscard, sandDiscard, reader);
+                    break;
+                case "6":
+                    inStand.remove(player);
+                    playToken(player, reader);
                     break;
                 default:
                     System.err.println("INVALID");
@@ -154,6 +160,45 @@ public class GameRound {
         } else {
             discardPile.add(drawn);
         }
+    }
+
+    public void playToken(Player player, Scanner reader) {
+        if (Arrays.stream(player.getSelectedTokens()).allMatch(Objects::isNull)) {
+            throw new IllegalActionException("No tokens to play");
+        }
+
+        System.out.print("Available tokens:" + Arrays.toString(player.getSelectedTokens()) + " ");
+        String indexStr = reader.nextLine();
+        int index = Integer.parseInt(indexStr);
+        if (index < 0 || index >= players.length) {
+            throw new IllegalActionException("Invalid token index");
+        }
+
+        ShiftToken selected = player.getSelectedTokens()[index];
+        if (selected == null) {
+            throw new IllegalActionException("Token already played");
+        } else {
+            player.getSelectedTokens()[index] = null;
+        }
+
+        int amntToRefund;
+        switch (selected) {
+            case REFUND:
+                amntToRefund = Math.min(player.getPot(), 2);
+                player.setStock(player.getStock() + amntToRefund);
+                player.setPot(player.getPot() - amntToRefund);
+                System.out.println("Retrieved " + amntToRefund);
+                break;
+            case EXTRA_REFUND: //TODO repeated code
+                amntToRefund = Math.min(player.getPot(), 3);
+                player.setStock(player.getStock() + amntToRefund);
+                player.setPot(player.getPot() - amntToRefund);
+                System.out.println("Retrieved " + amntToRefund);
+                break;
+            default:
+                System.err.println("INVALID TOKEN");
+        }
+
     }
 
     public List<Player> revealCards() {
@@ -187,12 +232,12 @@ public class GameRound {
     //TODO account for token effects (tokensActive)
     public List<Player> sortPlayers() {
         ArrayList<Player> playerLst = new ArrayList<>(Arrays.asList(players));
-        playerLst.sort(new PlayerComparator());
+        playerLst.sort(new PlayerComparator(bestSabacc));
         return playerLst;
     }
 
     public List<Player> findWinners() {
-        PlayerComparator playerComparator = new PlayerComparator();
+        PlayerComparator playerComparator = new PlayerComparator(bestSabacc);
         List<Player> sortedPlayers = sortPlayers();
 
         Player winner = sortedPlayers.get(0);

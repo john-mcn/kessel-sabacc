@@ -13,6 +13,7 @@ public enum ShiftToken {
 
     PRIME_SABACC("Roll 2 (d6) dice, pick one value as the new best Sabacc"),
     MAJOR_FRAUD("Set imposter value to 6 until next reveal"),
+    MARKDOWN("Set Sylop value to 0 until next reveal"),
     COOK_THE_BOOKS("Invert Sabacc ranks until next reveal"),
 
     IMMUNITY("Prevent shift token effects against you until next reveal"),

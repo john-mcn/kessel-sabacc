@@ -2,6 +2,7 @@ package com.johnm.sabacc.backend;
 
 import com.johnm.sabacc.backend.domain.GameRound;
 import com.johnm.sabacc.backend.domain.components.CardRank;
+import com.johnm.sabacc.backend.domain.components.ShiftToken;
 import com.johnm.sabacc.backend.domain.player.Player;
 import com.johnm.sabacc.backend.domain.SabaccGame;
 import com.johnm.sabacc.backend.domain.player.PlayerHand;
@@ -16,7 +17,7 @@ public class SabaccBackendApplication {
 		// SpringApplication.run(SabaccBackendApplication.class, args);
 
         Player[] players = {
-                new Player("One", 100, null, null, null),
+                new Player("One", 100, null, null, new ShiftToken[]{ShiftToken.REFUND}),
                 new Player("Two", 100, null, null, null),
                 new Player("Three", 100, null, null, null),
         };
