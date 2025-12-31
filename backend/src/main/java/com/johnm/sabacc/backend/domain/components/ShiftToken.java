@@ -1,5 +1,7 @@
 package com.johnm.sabacc.backend.domain.components;
 
+import com.johnm.sabacc.backend.util.EnumUtils;
+
 //ONE MISSING
 public enum ShiftToken {
     FREE_DRAW("Avoid the draw fee this turn"),
@@ -27,5 +29,10 @@ public enum ShiftToken {
         this.description = description;
     }
 
-    public String getDescription() { return description;}
+    public String getDescription() { return description; }
+    public String toString() { return EnumUtils.sanitiseStringFromEnum(this.name()); }
+
+    public static ShiftToken fromString(String token) {
+        return valueOf(EnumUtils.sanitiseString(token));
+    }
 }

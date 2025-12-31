@@ -1,7 +1,6 @@
-package com.johnm.sabacc.backend.domain;
+package com.johnm.sabacc.backend.domain.game;
 
 import com.johnm.sabacc.backend.domain.components.Card;
-import com.johnm.sabacc.backend.domain.components.CardFamily;
 import com.johnm.sabacc.backend.domain.components.CardRank;
 import com.johnm.sabacc.backend.domain.components.ShiftToken;
 import com.johnm.sabacc.backend.domain.player.*;
@@ -12,7 +11,7 @@ import java.util.*;
 
 public class GameRound {
     private SabaccGame game;
-    private Player[] players;
+    private List<Player> players;
     private List<ShiftToken> tokensActive;
     private List<Card> bloodDraw, sandDraw; // face down draw piles
     private List<Card> bloodDiscard, sandDiscard; // face up discard piles
@@ -36,8 +35,8 @@ public class GameRound {
         inStand = new HashSet<>();
     }
 
-    public Player[] getPlayers() { return players; }
-    public void setPlayers(Player[] players) { this.players = players; }
+    public List<Player> getPlayers() { return players; }
+    public void setPlayers(List<Player> players) { this.players = players; }
 
     public List<ShiftToken> getTokensActive() { return tokensActive; }
     public void setTokensActive(List<ShiftToken> tokensActive) { this.tokensActive = tokensActive; }
@@ -48,24 +47,24 @@ public class GameRound {
     public List<Card> getSandDraw() { return sandDraw; }
     public void setSandDraw(List<Card> sandDraw) { this.sandDraw = sandDraw; }
 
-    public List<Player> runFullgame() {
+    public List<Player> runFullRound() {
         setup();
 
         turnNumber = 1;
         System.out.println("=== Turn " + turnNumber + " ===");
 
         // Perform 3 turns, or until all players stand
-        while (turnNumber < 4 && inStand.size() < players.length) {
+        while (turnNumber < 4 && inStand.size() < players.size()) {
             System.out.println();
             System.out.println("Players in stand = " + inStand.stream().map(Person::getName).toList());
             System.out.println("Discard piles: "
                     + "blood=" + (bloodDiscard.isEmpty() ? "[]" : "[" + bloodDiscard.get(0)) + "]]]"
                     + " sand=" + (sandDiscard.isEmpty() ? "[]" : "[" + sandDiscard.get(0)) + "]]]");
-            System.out.println("Current player: " + players[currPlayerIndex]);
+            System.out.println("Current player: " + players.get(currPlayerIndex));
 
-            performTurn(players[currPlayerIndex]);
+            performTurn(players.get(currPlayerIndex));
             // If every player had a go, enter new turn, otherwise go to next player
-            if (currPlayerIndex == players.length - 1) {
+            if (currPlayerIndex == players.size() - 1) {
                 System.out.println("== Turn " + turnNumber + " ===");
                 turnNumber++;
                 currPlayerIndex = 0;
@@ -170,7 +169,7 @@ public class GameRound {
         System.out.print("Available tokens:" + Arrays.toString(player.getSelectedTokens()) + " ");
         String indexStr = reader.nextLine();
         int index = Integer.parseInt(indexStr);
-        if (index < 0 || index >= players.length) {
+        if (index < 0 || index >= players.size()) {
             throw new IllegalActionException("Invalid token index");
         }
 
@@ -231,8 +230,8 @@ public class GameRound {
 
     //TODO account for token effects (tokensActive)
     public List<Player> sortPlayers() {
-        ArrayList<Player> playerLst = new ArrayList<>(Arrays.asList(players));
-        playerLst.sort(new PlayerComparator(bestSabacc));
+        ArrayList<Player> playerLst = new ArrayList<>(players);
+        playerLst.sort(new PlayerComparator());
         return playerLst;
     }
 

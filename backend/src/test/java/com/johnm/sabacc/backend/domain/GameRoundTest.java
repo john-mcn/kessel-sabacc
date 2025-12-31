@@ -1,6 +1,9 @@
 package com.johnm.sabacc.backend.domain;
 
 import com.johnm.sabacc.backend.domain.components.Card;
+import com.johnm.sabacc.backend.domain.game.GameRound;
+import com.johnm.sabacc.backend.domain.game.SabaccGame;
+import com.johnm.sabacc.backend.domain.player.Person;
 import com.johnm.sabacc.backend.domain.player.Player;
 import com.johnm.sabacc.backend.domain.player.PlayerHand;
 import org.junit.jupiter.api.Test;
@@ -15,12 +18,12 @@ public class GameRoundTest {
 
     @Test
     void testSetup() {
-        Player[] players = {
+        List<Person> people = List.of(
                 new Player("One", 100, null, null, null),
                 new Player("Two", 100, null, null, null),
-                new Player("Three", 100, null, null, null),
-        };
-        SabaccGame testGame = new SabaccGame(players, 50, 4);
+                new Player("Three", 100, null, null, null));
+        SabaccGame testGame = new SabaccGame(people, 50, 4, "N/A");
+        testGame.setup();
         GameRound testRound = new GameRound(testGame);
         testRound.setup();
 
@@ -37,7 +40,7 @@ public class GameRoundTest {
         for (Card card : allPlayerCards) {
             if (allCards.contains(card)) { cardsWereRemoved = false; }
         }
-        PlayerHand firstPlayerHand = testRound.getPlayers()[0].getHand();
+        PlayerHand firstPlayerHand = testRound.getPlayers().get(0).getHand();
         assertTrue(cardsWereRemoved, "players' cards are removed from discard");
         assertTrue(firstPlayerHand.getBloodCard().isBlood() && firstPlayerHand.getSandCard().isSand(),
                 "a player's starting hand has one sand and one blood card");
@@ -45,41 +48,66 @@ public class GameRoundTest {
 
     @Test
     void testSortPlayers() {
-        Player[] players = {
-                new Player("One", 100, null, new PlayerHand(new Card("blood", "one"), new Card("sand", "six")), null),
-                new Player("Two", 100, null, new PlayerHand(new Card("blood", "one"), new Card("sand", "one")), null),
-                new Player("Three", 100, null, new PlayerHand(new Card("blood", "one"), new Card("sand", "three")), null),
-        };
-        SabaccGame testGame = new SabaccGame(players, 50, 4);
+        List<Person> people = List.of(
+                new Player("One", 100, null, null, null),
+                new Player("Two", 100, null, null, null),
+                new Player("Three", 100, null, null, null)
+        );
+        SabaccGame testGame = new SabaccGame(people, 50, 4, "N/A");
+        testGame.setup();
         GameRound testRound = new GameRound(testGame);
 
-        List<Player> correctOrder = new ArrayList<>(List.of(players[1], players[2], players[0]));
-        assertEquals(correctOrder, testRound.sortPlayers(), "Players should be sorted correctly");
+        testRound.getPlayers().get(0).setHand(new PlayerHand(new Card("blood", "one"), new Card("sand", "six")));
+        testRound.getPlayers().get(1).setHand(new PlayerHand(new Card("blood", "one"), new Card("sand", "one")));
+        testRound.getPlayers().get(2).setHand(new PlayerHand(new Card("blood", "one"), new Card("sand", "three")));
+
+        List<String> correctOrder = List.of(people.get(1).getName(), people.get(2).getName(), people.get(0).getName());
+        assertTrue(testRound.sortPlayers().stream().map(Player::getName).toList().equals(correctOrder), "Players should be sorted correctly");
     }
 
     @Test
     void findWinners_shouldFindWinner() {
-        Player[] players = {
-                new Player("One", 100, null, new PlayerHand(new Card("blood", "one"), new Card("sand", "six")), null),
-                new Player("Two", 100, null, new PlayerHand(new Card("blood", "one"), new Card("sand", "one")), null),
-                new Player("Three", 100, null, new PlayerHand(new Card("blood", "one"), new Card("sand", "three")), null),
-        };
-        SabaccGame testGame = new SabaccGame(players, 50, 4);
+        List<Person> people = List.of(
+                new Player("One", 100, null, null, null),
+                new Player("Two", 100, null, null, null),
+                new Player("Three", 100, null, null, null)
+        );
+        SabaccGame testGame = new SabaccGame(people, 50, 4, "N/A");
+        testGame.setup();
         GameRound testRound = new GameRound(testGame);
 
-        assertEquals(List.of(players[1]), testRound.findWinners(), "Correct winner should be found");
+        // Simulate GameRound state
+        testRound.getPlayers().get(0).setHand(new PlayerHand(new Card("blood", "one"), new Card("sand", "one")));
+        testRound.getPlayers().get(1).setHand(new PlayerHand(new Card("blood", "one"), new Card("sand", "three")));
+        testRound.getPlayers().get(2).setHand(new PlayerHand(new Card("blood", "one"), new Card("sand", "four")));
+
+        List<Player> winners = testRound.findWinners();
+        boolean winnersCorrect = winners.get(0).getName().equals("One")
+                && winners.size() == 1;
+
+        assertTrue(winnersCorrect, "Correct winner should be found");
     }
 
     @Test
     void findWinners_shouldFindWinners() {
-        Player[] players = {
-                new Player("One", 100, null, new PlayerHand(new Card("blood", "one"), new Card("sand", "one")), null),
-                new Player("Two", 100, null, new PlayerHand(new Card("blood", "one"), new Card("sand", "one")), null),
-                new Player("Three", 100, null, new PlayerHand(new Card("blood", "one"), new Card("sand", "three")), null),
-        };
-        SabaccGame testGame = new SabaccGame(players, 50, 4);
+        List<Person> people = List.of(
+                new Player("One", 100, null, null, null),
+                new Player("Two", 100, null, null, null),
+                new Player("Three", 100, null, null, null)
+        );
+        SabaccGame testGame = new SabaccGame(people, 50, 4, "N/A");
+        testGame.setup();
         GameRound testRound = new GameRound(testGame);
 
-        assertEquals(List.of(players[0], players[1]), testRound.findWinners(), "Correct winner should be found");
+        // Simulate GameRound state
+        testRound.getPlayers().get(0).setHand(new PlayerHand(new Card("blood", "one"), new Card("sand", "one")));
+        testRound.getPlayers().get(1).setHand(new PlayerHand(new Card("blood", "one"), new Card("sand", "one")));
+        testRound.getPlayers().get(2).setHand(new PlayerHand(new Card("blood", "one"), new Card("sand", "three")));
+
+        List<Player> winners = testRound.findWinners();
+        boolean winnersCorrect = winners.stream().allMatch(p -> p.getName().equals("One") || p.getName().equals("Two"))
+                && winners.size() == 2;
+
+        assertTrue(winnersCorrect, "Correct winner should be found");
     }
 }
