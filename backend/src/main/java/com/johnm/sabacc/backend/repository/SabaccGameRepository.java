@@ -11,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface SabaccGameRepository extends JpaRepository<GameHistory, Integer> {
-    @Query("SELECT g FROM GameHistory g JOIN g.playerNames n WHERE n = :playerName")
-    public List<SabaccGame> findByPlayerName(@Param("playerName") String playerName);
+    @Query("SELECT g FROM GameHistory g WHERE :playerName MEMBER OF g.playerNames")
+    public List<GameHistory> findByPlayerName(@Param("playerName") String playerName);
 
     @Modifying
     @Transactional

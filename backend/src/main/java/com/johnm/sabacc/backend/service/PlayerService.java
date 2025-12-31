@@ -42,8 +42,6 @@ public class PlayerService {
     }
 
     public void deletePlayer(String name) {
-        sabaccGameRepository.deleteFromPeopleToPlayJoinTable(name);
-        sabaccGameRepository.deleteFromWinnersJoinTable(name);
         playerRepository.deleteById(name);
     }
 }

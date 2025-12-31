@@ -5,13 +5,15 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
-@Entity(name = "sabacc_game")
+@Entity//(name = "sabacc_game")
 public class GameHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    @ElementCollection
     private List<String> playerNames;
+    @ElementCollection
     private List<String> winnerNames;
     private int buyIn;
     private int chipsPerPlayer;
