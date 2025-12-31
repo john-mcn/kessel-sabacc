@@ -1,7 +1,9 @@
 package com.johnm.sabacc.backend.config;
 
 import com.johnm.sabacc.backend.dto.ApiErrorDTO;
+import com.johnm.sabacc.backend.exceptions.EntityAlreadyExistsException;
 import com.johnm.sabacc.backend.exceptions.EntityNotFoundException;
+import com.johnm.sabacc.backend.exceptions.IllegalActionException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -13,6 +15,18 @@ import java.util.*;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+    @ExceptionHandler(IllegalActionException.class)
+    public ResponseEntity<ApiErrorDTO> handleNoSuchUserException(IllegalActionException ex) {
+        ApiErrorDTO errorDTO = new ApiErrorDTO(HttpStatus.NOT_FOUND.value(), ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDTO);
+    }
+
+    @ExceptionHandler(EntityAlreadyExistsException.class)
+    public ResponseEntity<ApiErrorDTO> handleNoSuchUserException(EntityAlreadyExistsException ex) {
+        ApiErrorDTO errorDTO = new ApiErrorDTO(HttpStatus.NOT_FOUND.value(), ex.getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorDTO);
+    }
+
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<ApiErrorDTO> handleNoSuchUserException(EntityNotFoundException ex) {
         ApiErrorDTO errorDTO = new ApiErrorDTO(HttpStatus.NOT_FOUND.value(), ex.getMessage());

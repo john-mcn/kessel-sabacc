@@ -22,6 +22,8 @@ const App = () => {
     const client = {
         getPlayers: () => axios.get(`${BASE_URL}/players`),
         getPlayer: (name) => axios.get(`${BASE_URL}/players/${name}`),
+        createPlayer: (data) => axios.post(`${BASE_URL}/players`, data),
+        deletePlayer: (name) => axios.delete(`${BASE_URL}/players/${name}`),
         getGames: () => axios.get(`${BASE_URL}/games`),
         getGame: (gameId) => axios.get(`${BASE_URL}/games/${gameId}`)
     };

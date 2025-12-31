@@ -3,6 +3,8 @@ package com.johnm.sabacc.backend.controller;
 import com.johnm.sabacc.backend.domain.player.Person;
 import com.johnm.sabacc.backend.dto.player.PersonDTO;
 import com.johnm.sabacc.backend.service.PlayerService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,17 +19,26 @@ public class PlayerController {
     }
 
     @GetMapping({"", "/"})
-    public List<PersonDTO> getAll() {
-        return playerService.getAll().stream().map(Person::toDto).toList();
+    public ResponseEntity<List<PersonDTO>> getAll() {
+        List<PersonDTO> playerDTOs = playerService.getAll().stream().map(Person::toDto).toList();
+        return ResponseEntity.ok(playerDTOs);
     }
 
     @GetMapping("/{name}")
-    public PersonDTO getByName(@PathVariable String name) {
-        return playerService.getByName(name).toDto();
+    public ResponseEntity<PersonDTO> getByName(@PathVariable String name) {
+        PersonDTO playerDTO = playerService.getByName(name).toDto();
+        return ResponseEntity.status(HttpStatus.OK).body(playerDTO);
     }
 
-    @PostMapping
-    public PersonDTO createPerson(@RequestBody PersonDTO personDTO) {
-        return playerService.createPerson(personDTO.toEntity()).toDto();
+    @PostMapping({"", "/"})
+    public ResponseEntity<PersonDTO> createPerson(@RequestBody PersonDTO personDTO) {
+        Person player = playerService.createPlayer(personDTO.toEntity());
+        return ResponseEntity.status(HttpStatus.CREATED).body(player.toDto());
+    }
+
+    @DeleteMapping("/{name}")
+    public ResponseEntity<Void> deletePlayer(@PathVariable String name) {
+        playerService.deletePlayer(name);
+        return ResponseEntity.ok().build();
     }
 }

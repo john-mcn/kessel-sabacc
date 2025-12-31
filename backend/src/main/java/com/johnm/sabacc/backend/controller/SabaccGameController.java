@@ -1,13 +1,16 @@
 package com.johnm.sabacc.backend.controller;
 
-import com.johnm.sabacc.backend.domain.SabaccGame;
-import com.johnm.sabacc.backend.dto.SabaccGameDTO;
+import com.johnm.sabacc.backend.domain.game.GameHistory;
+import com.johnm.sabacc.backend.dto.GameHistoryDTO;
 import com.johnm.sabacc.backend.service.PlayerService;
 import com.johnm.sabacc.backend.service.SabaccGameService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+//NOTE Uses GameHistory class
 @RestController
 @RequestMapping("/games")
 public class SabaccGameController {
@@ -20,22 +23,32 @@ public class SabaccGameController {
     }
 
     @GetMapping({"", "/"})
-    public List<SabaccGameDTO> getGames() {
-        return sabaccGameService.getAll().stream().map(SabaccGame::toDTO).toList();
+    public ResponseEntity<List<GameHistoryDTO>> getGames() {
+        List<GameHistoryDTO> gameDTOs =  sabaccGameService.getAll().stream().map(GameHistory::toDTO).toList();
+        return ResponseEntity.ok(gameDTOs);
     }
 
     @GetMapping({"/{id}"})
-    public SabaccGameDTO getGame(@PathVariable Integer id) {
-        return sabaccGameService.getById(id).toDTO();
+    public ResponseEntity<GameHistoryDTO> getGame(@PathVariable Integer id) {
+        GameHistoryDTO gameDTO = sabaccGameService.getById(id).toDTO();
+        return ResponseEntity.ok(gameDTO);
+    }
+
+    @GetMapping("/byPlayer/{playerName}")
+    public ResponseEntity<List<GameHistoryDTO>> getByPlayerName(@PathVariable String playerName) {
+        List<GameHistoryDTO> gameDTOS = sabaccGameService.getByPlayerName(playerName).stream().map(GameHistory::toDTO).toList();
+        return ResponseEntity.ok(gameDTOS);
     }
 
     @PostMapping({"", "/"})
-    public SabaccGameDTO createGame(@RequestBody SabaccGameDTO dto) {
-        SabaccGame sabaccGame = dto.toEntity();
-        sabaccGame.setPeopleToPlay(playerService.getByNames(dto.getPlayerNames()));
-        sabaccGame.setWinners(playerService.getByNames(dto.getWinnerNames()));
+    public ResponseEntity<GameHistoryDTO> createGame(@RequestBody GameHistoryDTO dto) {
+        GameHistory sabaccGame = dto.toEntity();
+        // sabaccGame.setPlayerNames(dto.getPlayerNames());
+        // sabaccGame.setWinners(playerService.getByNames(dto.getWinnerNames()));
 
-        return sabaccGameService.createGame(sabaccGame).toDTO();
+        GameHistoryDTO gameHistoryDTO = sabaccGameService.createGame(sabaccGame).toDTO();
+        System.err.println("bludclart" + gameHistoryDTO.toString());
+        return ResponseEntity.status(HttpStatus.CREATED).body(gameHistoryDTO);
     }
 
 }

@@ -1,4 +1,4 @@
-package com.johnm.sabacc.backend.domain;
+package com.johnm.sabacc.backend.domain.game;
 
 import com.johnm.sabacc.backend.domain.components.Card;
 import com.johnm.sabacc.backend.domain.components.CardRank;

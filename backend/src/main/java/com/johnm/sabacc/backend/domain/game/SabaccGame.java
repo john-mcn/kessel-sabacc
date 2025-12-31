@@ -1,39 +1,28 @@
-package com.johnm.sabacc.backend.domain;
+package com.johnm.sabacc.backend.domain.game;
 
 import com.johnm.sabacc.backend.domain.components.ShiftToken;
 import com.johnm.sabacc.backend.domain.player.Person;
 import com.johnm.sabacc.backend.domain.player.Player;
-import com.johnm.sabacc.backend.dto.SabaccGameDTO;
+import com.johnm.sabacc.backend.dto.GameHistoryDTO;
 import com.johnm.sabacc.backend.exceptions.IllegalActionException;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Transient;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-@Entity
 public class SabaccGame {
-    @Id
-    private int id;
-    @ManyToMany
     private List<Person> peopleToPlay;
     private int buyIn;
     private int chipsPerPlayer;
-    private String rewards; //TODO change
-    @ManyToMany
+    private List<String> rewards; //TODO change
     private List<Person> winners;
-
-    @Transient
     private List<GameRound> rounds;
-    @Transient
     private List<Player> players;
 
     public SabaccGame() {}
 
-    public SabaccGame(List<Person> peopleToPlay, int buyIn, int chipsPerPlayer, String rewards) {
+    public SabaccGame(List<Person> peopleToPlay, int buyIn, int chipsPerPlayer, List<String> rewards) {
         this.peopleToPlay = peopleToPlay;
         rounds = null;
         this.buyIn = buyIn;
@@ -42,7 +31,7 @@ public class SabaccGame {
     }
 
     public List<Person> getPeopleToPlay() { return peopleToPlay; }
-    public void setPeopleToPlay(List<Person> peopleToPlay) {}
+    public void setPeopleToPlay(List<Person> peopleToPlay) { this.peopleToPlay = peopleToPlay; }
     public List<Player> getPlayers() { return players; }
     public void setPlayers(List<Player> players) { this.players = players; }
 
@@ -55,8 +44,8 @@ public class SabaccGame {
     public int getChipsPerPlayer() { return chipsPerPlayer; }
     public void setChipsPerPlayer(int chipsPerPlayer) {  this.chipsPerPlayer = chipsPerPlayer; }
 
-    public String getRewards() { return rewards; }
-    public void setRewards(String rewards) { this.rewards = rewards; }
+    public List<String> getRewards() { return rewards; }
+    public void setRewards(List<String> rewards) { this.rewards = rewards; }
 
     public List<Person> getWinners() { return winners; }
     public void setWinners(List<Person> winners) { this.winners = winners; }
@@ -114,23 +103,5 @@ public class SabaccGame {
 
         System.out.println("!!!WINNERS=" + winners.toString() + "!!!");
         return winners;
-    }
-
-    public SabaccGameDTO toDTO() {
-        SabaccGameDTO dto = new SabaccGameDTO(
-                id,
-                peopleToPlay.stream().map(Person::getName).toList(),
-                winners.stream().map(Person::getName).toList(),
-                buyIn,
-                chipsPerPlayer,
-                rewards
-        );
-
-        return dto;
-    }
-
-    @Override
-    public String toString() {
-        return "";
     }
 }

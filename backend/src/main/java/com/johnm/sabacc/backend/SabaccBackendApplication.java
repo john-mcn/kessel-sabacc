@@ -1,8 +1,9 @@
 package com.johnm.sabacc.backend;
 
 import com.johnm.sabacc.backend.domain.components.ShiftToken;
+import com.johnm.sabacc.backend.domain.game.GameHistory;
 import com.johnm.sabacc.backend.domain.player.Person;
-import com.johnm.sabacc.backend.domain.SabaccGame;
+import com.johnm.sabacc.backend.domain.game.SabaccGame;
 import com.johnm.sabacc.backend.service.PlayerService;
 import com.johnm.sabacc.backend.service.SabaccGameService;
 import org.springframework.boot.CommandLineRunner;
@@ -42,11 +43,11 @@ public class SabaccBackendApplication {
             );
 
             for (Person person : people) {
-                playerService.createPerson(person);
+                playerService.createPlayer(person);
             }
 
-            SabaccGame testGame = new SabaccGame(people, 150, 6, "N/A");
-            testGame.setWinners(List.of(people.get(0)));
+            GameHistory testGame = new GameHistory(people.stream().map(Person::getName).toList(), null, 150, 6, List.of("N/A"));
+            testGame.setWinnerNames(List.of(people.get(0).getName()));
             sabaccGameService.createGame(testGame);
         };
     }

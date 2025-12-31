@@ -3,6 +3,7 @@ package com.johnm.sabacc.backend.service;
 import com.johnm.sabacc.backend.domain.player.Person;
 import com.johnm.sabacc.backend.exceptions.EntityNotFoundException;
 import com.johnm.sabacc.backend.repository.PlayerRepository;
+import com.johnm.sabacc.backend.repository.SabaccGameRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +13,11 @@ import java.util.List;
 @Transactional
 public class PlayerService {
     private PlayerRepository playerRepository;
+    private SabaccGameRepository sabaccGameRepository;
 
-    public PlayerService(PlayerRepository playerRepository) {
+    public PlayerService(PlayerRepository playerRepository, SabaccGameRepository sabaccGameRepository) {
         this.playerRepository = playerRepository;
+        this.sabaccGameRepository = sabaccGameRepository;
     }
 
     public List<Person> getAll() { return playerRepository.findAll(); }
@@ -29,7 +32,16 @@ public class PlayerService {
                         "No person with name '" + name + "'"));
     }
 
-    public Person createPerson(Person person) {
-        return playerRepository.save(person);
+    public Person createPlayer(Person player) {
+        return playerRepository.save(player);
+    }
+
+
+    public Person updatePlayer(Person player) {
+        return playerRepository.save(player);
+    }
+
+    public void deletePlayer(String name) {
+        playerRepository.deleteById(name);
     }
 }
