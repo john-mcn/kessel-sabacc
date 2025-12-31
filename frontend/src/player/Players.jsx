@@ -3,6 +3,8 @@ import {useEffect, useState} from "react";
 import {Stack, Table} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import BackButton from "../components/BackButton.jsx";
+import Button from "react-bootstrap/Button";
+import CreatePlayer from "./CreatePlayer.jsx";
 
 const Players = ({ client }) => {
     const [people, setPlayers] = useState([]);
@@ -32,7 +34,8 @@ const Players = ({ client }) => {
 
     return (
         <>
-            <BackButton/>
+            <BackButton/><br/><br/>
+            <Link to={`/players/create`}><Button>Create Player</Button></Link>
             <h1>Players</h1>
             <Table striped bordered>
                 <thead>
