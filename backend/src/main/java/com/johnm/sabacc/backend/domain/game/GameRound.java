@@ -231,7 +231,7 @@ public class GameRound {
     //TODO account for token effects (tokensActive)
     public List<Player> sortPlayers() {
         ArrayList<Player> playerLst = new ArrayList<>(players);
-        playerLst.sort(new PlayerComparator());
+        playerLst.sort(new PlayerComparator(bestSabacc));
         return playerLst;
     }
 

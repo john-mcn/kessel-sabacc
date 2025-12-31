@@ -47,7 +47,6 @@ public class SabaccGameController {
         // sabaccGame.setWinners(playerService.getByNames(dto.getWinnerNames()));
 
         GameHistoryDTO gameHistoryDTO = sabaccGameService.createGame(sabaccGame).toDTO();
-        System.err.println("bludclart" + gameHistoryDTO.toString());
         return ResponseEntity.status(HttpStatus.CREATED).body(gameHistoryDTO);
     }
 

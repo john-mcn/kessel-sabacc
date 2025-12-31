@@ -22,7 +22,7 @@ public class GameRoundTest {
                 new Player("One", 100, null, null, null),
                 new Player("Two", 100, null, null, null),
                 new Player("Three", 100, null, null, null));
-        SabaccGame testGame = new SabaccGame(people, 50, 4, "N/A");
+        SabaccGame testGame = new SabaccGame(people, 50, 4, null);
         testGame.setup();
         GameRound testRound = new GameRound(testGame);
         testRound.setup();
@@ -53,7 +53,7 @@ public class GameRoundTest {
                 new Player("Two", 100, null, null, null),
                 new Player("Three", 100, null, null, null)
         );
-        SabaccGame testGame = new SabaccGame(people, 50, 4, "N/A");
+        SabaccGame testGame = new SabaccGame(people, 50, 4, null);
         testGame.setup();
         GameRound testRound = new GameRound(testGame);
 
@@ -72,7 +72,7 @@ public class GameRoundTest {
                 new Player("Two", 100, null, null, null),
                 new Player("Three", 100, null, null, null)
         );
-        SabaccGame testGame = new SabaccGame(people, 50, 4, "N/A");
+        SabaccGame testGame = new SabaccGame(people, 50, 4, null);
         testGame.setup();
         GameRound testRound = new GameRound(testGame);
 
@@ -95,7 +95,7 @@ public class GameRoundTest {
                 new Player("Two", 100, null, null, null),
                 new Player("Three", 100, null, null, null)
         );
-        SabaccGame testGame = new SabaccGame(people, 50, 4, "N/A");
+        SabaccGame testGame = new SabaccGame(people, 50, 4, null);
         testGame.setup();
         GameRound testRound = new GameRound(testGame);
 

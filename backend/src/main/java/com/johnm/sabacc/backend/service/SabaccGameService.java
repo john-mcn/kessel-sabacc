@@ -29,8 +29,6 @@ public class SabaccGameService {
     }
 
     public List<GameHistory> getByPlayerName(String playerName) {
-        System.err.println(playerName);
-        System.err.println(sabaccGameRepository.findByPlayerName(playerName));
         return sabaccGameRepository.findByPlayerName(playerName);
     }
 
