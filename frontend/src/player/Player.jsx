@@ -10,12 +10,13 @@ const Player = ({ client }) => {
     const [person, setPlayer] = useState(null);
     const [error, setError] = useState(null);
 
-    const { nav } = useNavigate();
+    const nav  = useNavigate();
 
-    const handleDeletePlayer = () => {
+    const handleDeletePlayer = (e) => {
+        e.preventDefault();
         if (window.confirm("Are you sure you want to delete this player? This action cannot be undone.")) {
             client.deletePlayer(name)
-                .then(() => nav("/users"));
+                .then(() => nav("/players"));
         }
     };
 
@@ -39,7 +40,7 @@ const Player = ({ client }) => {
                 <BackButton/>
                 <h1>{person.name}</h1>
                 <p>Credits: {person.credits}</p>
-                <p>Shift Tokens: {person.tokens}</p>
+                <p>Shift Tokens: [{person.tokens.join(", ")}]</p>
                 <br/>
                 <Form onSubmit={handleDeletePlayer}>
                     <Button type="submit" variant="danger">Delete</Button>

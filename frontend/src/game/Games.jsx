@@ -2,6 +2,9 @@ import styled from "styled-components";
 import {useEffect, useState} from "react";
 import {Table} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import GameLink from "./GameLink.jsx";
+import BackButton from "../components/BackButton.jsx";
+import Button from "react-bootstrap/Button";
 
 const Games = ({ client }) => {
     const [games, setGames] = useState([]);
@@ -22,6 +25,8 @@ const Games = ({ client }) => {
 
     return (
         <>
+            <BackButton/><br/><br/>
+            <Link to={`/games/create`}><Button variant="warning">Create Game</Button></Link>
             <h1>Games</h1>
             <Table striped bordered>
                 <thead>
@@ -35,7 +40,7 @@ const Games = ({ client }) => {
                 </thead>
                 <tbody>
                 {games.map((g) => <tr key={g.id}>
-                    <td><Link to={`/games/${g.id}`}>{g.id}</Link></td>
+                    <td><GameLink id={g.id}/></td>
                     <td>
                         {g.winnerNames.length === 1
                             ? g.winnerNames

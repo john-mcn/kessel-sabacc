@@ -5,6 +5,7 @@ import com.johnm.sabacc.backend.domain.game.GameHistory;
 import com.johnm.sabacc.backend.domain.player.Person;
 import com.johnm.sabacc.backend.service.PlayerService;
 import com.johnm.sabacc.backend.service.SabaccGameService;
+import com.johnm.sabacc.backend.service.ShiftTokenService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,7 +21,12 @@ public class SabaccBackendApplication {
 	}
 
     @Bean
-    CommandLineRunner init(PlayerService playerService, SabaccGameService sabaccGameService) {
+    CommandLineRunner init(PlayerService playerService, SabaccGameService sabaccGameService, ShiftTokenService shiftTokenService) {
+        // Create all shift tokens
+        for (ShiftToken token : ShiftToken.values()) {
+            shiftTokenService.createShiftTokenFromEnum(token);
+        }
+
         return args -> {
             List<Person> people = List.of(
                 new Person("Dev", 9999, null),

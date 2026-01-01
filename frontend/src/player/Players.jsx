@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import BackButton from "../components/BackButton.jsx";
 import Button from "react-bootstrap/Button";
 import CreatePlayer from "./CreatePlayer.jsx";
+import PlayerLink from "./PlayerLink.jsx";
 
 const Players = ({ client }) => {
     const [people, setPlayers] = useState([]);
@@ -47,7 +48,7 @@ const Players = ({ client }) => {
                 </thead>
                 <tbody>
                 {people.map((p) => <tr key={p.name}>
-                    <td><Link to={`/players/${p.name}`}>{p.name}</Link></td>
+                    <td><PlayerLink name={p.name}/></td>
                     <td>{p.credits}</td>
                     <td>[{p.tokens.join(", ")}]</td>
                 </tr>)}

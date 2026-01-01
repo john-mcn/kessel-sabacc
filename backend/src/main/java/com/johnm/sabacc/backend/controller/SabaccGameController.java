@@ -50,4 +50,9 @@ public class SabaccGameController {
         return ResponseEntity.status(HttpStatus.CREATED).body(gameHistoryDTO);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteGame(@PathVariable Integer id) {
+        sabaccGameService.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
 }
