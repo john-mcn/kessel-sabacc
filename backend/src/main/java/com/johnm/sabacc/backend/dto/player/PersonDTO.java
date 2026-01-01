@@ -1,6 +1,6 @@
 package com.johnm.sabacc.backend.dto.player;
 
-import com.johnm.sabacc.backend.domain.components.ShiftToken;
+import com.johnm.sabacc.backend.domain.game.components.ShiftToken;
 import com.johnm.sabacc.backend.domain.player.Person;
 
 import java.util.ArrayList;
@@ -29,11 +29,11 @@ public class PersonDTO {
     public void setTokens(List<String> tokens) { this.tokens = tokens; }
 
     public Person toEntity() {
-        Person entity = new Person();
-        entity.setName(name);
-        entity.setCredits(credits);
-        entity.setTokens(tokens == null? new ArrayList<>() : tokens.stream().map(ShiftToken::fromString).toList());
+        Person person = new Person();
+        person.setName(name);
+        person.setCredits(credits);
+        person.setTokens(tokens == null? new ArrayList<>() : tokens.stream().map(ShiftToken::fromString).toList());
 
-        return entity;
+        return person;
     }
 }

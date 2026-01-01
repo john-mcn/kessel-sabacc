@@ -3,7 +3,7 @@ package com.johnm.sabacc.backend.service;
 import com.johnm.sabacc.backend.domain.player.Person;
 import com.johnm.sabacc.backend.exceptions.EntityNotFoundException;
 import com.johnm.sabacc.backend.repository.PlayerRepository;
-import com.johnm.sabacc.backend.repository.SabaccGameRepository;
+import com.johnm.sabacc.backend.repository.GameHistoryRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -12,12 +12,12 @@ import java.util.List;
 @Service
 @Transactional
 public class PlayerService {
-    private PlayerRepository playerRepository;
-    private SabaccGameRepository sabaccGameRepository;
+    private final PlayerRepository playerRepository;
+    private final GameHistoryRepository gameHistoryRepository;
 
-    public PlayerService(PlayerRepository playerRepository, SabaccGameRepository sabaccGameRepository) {
+    public PlayerService(PlayerRepository playerRepository, GameHistoryRepository gameHistoryRepository) {
         this.playerRepository = playerRepository;
-        this.sabaccGameRepository = sabaccGameRepository;
+        this.gameHistoryRepository = gameHistoryRepository;
     }
 
     public List<Person> getAll() { return playerRepository.findAll(); }

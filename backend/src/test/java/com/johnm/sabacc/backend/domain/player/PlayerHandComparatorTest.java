@@ -1,8 +1,8 @@
 package com.johnm.sabacc.backend.domain.player;
 
-import com.johnm.sabacc.backend.domain.components.Card;
-import com.johnm.sabacc.backend.domain.components.CardFamily;
-import com.johnm.sabacc.backend.domain.components.CardRank;
+import com.johnm.sabacc.backend.domain.game.components.Card;
+import com.johnm.sabacc.backend.domain.game.components.CardFamily;
+import com.johnm.sabacc.backend.domain.game.components.CardRank;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PlayerHandComparatorTest {
 
-    private PlayerHandComparator playerHandComparator = new PlayerHandComparator();
+    private final PlayerHandComparator comparator = new PlayerHandComparator(CardRank.SYLOP);
 
     @Test
     void pureSabacc_shouldWin() {
@@ -21,9 +21,9 @@ public class PlayerHandComparatorTest {
                 new Card(CardFamily.BLOOD, CardRank.SYLOP),
                 new Card(CardFamily.SAND, CardRank.ONE));
 
-        int comparison = playerHandComparator.compare(hand1, hand2);
+        int comparison = comparator.compare(hand1, hand2);
 
-        assertTrue(comparison < 0, "Pure Sabacc should always win");
+        assertTrue(comparison < 0, "Pure Sabacc should always win (normally)");
     }
 
     @Test
@@ -35,7 +35,7 @@ public class PlayerHandComparatorTest {
                 new Card(CardFamily.BLOOD, CardRank.ONE),
                 new Card(CardFamily.SAND, CardRank.ONE));
 
-        int comparison = playerHandComparator.compare(hand1, hand2);
+        int comparison = comparator.compare(hand1, hand2);
 
         assertEquals(0, comparison, "Sylop card should match rank");
     }
@@ -49,7 +49,7 @@ public class PlayerHandComparatorTest {
                 new Card(CardFamily.BLOOD, CardRank.TWO),
                 new Card(CardFamily.SAND, CardRank.TWO));
 
-        int comparison = playerHandComparator.compare(hand1, hand2);
+        int comparison = comparator.compare(hand1, hand2);
 
         assertTrue(comparison < 0, "Lower Sabacc should win");
     }
@@ -63,7 +63,7 @@ public class PlayerHandComparatorTest {
                 new Card(CardFamily.BLOOD, CardRank.ONE),
                 new Card(CardFamily.SAND, CardRank.TWO));
 
-        int comparison = playerHandComparator.compare(hand1, hand2);
+        int comparison = comparator.compare(hand1, hand2);
 
         assertTrue(comparison < 0, "Sabacc should win (over non-Sabacc)");
     }
@@ -77,7 +77,7 @@ public class PlayerHandComparatorTest {
                 new Card(CardFamily.BLOOD, CardRank.ONE),
                 new Card(CardFamily.SAND, CardRank.THREE));
 
-        int comparison = playerHandComparator.compare(hand1, hand2);
+        int comparison = comparator.compare(hand1, hand2);
 
         assertTrue(comparison < 0, "Lower rank difference should win (over higher difference)");
     }
@@ -91,9 +91,42 @@ public class PlayerHandComparatorTest {
                 new Card(CardFamily.BLOOD, CardRank.THREE),
                 new Card(CardFamily.SAND, CardRank.FOUR));
 
-        int comparison = playerHandComparator.compare(hand1, hand2);
+        int comparison = comparator.compare(hand1, hand2);
         System.out.println(comparison);
 
         assertTrue(comparison < 0, "Lower rank sum should win with same rank difference");
+    }
+    @Test
+    void bestSabacc_shouldWin() {
+        PlayerHandComparator comparator2 = new PlayerHandComparator(CardRank.FOUR);
+
+        PlayerHand hand1 = new PlayerHand(
+                new Card(CardFamily.BLOOD, CardRank.FOUR),
+                new Card(CardFamily.SAND, CardRank.FOUR));
+        PlayerHand hand2 = new PlayerHand(
+                new Card(CardFamily.BLOOD, CardRank.SYLOP),
+                new Card(CardFamily.SAND, CardRank.SYLOP));
+
+        int comparison = comparator2.compare(hand1, hand2);
+        System.out.println(comparison);
+
+        assertTrue(comparison < 0, "Best Sabacc should win");
+    }
+
+    @Test
+    void sylopSabaccWithBestSabacc_shouldWin() {
+        PlayerHandComparator comparator2 = new PlayerHandComparator(CardRank.FOUR);
+
+        PlayerHand hand1 = new PlayerHand(
+                new Card(CardFamily.BLOOD, CardRank.SYLOP),
+                new Card(CardFamily.SAND, CardRank.SYLOP));
+        PlayerHand hand2 = new PlayerHand(
+                new Card(CardFamily.BLOOD, CardRank.ONE),
+                new Card(CardFamily.SAND, CardRank.ONE));
+
+        int comparison = comparator2.compare(hand1, hand2);
+        System.out.println(comparison);
+
+        assertTrue(comparison < 0, "Sylop Sabacc should win (over numerical Sabacc) with best Sabacc");
     }
 }

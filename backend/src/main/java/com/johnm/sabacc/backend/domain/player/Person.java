@@ -1,6 +1,6 @@
 package com.johnm.sabacc.backend.domain.player;
 
-import com.johnm.sabacc.backend.domain.components.ShiftToken;
+import com.johnm.sabacc.backend.domain.game.components.ShiftToken;
 import com.johnm.sabacc.backend.dto.player.PersonDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

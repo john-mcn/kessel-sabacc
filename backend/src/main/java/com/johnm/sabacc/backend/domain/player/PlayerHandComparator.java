@@ -1,12 +1,20 @@
 package com.johnm.sabacc.backend.domain.player;
 
-import com.johnm.sabacc.backend.domain.components.Card;
-import com.johnm.sabacc.backend.domain.components.CardRank;
+import com.johnm.sabacc.backend.domain.game.components.Card;
+import com.johnm.sabacc.backend.domain.game.components.CardRank;
 
 import java.util.Comparator;
 
 public class PlayerHandComparator implements Comparator<PlayerHand> {
+    private CardRank bestSabacc;
 
+    public PlayerHandComparator(CardRank bestSabacc) {
+        this.bestSabacc = bestSabacc;
+    }
+
+    /* Winning order:
+     Best Sabacc -> Sylop Sabacc -> Sabacc -> Lowest rank diff -> Lowest rank sum
+    */
     @Override
     public int compare(PlayerHand h1, PlayerHand h2) {
         Card card1b = h1.getBloodCard();
@@ -14,18 +22,29 @@ public class PlayerHandComparator implements Comparator<PlayerHand> {
         Card card2b = h2.getBloodCard();
         Card card2s = h2.getSandCard();
 
-        // Pure Sabacc (two Sylops) will always be best
-        boolean hand1Pure = card1b.isSylop() && card1s.isSylop();
-        boolean hand2Pure = card2b.isSylop() && card2s.isSylop();
-        if (hand1Pure && hand2Pure) { return 0; }
-        else if (hand1Pure && !hand2Pure) { return -1; }
-        else if (!hand1Pure && hand2Pure) { return 1; }
+        boolean hand1Same = card1b.getRank() == card1s.getRank();
+        boolean hand2Same = card2b.getRank() == card2s.getRank();
+
+        boolean hand1Sabacc = hand1Same || (card1b.isSylop() || card1s.isSylop());
+        boolean hand2Sabacc = hand2Same || (card2b.isSylop() || card2s.isSylop());
+
+        // Best Sabacc will always win
+        boolean hand1Best = (bestSabacc.equals(CardRank.SYLOP) && hand1Same && card1b.isSylop())
+                || (!bestSabacc.equals(CardRank.SYLOP) && hand1Sabacc && card1b.getRank().equals(bestSabacc) || card1s.getRank().equals(bestSabacc));
+        boolean hand2Best = (bestSabacc.equals(CardRank.SYLOP) && hand2Same && card2b.isSylop())
+                || (!bestSabacc.equals(CardRank.SYLOP) && hand2Sabacc && card2b.getRank().equals(bestSabacc) || card2s.getRank().equals(bestSabacc));
+        if (hand1Best && hand2Best) { return 0; }
+        else if (hand1Best && !hand2Best) { return -1; }
+        else if (!hand1Best && hand2Best) { return 1; }
+
+        // If best Sabacc isn't Sylop, Sylop Sabacc wins over numerical Sabacc
+        boolean hand1SylopSabacc = hand1Same && card1b.isSylop();
+        boolean hand2SylopSabacc = hand2Same && card2b.isSylop();
+        if (hand1SylopSabacc && hand2SylopSabacc) { return 0; }
+        else if (hand1SylopSabacc && !hand2SylopSabacc) { return -1; }
+        else if (!hand1SylopSabacc && hand2SylopSabacc) { return 1; }
 
         // Sabacc (same rank) is second best
-        boolean hand1Sabacc = card1b.getRank() == card1s.getRank()
-                || (card1b.isSylop() || card1s.isSylop());
-        boolean hand2Sabacc = card2b.getRank() == card2s.getRank()
-                || (card2b.isSylop() || card2s.isSylop());
         if (hand1Sabacc && !hand2Sabacc) { return -1; }
         else if (!hand1Sabacc && hand2Sabacc) { return 1; }
         // If both (impure) Sabacc, lower rank is better

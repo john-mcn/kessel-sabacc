@@ -1,0 +1,36 @@
+package com.johnm.sabacc.backend.domain.game.components;
+
+import com.johnm.sabacc.backend.util.EnumUtils;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
+public class ShiftTokenEntity {
+    @Id
+    private String name;
+
+    private String description;
+
+    public ShiftTokenEntity() {}
+
+    public ShiftTokenEntity(String name) { this.name = name; }
+
+    public ShiftTokenEntity(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
+    public static ShiftTokenEntity createFromEnum(ShiftToken token) {
+        return new ShiftTokenEntity(EnumUtils.capitaliseEachWordFromEnum(token.name()), token.getDescription());
+    }
+
+    public ShiftToken toEnum() {
+        return ShiftToken.valueOf(EnumUtils.sanitiseString(this.name));
+    }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
+}

@@ -1,5 +1,6 @@
-body {
-    padding: 10px;
+/* Add space for footer at bottom */
+body .mt2 {
+    padding-bottom: 60px;
 }
 
 /* Card improvements */
@@ -15,9 +16,6 @@ body {
 }
 
 /* Buttons */
-.btn-primary {
-    border-radius: 8px;
-}
 button, .btn {
     transition: 0.2s;
 }
@@ -26,7 +24,30 @@ button:hover, .btn:hover {
     transform: translateY(-2px);
 }
 
+.btn-primary {
+    border-radius: 8px;
+    background-color: #cc9c0c !important;
+}
+.btn-primary:hover {
+    background-color: #ba8e0b !important;
+}
+
+.btn-warning {
+    background-color: #d6d322 !important;
+}
+
 /* Stop footer overlap */
 .main-content{
     margin-bottom: 100px;
+}
+
+/* Nav bar */
+.navbar.navbar-gold {
+    background-color: #B59410 !important;
+}
+.navbar.navbar-gold .nav-link{
+    color: #303030 !important;
+}
+.navbar.navbar-gold .nav-link:hover{
+    color: white !important;
 }
