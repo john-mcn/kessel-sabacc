@@ -1,8 +1,8 @@
 package com.johnm.sabacc.backend.domain.player;
 
-import com.johnm.sabacc.backend.domain.components.Card;
-import com.johnm.sabacc.backend.domain.components.CardFamily;
-import com.johnm.sabacc.backend.domain.components.CardRank;
+import com.johnm.sabacc.backend.domain.game.components.Card;
+import com.johnm.sabacc.backend.domain.game.components.CardFamily;
+import com.johnm.sabacc.backend.domain.game.components.CardRank;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

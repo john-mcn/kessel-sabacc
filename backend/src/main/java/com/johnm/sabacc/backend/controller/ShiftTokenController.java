@@ -1,6 +1,6 @@
 package com.johnm.sabacc.backend.controller;
 
-import com.johnm.sabacc.backend.domain.components.ShiftTokenEntity;
+import com.johnm.sabacc.backend.domain.game.components.ShiftTokenEntity;
 import com.johnm.sabacc.backend.service.ShiftTokenService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

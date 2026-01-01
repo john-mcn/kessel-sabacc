@@ -1,6 +1,6 @@
 package com.johnm.sabacc.backend.domain.game;
 
-import com.johnm.sabacc.backend.dto.GameHistoryDTO;
+import com.johnm.sabacc.backend.dto.game.GameHistoryDTO;
 import jakarta.persistence.*;
 
 import java.util.List;

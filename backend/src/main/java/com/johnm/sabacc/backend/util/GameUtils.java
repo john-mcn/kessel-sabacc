@@ -1,8 +1,8 @@
 package com.johnm.sabacc.backend.util;
 
-import com.johnm.sabacc.backend.domain.components.Card;
-import com.johnm.sabacc.backend.domain.components.CardFamily;
-import com.johnm.sabacc.backend.domain.components.CardRank;
+import com.johnm.sabacc.backend.domain.game.components.Card;
+import com.johnm.sabacc.backend.domain.game.components.CardFamily;
+import com.johnm.sabacc.backend.domain.game.components.CardRank;
 
 import java.util.ArrayList;
 import java.util.List;

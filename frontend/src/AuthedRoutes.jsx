@@ -8,6 +8,8 @@ import CreateGame from "./game/CreateGame.jsx";
 import ShiftTokens from "./game/ShiftTokens.jsx";
 import Home from "./components/Home.jsx";
 import Rules from "./docs/Rules.jsx";
+import PlayGame from "./gameplay/PlayGame.jsx";
+import StartGame from "./gameplay/StartGame.jsx";
 
 const AuthedRoutes = ({ client }) => {
     return (
@@ -23,7 +25,9 @@ const AuthedRoutes = ({ client }) => {
                 <Route path="/games" element={<Games client={ client }/>}></Route>
                 <Route path="/games/:id" element={<Game client={client}/>} />
                 <Route path="/games/create" element={<CreateGame client={client}/>} />
-                <Route path="/games/play/{id}" element={<CreateGame client={client}/>} />
+                {/* Gameplay routes */}
+                <Route path="/play/start-game" element={<StartGame client={client}/>} />
+                <Route path="/play" element={<PlayGame client={client}/>} />
                 {/* Shift Token routes */}
                 <Route path="/tokens" element={<ShiftTokens client={client}/>}/>
             </Routes>

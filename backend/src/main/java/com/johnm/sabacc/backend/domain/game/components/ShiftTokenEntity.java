@@ -1,4 +1,4 @@
-package com.johnm.sabacc.backend.domain.components;
+package com.johnm.sabacc.backend.domain.game.components;
 
 import com.johnm.sabacc.backend.util.EnumUtils;
 import jakarta.persistence.Entity;

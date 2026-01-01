@@ -1,9 +1,10 @@
 package com.johnm.sabacc.backend.domain.game;
 
-import com.johnm.sabacc.backend.domain.components.Card;
-import com.johnm.sabacc.backend.domain.components.CardRank;
-import com.johnm.sabacc.backend.domain.components.ShiftToken;
+import com.johnm.sabacc.backend.domain.game.components.Card;
+import com.johnm.sabacc.backend.domain.game.components.CardRank;
+import com.johnm.sabacc.backend.domain.game.components.ShiftToken;
 import com.johnm.sabacc.backend.domain.player.*;
+import com.johnm.sabacc.backend.dto.game.ActionRequestDTO;
 import com.johnm.sabacc.backend.exceptions.IllegalActionException;
 import com.johnm.sabacc.backend.util.GameUtils;
 
@@ -20,6 +21,7 @@ public class GameRound {
     private int turnNumber;
     public Set<Player> inStand;
 
+    public GameRound() {}
 
     public GameRound(SabaccGame game) {
         this.game = game;
@@ -47,36 +49,19 @@ public class GameRound {
     public List<Card> getSandDraw() { return sandDraw; }
     public void setSandDraw(List<Card> sandDraw) { this.sandDraw = sandDraw; }
 
-    public List<Player> runFullRound() {
-        setup();
+    public List<Card> getBloodDiscard() { return bloodDiscard; }
+    public Card getTopBloodDiscard() { return bloodDiscard.get(0); }
+    public List<Card> getSandDiscard() { return sandDiscard; }
+    public Card getTopSandDiscard() { return sandDiscard.get(0); }
 
-        turnNumber = 1;
-        System.out.println("=== Turn " + turnNumber + " ===");
+    public int getTurnNumber() { return turnNumber; }
 
-        // Perform 3 turns, or until all players stand
-        while (turnNumber < 4 && inStand.size() < players.size()) {
-            System.out.println();
-            System.out.println("Players in stand = " + inStand.stream().map(Person::getName).toList());
-            System.out.println("Discard piles: "
-                    + "blood=" + (bloodDiscard.isEmpty() ? "[]" : "[" + bloodDiscard.get(0)) + "]]]"
-                    + " sand=" + (sandDiscard.isEmpty() ? "[]" : "[" + sandDiscard.get(0)) + "]]]");
-            System.out.println("Current player: " + players.get(currPlayerIndex));
+    public int getCurrPlayerIndex() { return currPlayerIndex; }
 
-            performTurn(players.get(currPlayerIndex));
-            // If every player had a go, enter new turn, otherwise go to next player
-            if (currPlayerIndex == players.size() - 1) {
-                System.out.println("== Turn " + turnNumber + " ===");
-                turnNumber++;
-                currPlayerIndex = 0;
-            } else {
-                currPlayerIndex++;
-            }
-        }
+    public Set<Player> getInStand() { return inStand; }
+    public void setInStand(Set<Player> inStand) { this.inStand = inStand; }
 
-        List<Player> winners = revealCards();
-        System.out.println("Winners=" + winners);
-        return winners;
-    }
+    public CardRank getBestSabacc() { return bestSabacc; }
 
     public void setup() {
         List<Card> fullDeck = GameUtils.fullDeck();
@@ -98,87 +83,98 @@ public class GameRound {
         sandDraw = sandCards;
     }
 
-    public void performTurn(Player player) {
-        Scanner reader = new Scanner(System.in);
+    //NOTE assume current player is doing the action
+    public void performAction(ActionRequestDTO action) {
+        Player currPlayer = players.get(currPlayerIndex);
 
-        System.out.print("1=Stand, Draw blood..(2=..from draw, 3=..from discard), Draw sand..(4=..from draw, 5=..from discard), 6=Play shift token");
-        String move = reader.nextLine();
-
-        try {
-            switch (move) {
-                case "1":
-                    inStand.add(player);
-                    // System.out.println("MOVING TO NEXT PLAYER");
-                    break;
-                case "2":
-                    inStand.remove(player);
-                    drawCard(player, bloodDraw, bloodDiscard, reader);
-                    break;
-                case "3":
-                    inStand.remove(player);
-                    drawCard(player, bloodDiscard, bloodDiscard, reader);
-                    break;
-                case "4":
-                    inStand.remove(player);
-                    drawCard(player, sandDraw, sandDiscard, reader);
-                    break;
-                case "5":
-                    inStand.remove(player);
-                    drawCard(player, sandDiscard, sandDiscard, reader);
-                    break;
-                case "6":
-                    inStand.remove(player);
-                    playToken(player, reader);
-                    break;
-                default:
-                    System.err.println("INVALID");
-                    break;
-            }
-        } catch (IllegalActionException e) {
-            System.err.println(e.getMessage());
-            performTurn(player);
+        List<Card> discardPile;
+        switch (action.getActionEnum()) {
+            case STAND:
+                inStand.add(currPlayer);
+                endTurn();
+                break;
+            //TODO enforce only drawing 1 card per turn
+            case DRAW_BLOOD_DRAW:
+                drawCard(currPlayer, bloodDraw);
+                break;
+            case DRAW_BLOOD_DISCARD:
+                drawCard(currPlayer, bloodDiscard);
+                break;
+            case DRAW_SAND_DRAW:
+                drawCard(currPlayer, sandDraw);
+                break;
+            case DRAW_SAND_DISCARD:
+                drawCard(currPlayer, sandDiscard);
+                break;
+            case REPLACE_WITH_DRAWN:
+                discardPile = (currPlayer.getDrawnCard().isBlood())? bloodDiscard: sandDiscard;
+                replaceCard(currPlayer, discardPile, true);
+                endTurn();
+                break;
+            case DISCARD_DRAWN:
+                discardPile = (currPlayer.getDrawnCard().isBlood())? bloodDiscard: sandDiscard;
+                replaceCard(currPlayer, discardPile, false);
+                endTurn();
+                break;
+            //TODO enforce only playing 1 token per turn
+            case PLAY_TOKEN:
+                playToken(currPlayer, action.getTokenIndex());
+                break;
+            default:
+                throw new IllegalActionException("Invalid action '" + action + "'");
         }
     }
 
-    private void drawCard (Player player, List<Card> drawPile, List<Card> discardPile, Scanner reader) {
-        //NOTE validation moved to new player method
-        // if (player.getStock() < 1) {
-        //     throw new IllegalActionException("INSUFFICIENT CHIPS TO DRAW");
-        // }
+    public void endTurn() {
+        if (currPlayerIndex == players.size() - 1) {
+            turnNumber++;
+            currPlayerIndex = 0;
+        } else {
+            currPlayerIndex++;
+        }
+    }
+
+    private void drawCard (Player player, List<Card> drawPile) {
         if (drawPile.isEmpty()) {
-            throw new IllegalActionException("Draw pile is empty");
+            throw new IllegalActionException("Pile to draw card from is empty");
         }
 
-        player.spendChip();
-        Card drawn = drawPile.get(0);
-        System.out.print("Drawn card: |" + drawn + "|, replace? (y/n) ");
-        if (reader.nextLine().equals("y")) {
-            Card swappedWith = player.getHand().swapCard(drawn);
-            drawPile.remove(0);
+        inStand.remove(player);
+        player.spendChip(); //NOTE has validation
+        Card drawn = drawPile.remove(0);
+        player.setDrawnCard(drawn);
+        //TODO updated player sent back, detect card drawn, handle y/n replace frontend
+        System.out.print("Drawn card: |" + drawn);
+    }
+
+    private void replaceCard(Player player, List<Card> discardPile, boolean swapWithHand) {
+        Card drawn = player.getDrawnCard();
+        if (swapWithHand) {
+            Card swappedWith = player.getHand().swapCard(player.getDrawnCard());
             discardPile.add(swappedWith);
         } else {
             discardPile.add(drawn);
         }
+        player.setDrawnCard(null);
     }
 
-    public void playToken(Player player, Scanner reader) {
-        if (Arrays.stream(player.getSelectedTokens()).allMatch(Objects::isNull)) {
+    public void playToken(Player player, int index) {
+        // If player has no tokens
+        if (player.getSelectedTokens().stream().allMatch(Objects::isNull)) {
             throw new IllegalActionException("No tokens to play");
         }
 
-        System.out.print("Available tokens:" + Arrays.toString(player.getSelectedTokens()) + " ");
-        String indexStr = reader.nextLine();
-        int index = Integer.parseInt(indexStr);
+        System.out.print("Available tokens:" + player.getSelectedTokens().toString() + " ");
         if (index < 0 || index >= players.size()) {
             throw new IllegalActionException("Invalid token index");
         }
 
-        ShiftToken selected = player.getSelectedTokens()[index];
+        ShiftToken selected = player.getSelectedTokens().get(index);
         if (selected == null) {
             throw new IllegalActionException("Token already played");
-        } else {
-            player.getSelectedTokens()[index] = null;
         }
+
+        player.getSelectedTokens().set(index, null);
 
         int amntToRefund;
         switch (selected) {
@@ -197,7 +193,6 @@ public class GameRound {
             default:
                 System.err.println("INVALID TOKEN");
         }
-
     }
 
     public List<Player> revealCards() {

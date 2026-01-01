@@ -1,7 +1,7 @@
 package com.johnm.sabacc.backend.service;
 
-import com.johnm.sabacc.backend.domain.components.ShiftToken;
-import com.johnm.sabacc.backend.domain.components.ShiftTokenEntity;
+import com.johnm.sabacc.backend.domain.game.components.ShiftToken;
+import com.johnm.sabacc.backend.domain.game.components.ShiftTokenEntity;
 import com.johnm.sabacc.backend.exceptions.EntityNotFoundException;
 import com.johnm.sabacc.backend.repository.ShiftTokenRepository;
 import jakarta.transaction.Transactional;
@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 @Transactional
 public class ShiftTokenService {
-    private ShiftTokenRepository shiftTokenRepository;
+    private final ShiftTokenRepository shiftTokenRepository;
 
     public ShiftTokenService(ShiftTokenRepository shiftTokenRepository) {
         this.shiftTokenRepository = shiftTokenRepository;

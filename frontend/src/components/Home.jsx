@@ -5,7 +5,7 @@ const Home = ({ client }) => {
     return (
         <>
             <h1>Home</h1>
-            <Link to={`/playgame`}><Button variant="primary">Play a Game</Button></Link>
+            <Link to={`/play/start-game`}><Button variant="primary">Play a Game</Button></Link>
             <br/>
             <hr/>
             <Link to={`/games`}>Games</Link><br/>

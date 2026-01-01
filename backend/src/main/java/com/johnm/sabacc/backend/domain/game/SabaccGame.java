@@ -1,11 +1,9 @@
 package com.johnm.sabacc.backend.domain.game;
 
-import com.johnm.sabacc.backend.domain.components.ShiftToken;
+import com.johnm.sabacc.backend.domain.game.components.ShiftToken;
 import com.johnm.sabacc.backend.domain.player.Person;
 import com.johnm.sabacc.backend.domain.player.Player;
-import com.johnm.sabacc.backend.dto.GameHistoryDTO;
 import com.johnm.sabacc.backend.exceptions.IllegalActionException;
-import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,31 +53,15 @@ public class SabaccGame {
 
         players = new ArrayList<>();
         for(Person p : peopleToPlay) {
+            //TODO move validation?
             if (p.getCredits() < buyIn) {
                 throw new IllegalActionException(p.getName() + " has insufficient credits to play.");
             }
             p.setCredits(p.getCredits() - buyIn);
-            Player player = new Player(p.getName(), p.getCredits(), p.getTokens(), null, new ShiftToken[3]);
+            // Player player = new Player(p.getName(), p.getCredits(), p.getTokens(), null, new ShiftToken[3]);
+            Player player = new Player(p.getName(), null, null);
 
-            Scanner reader = new Scanner(System.in);
-            List<ShiftToken> tokens = p.getTokens();
-            if (!(tokens == null || tokens.isEmpty())) {
-                System.out.print("Select " + TOKEN_AMOUNT + " tokens (e.g. 0,2,3)" + tokens.toString() + " ");
-                String[] indexesStr = reader.nextLine().trim().split(",");
-                if (!indexesStr.equals("n") && !indexesStr.equals("x")) {
-                    List<ShiftToken> tokensToSelect = new ArrayList<>();
-                    for (String indexStr : indexesStr) {
-                        int index = Integer.parseInt(indexStr);
-                        if (index < 0 || index > TOKEN_AMOUNT) {
-                            throw new IllegalActionException(indexStr + " is not a valid token index.");
-                        } else if (tokens.get(index) == null) {
-                            throw new IllegalActionException("Invalid token.");
-                        }
-                        tokensToSelect.add(tokens.get(index));
-                    }
-                    player.setSelectedTokens((ShiftToken[]) tokensToSelect.toArray());
-                }
-            }
+            player.setSelectedTokens(p.getTokens());
 
             players.add(player);
         }
@@ -89,19 +71,19 @@ public class SabaccGame {
         }
     }
 
-    public List<Person> runGame() {
-        setup();
-
-        List<Player> winningPlayers = new ArrayList<>();
-        while (players.stream().anyMatch(p -> p.getStock() > 0)) {
-            GameRound newRound = new GameRound(this);
-
-            winningPlayers = newRound.runFullRound();
-        }
-
-        winners = winningPlayers.stream().map(p -> (Person) p).toList();
-
-        System.out.println("!!!WINNERS=" + winners.toString() + "!!!");
-        return winners;
-    }
+    // public List<Person> runGame() {
+    //     setup();
+    //
+    //     List<Player> winningPlayers = new ArrayList<>();
+    //     while (players.stream().anyMatch(p -> p.getStock() > 0)) {
+    //         GameRound newRound = new GameRound(this);
+    //
+    //         winningPlayers = newRound.runFullRound();
+    //     }
+    //
+    //     winners = winningPlayers.stream().map(p -> (Person) p).toList();
+    //
+    //     System.out.println("!!!WINNERS=" + winners.toString() + "!!!");
+    //     return winners;
+    // }
 }

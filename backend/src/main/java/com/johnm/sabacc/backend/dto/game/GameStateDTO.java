@@ -1,0 +1,102 @@
+package com.johnm.sabacc.backend.dto.game;
+
+import com.johnm.sabacc.backend.domain.game.GameRound;
+import com.johnm.sabacc.backend.domain.game.SabaccGame;
+import com.johnm.sabacc.backend.domain.player.Person;
+import com.johnm.sabacc.backend.domain.player.Player;
+import com.johnm.sabacc.backend.dto.player.PlayerDTO;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class GameStateDTO {
+    //TODO change to private and make getters
+
+    // private Integer id;
+    // private List<String> finalWinnerNames;
+    public int buyIn;
+    public int chipsPerPlayer;
+    public List<String> rewards; //TODO change
+    //
+    // // Round attributes
+    // private List<PlayerDTO> players;
+    // private int currentPlayerIndex;
+    // private List<String> winnerNames;
+    // private List<String> tokensActiveStr;
+    // private List<CardDTO> bloodDiscard, sandDiscard; // face up discard piles
+    // private String bestSabacc;
+    // private int currPlayerIndex;
+    // private int turnNumber;
+    // public List<String> inStandNames;
+
+    public List<PlayerDTO> players;
+    public int currPlayerIndex;
+    public int turnNumber;
+    public CardDTO bloodDiscardTop;
+    public CardDTO sandDiscardTop;
+    public List<String> inStand;
+
+    public GameStateDTO() {}
+
+    public GameStateDTO(List<PlayerDTO> players, int chipsPerPlayer, int buyIn, CardDTO bloodDiscardTop, CardDTO sandDiscardTop, List<String> inStand) {
+        this.players = players;
+        this.chipsPerPlayer = chipsPerPlayer;
+        this.buyIn = buyIn;
+        currPlayerIndex = 0;
+        turnNumber = 0;
+        this.bloodDiscardTop = bloodDiscardTop;
+        this.sandDiscardTop = sandDiscardTop;
+        this.inStand = inStand;
+    }
+
+    public GameStateDTO(List<PlayerDTO> players, int chipsPerPlayer, int buyIn, int currPlayerIndex, int turnNumber, CardDTO bloodDiscardTop, CardDTO sandDiscardTop, List<String> inStand) {
+        this.players = players;
+        this.chipsPerPlayer = chipsPerPlayer;
+        this.buyIn = buyIn;
+        this.currPlayerIndex = currPlayerIndex;
+        this.turnNumber = turnNumber;
+        this.bloodDiscardTop = bloodDiscardTop;
+        this.sandDiscardTop = sandDiscardTop;
+        this.inStand = inStand;
+    }
+
+    public static GameStateDTO fromEntities(SabaccGame g, GameRound r) {
+        GameStateDTO dto = new GameStateDTO();
+        if (r != null){
+            dto = new GameStateDTO(
+                    g.getPlayers().stream().map(Player::toDTO).toList(),
+                    g.getChipsPerPlayer(),
+                    g.getBuyIn(),
+                    r.getCurrPlayerIndex(),
+                    r.getTurnNumber(),
+                    (r.getBloodDiscard().isEmpty())? null : r.getTopBloodDiscard().toDTO(),
+                    (r.getSandDiscard().isEmpty())? null : r.getTopSandDiscard().toDTO(),
+                    r.getInStand().stream().map(Player::getName).toList()
+            );
+        } else {
+            dto = new GameStateDTO(
+                    g.getPlayers().stream().map(Player::toDTO).toList(),
+                    g.getChipsPerPlayer(),
+                    g.getBuyIn(),
+                    0,
+                    0,
+                    null,
+                    null,
+                    new ArrayList<>()
+            );
+        }
+
+        return dto;
+    }
+
+    public SabaccGame toEntity() {
+        SabaccGame g = new SabaccGame();
+        g.setBuyIn(buyIn);
+        g.setChipsPerPlayer(chipsPerPlayer);
+        g.setRewards(rewards);
+        // private List<Person> winners;
+        // private List<GameRound> rounds;
+        // private List<Player> players;
+        return g;
+    }
+}

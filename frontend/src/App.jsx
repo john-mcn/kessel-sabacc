@@ -13,6 +13,7 @@ const App = () => {
     const BASE_URL = "http://localhost:8080";
     const PLAYER_URL = `${BASE_URL}/players`;
     const GAME_URL = `${BASE_URL}/games`;
+    const GAMEPLAY_URL = `${BASE_URL}/play`;
 
     const client = {
         // Player routes
@@ -20,11 +21,14 @@ const App = () => {
         getPlayer: (name) => axios.get(`${PLAYER_URL}/${name}`),
         createPlayer: (data) => axios.post(`${PLAYER_URL}`, data),
         deletePlayer: (name) => axios.delete(`${PLAYER_URL}/${name}`),
-        //Game routes
+        // Game routes
         getGames: () => axios.get(`${GAME_URL}`),
         getGame: (gameId) => axios.get(`${GAME_URL}/${gameId}`),
-        createGame: (data) => axios.post(`${GAME_URL}`, data),
+        // createGame: (data) => axios.post(`${GAME_URL}`, data),
         deleteGame: (gameId) => axios.delete(`${GAME_URL}/${gameId}`),
+        // Gameplay routes
+        startGame: (data) => axios.post(`${GAMEPLAY_URL}/start-game`, data),
+        getGameInProgress: () => axios.get(`${GAMEPLAY_URL}`),
         // ShiftToken routes
         getTokens: () => axios.get(`${BASE_URL}/tokens`)
     };

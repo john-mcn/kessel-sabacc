@@ -1,7 +1,6 @@
 package com.johnm.sabacc.backend.repository;
 
 import com.johnm.sabacc.backend.domain.game.GameHistory;
-import com.johnm.sabacc.backend.domain.game.SabaccGame;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -10,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface SabaccGameRepository extends JpaRepository<GameHistory, Integer> {
+public interface GameHistoryRepository extends JpaRepository<GameHistory, Integer> {
     @Query("SELECT g FROM GameHistory g WHERE :playerName MEMBER OF g.playerNames")
     public List<GameHistory> findByPlayerName(@Param("playerName") String playerName);
 

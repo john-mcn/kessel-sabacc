@@ -1,4 +1,7 @@
-package com.johnm.sabacc.backend.domain.components;
+package com.johnm.sabacc.backend.domain.game.components;
+
+import com.johnm.sabacc.backend.dto.game.CardDTO;
+import com.johnm.sabacc.backend.util.EnumUtils;
 
 public class Card {
 
@@ -24,6 +27,12 @@ public class Card {
     public void setRank(CardRank rank) { this.rank = rank; }
     public boolean isSylop() { return rank.equals(CardRank.SYLOP); }
     public boolean isImposter() { return rank.equals(CardRank.IMPOSTER); }
+
+    public CardDTO toDTO() {
+        return new CardDTO(
+                EnumUtils.sanitiseStringFromEnum(family.name()),
+                EnumUtils.sanitiseStringFromEnum(rank.name()));
+    }
 
     @Override
     public String toString() {

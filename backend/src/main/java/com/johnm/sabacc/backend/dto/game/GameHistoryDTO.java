@@ -1,4 +1,4 @@
-package com.johnm.sabacc.backend.dto;
+package com.johnm.sabacc.backend.dto.game;
 
 import com.johnm.sabacc.backend.domain.game.GameHistory;
 
@@ -40,13 +40,13 @@ public class GameHistoryDTO {
     public void setRewards(List<String> rewards) { this.rewards = rewards; }
 
     public GameHistory toEntity() {
-        GameHistory entity  = new GameHistory(
+        GameHistory gameHistory  = new GameHistory(
                 playerNames,
                 winnerNames,
                 buyIn,
                 chipsPerPlayer,
                 rewards);
 
-        return entity;
+        return gameHistory;
     }
 }
