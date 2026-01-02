@@ -28,7 +28,7 @@ public class GameStateDTO {
     public List<PlayerDTO> roundWinners;
     public Integer imposterValue;
     public Integer bestSabacc;
-    public List<Integer> numbersRolled;
+    public boolean impostersResolved;
 
     public GameStateDTO() {}
 
@@ -54,6 +54,7 @@ public class GameStateDTO {
         this.bloodDiscardTop = bloodDiscardTop;
         this.sandDiscardTop = sandDiscardTop;
         this.inStand = inStand;
+        impostersResolved = false;
     }
 
     public static GameStateDTO fromEntities(SabaccGame g, GameRound r) {
@@ -74,9 +75,6 @@ public class GameStateDTO {
             if (r.getWinners() != null && !r.getWinners().isEmpty()) {
                 dto.roundFinishedOrder = r.getFinalOrder().stream().map(Player::toDTO).toList();
                 dto.roundWinners = r.getWinners().stream().map(Player::toDTO).toList();
-            }
-            if (r.getNumbersRolled() != null && !r.getNumbersRolled().isEmpty()){
-                dto.numbersRolled = r.getNumbersRolled();
             }
         } else {
             dto = new GameStateDTO(

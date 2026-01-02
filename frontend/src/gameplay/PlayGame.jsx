@@ -95,7 +95,8 @@ const PlayGame = ({ client }) => {
     // Show imposter rank (MAJOR_FRAUD)
     if (game) {
         if (game.winner) { nav(`/play/summary`); }
-        if (game.roundWinners) { nav(`/play/round-summary`);}
+        // if (game.turnNumber > 3) { nav(`/play/reveal`); }
+        if (game.roundWinners) { nav(`/play/round-summary`); }
 
         const playerNames = game.players.map(p => p.name);
         const currentPlayer = game.players[game.currPlayerIndex];

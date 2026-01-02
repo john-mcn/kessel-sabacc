@@ -21,8 +21,10 @@ public class GameRound {
     private int currPlayerIndex;
     private int turnNumber;
     private Set<Player> inStand;
+    // Final
     private List<Player> finalOrder;
     private List<Player> winners;
+    private boolean impostersResolved;
     // Temporary
     private List<Integer> numbersRolled;
 
@@ -40,6 +42,7 @@ public class GameRound {
         currPlayerIndex = 0;
         turnNumber = 0;
         inStand = new HashSet<>();
+        impostersResolved = false;
     }
 
     public List<Player> getPlayers() { return players; }
@@ -74,6 +77,9 @@ public class GameRound {
 
     public List<Player> getWinners() { return winners; }
     public void setWinners(List<Player> winners) { this.winners = winners; }
+
+    public boolean getImpostersResolved() { return impostersResolved; }
+    public void setImpostersResolved(boolean impostersResolved) { this.impostersResolved = impostersResolved; }
 
     // Temporary info
     public List<Integer> getNumbersRolled() { return numbersRolled; }
@@ -283,6 +289,10 @@ public class GameRound {
 
     public List<Player> revealCards() {
         System.out.println("\n=== Reveal phase ===");
+        if (!impostersResolved && players.stream().map(Player::getHand).anyMatch(h -> h.getBloodCard().isImposter() || h.getSandCard().isImposter())) {
+            System.err.println("Imposters not resolved");
+            throw new IllegalActionException("Imposters not resolved");
+        }
 
         for (Player player : players) {
             PlayerHand playerHand = player.getHand();

@@ -12,7 +12,7 @@ import PlayGame from "./gameplay/PlayGame.jsx";
 import StartGame from "./gameplay/StartGame.jsx";
 import FinishGame from "./gameplay/FinishGame.jsx";
 import FinishRound from "./gameplay/FinishRound.jsx";
-import ChooseDice from "./game/ChooseDice.jsx";
+import RevealCards from "./gameplay/RevealCards.jsx";
 
 const AuthedRoutes = ({ client }) => {
     return (
@@ -31,7 +31,7 @@ const AuthedRoutes = ({ client }) => {
                 {/* Gameplay routes */}
                 <Route path="/play/start-game" element={<StartGame client={client}/>} />
                 <Route path="/play" element={<PlayGame client={client}/>} />
-                <Route path="/play/choose-dice" element={<ChooseDice client={client}/>} />
+                <Route path="/play/reveal" element={<RevealCards client={client}/>} />
                 <Route path="/play/round-summary" element={<FinishRound client={client}/>} />
                 <Route path="/play/summary" element={<FinishGame client={client}/>} />
                 {/* Shift Token routes */}
