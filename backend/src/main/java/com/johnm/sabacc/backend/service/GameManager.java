@@ -3,10 +3,9 @@ package com.johnm.sabacc.backend.service;
 import com.johnm.sabacc.backend.domain.game.GameHistory;
 import com.johnm.sabacc.backend.domain.game.GameRound;
 import com.johnm.sabacc.backend.domain.game.SabaccGame;
+import com.johnm.sabacc.backend.domain.game.components.Card;
 import com.johnm.sabacc.backend.domain.player.Player;
-import com.johnm.sabacc.backend.dto.game.ActionRequestDTO;
-import com.johnm.sabacc.backend.dto.game.GameHistoryDTO;
-import com.johnm.sabacc.backend.dto.game.GameStateDTO;
+import com.johnm.sabacc.backend.dto.game.*;
 import com.johnm.sabacc.backend.exceptions.IllegalActionException;
 import org.springframework.stereotype.Service;
 
@@ -98,13 +97,17 @@ public class GameManager {
             // delegate to GameRound with action DTO
             currentRound.performAction(request);
 
-            if (currentRound.getTurnNumber() == 4 || currentRound.getInStand().size() == currentRound.getPlayers().size()) {
-                currentRound.revealCards();
-                List<Player> playersInGame = currentGame.getPlayers().stream().filter(p -> p.getStock() > 0).toList();
-                if (playersInGame.size() == 1) {
+            // if (currentRound.roundEnded()) {
+            //     System.err.println("ROUND ENDED");
+            //     currentRound.revealCards();
+            //     if (currentGame.playersInGame().size() == 1) {
+            //         endGame();
+            //     }
+            // }
+            if (currentRound.roundEnded()){
+                if (currentGame.playersInGame().size() == 1) {
                     endGame();
                 }
-                // else { startRound(); }
             }
 
             // after action performed, optionally advance turn index inside GameRound.performAction
@@ -115,10 +118,39 @@ public class GameManager {
         }
     }
 
+    public void resolveImposter(List<ResolveImposterDTO> resolveImposterDTOs) {
+        lock.lock();
+        try {
+            for (ResolveImposterDTO resolveImposterDTO : resolveImposterDTOs) {
+                Player player = currentRound.getPlayers().stream().filter(p -> p.getName().equals(resolveImposterDTO.getPlayerName())).toList().get(0);
+                List<Card> toReplace = resolveImposterDTO.getCards().stream().map(CardDTO::toEntity).toList();
+                currentRound.resolveImposter(
+                        player,
+                        toReplace);
+            }
+
+            boolean impostersLeft = currentRound.getPlayers().stream().anyMatch(p ->
+                    p.getHand().getBloodCard().isImposter() || p.getHand().getSandCard().isImposter());
+            if (impostersLeft) {
+                System.err.println("Imposters not resolved");
+                return;
+            }
+            if (currentRound.impostersResolved()) {
+                currentRound.revealCards();
+                if (currentGame.playersInGame().size() == 1) {
+                    endGame();
+                }
+            }
+        } finally {
+            lock.unlock();
+        }
+    }
+
     public GameStateDTO endGame() {
         lock.lock();
         try {
             System.err.println("===END GAME===");
+            System.out.println("Players stock>0" + currentGame.getPlayers().stream().filter(p -> p.getStock() > 0).toList());
             currentGame.endGame();
             System.err.println("Winner: " +  currentGame.getWinner());
             GameHistory gameHistory = currentGame.toGameHistory();

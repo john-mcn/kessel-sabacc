@@ -38,6 +38,10 @@ public class PlayerHand {
                 || (bloodCard.isSylop() || sandCard.isSylop());
     }
 
+    public boolean hasImposter() {
+        return bloodCard.isImposter() | sandCard.isImposter();
+    }
+
     public int rankDifference() { return bloodCard.rankDifference(sandCard); }
 
     // Change the existing card of the matching family to the new card, and return the previous card

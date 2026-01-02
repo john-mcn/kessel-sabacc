@@ -71,6 +71,7 @@ public class GameStateDTO {
                     (r.getSandDiscard().isEmpty())? null : r.getTopSandDiscard().toDTO(),
                     r.getInStand().stream().map(Player::getName).toList()
             );
+            dto.impostersResolved = r.impostersResolved();
             if (!r.getBestSabacc().equals(CardRank.SYLOP)) { dto.bestSabacc = r.getBestSabacc().toInt(); }
             if (r.getWinners() != null && !r.getWinners().isEmpty()) {
                 dto.roundFinishedOrder = r.getFinalOrder().stream().map(Player::toDTO).toList();

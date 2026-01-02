@@ -5,6 +5,7 @@ import {Form, FormControl, FormLabel, FormSelect} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 
 const StartGame = ({ client }) => {
+    const [game, setGame] = useState(null);
     const [errors, setErrors] = useState([]);
     const nav = useNavigate();
 
@@ -20,6 +21,12 @@ const StartGame = ({ client }) => {
                 setPlayerNamesLst(response.data);
             }).catch(error => {
             // setError(error)
+            console.log(error)
+        });
+        client.getGameInProgress()
+            .then(response => {
+                setGame(response.data);
+            }).catch(error => {
             console.log(error)
         });
     }, [client]);
@@ -60,6 +67,8 @@ const StartGame = ({ client }) => {
             setErrors(currentErrors)
         }
     };
+
+    if (game) { nav(`/play`) }
 
     return (
         <>

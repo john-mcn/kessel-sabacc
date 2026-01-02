@@ -32,6 +32,7 @@ const App = () => {
         startRound: () => axios.post(`${GAMEPLAY_URL}/start-round`),
         getGameInProgress: () => axios.get(`${GAMEPLAY_URL}`),
         performAction: (data) => axios.post(`${GAMEPLAY_URL}/action`, data),
+        resolveImposters: (data) => axios.post(`${GAMEPLAY_URL}/resolve-imposters`, data),
         showSummary: () => axios.get(`${GAMEPLAY_URL}/summary`),
         // ShiftToken routes
         getTokens: () => axios.get(`${BASE_URL}/tokens`)

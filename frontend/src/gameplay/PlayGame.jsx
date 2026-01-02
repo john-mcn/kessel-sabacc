@@ -94,8 +94,15 @@ const PlayGame = ({ client }) => {
 
     // Show imposter rank (MAJOR_FRAUD)
     if (game) {
+        const roundEnded = game.turnNumber > 3 || game.inStand.length == game.players.length;
         if (game.winner) { nav(`/play/summary`); }
-        // if (game.turnNumber > 3) { nav(`/play/reveal`); }
+        if (roundEnded) {
+            if (!game.impostersResolved || true) {
+                nav(`/play/reveal`);
+            } else {
+                nav(`/play/round-summary`)
+            }
+        }
         if (game.roundWinners) { nav(`/play/round-summary`); }
 
         const playerNames = game.players.map(p => p.name);
