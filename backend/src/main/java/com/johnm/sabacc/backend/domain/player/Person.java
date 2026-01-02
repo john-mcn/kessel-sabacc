@@ -40,4 +40,9 @@ public class Person {
 
         return dto;
     }
+
+    @Override
+    public String toString(){
+        return name +": credits=" + credits +  ", tokens=" + tokens;
+    }
 }

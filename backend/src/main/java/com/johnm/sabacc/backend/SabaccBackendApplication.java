@@ -29,7 +29,7 @@ public class SabaccBackendApplication {
 
         return args -> {
             List<Person> people = List.of(
-                new Person("Dev", 9999, null),
+                new Person("Dev", 9999, List.of(ShiftToken.values())),
                 new Person("Test1", 600, List.of(ShiftToken.IMMUNITY, ShiftToken.COOK_THE_BOOKS)),
                 new Person("Test2", 320, List.of(ShiftToken.GENERAL_AUDIT)),
                 new Person("Test3", 210, List.of(ShiftToken.DIRECT_TRANSACTION))
@@ -40,7 +40,7 @@ public class SabaccBackendApplication {
             }
 
             GameHistory testGame = new GameHistory(people.stream().map(Person::getName).toList(), null, 150, 6, List.of("N/A"));
-            testGame.setWinnerNames(List.of(people.get(0).getName()));
+            testGame.setWinnerNames(people.get(0).getName());
             gameHistoryService.createGame(testGame);
         };
     }

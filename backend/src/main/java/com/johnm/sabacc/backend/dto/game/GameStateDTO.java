@@ -11,30 +11,23 @@ import java.util.List;
 
 public class GameStateDTO {
     //TODO change to private and make getters
-
-    // private Integer id;
-    // private List<String> finalWinnerNames;
     public int buyIn;
     public int chipsPerPlayer;
     public List<String> rewards; //TODO change
-    //
-    // // Round attributes
-    // private List<PlayerDTO> players;
-    // private int currentPlayerIndex;
-    // private List<String> winnerNames;
-    // private List<String> tokensActiveStr;
-    // private List<CardDTO> bloodDiscard, sandDiscard; // face up discard piles
-    // private String bestSabacc;
-    // private int currPlayerIndex;
-    // private int turnNumber;
-    // public List<String> inStandNames;
-
     public List<PlayerDTO> players;
+    public PlayerDTO winner;
+    public int roundNumber;
+    // Attributes for round
     public int currPlayerIndex;
     public int turnNumber;
     public CardDTO bloodDiscardTop;
     public CardDTO sandDiscardTop;
     public List<String> inStand;
+    public List<PlayerDTO> roundFinishedOrder;
+    public List<PlayerDTO> roundWinners;
+    public Integer imposterValue;
+    public Integer bestSabacc;
+    public List<Integer> numbersRolled;
 
     public GameStateDTO() {}
 
@@ -44,17 +37,19 @@ public class GameStateDTO {
         this.buyIn = buyIn;
         currPlayerIndex = 0;
         turnNumber = 0;
+        roundNumber = 0;
         this.bloodDiscardTop = bloodDiscardTop;
         this.sandDiscardTop = sandDiscardTop;
         this.inStand = inStand;
     }
 
-    public GameStateDTO(List<PlayerDTO> players, int chipsPerPlayer, int buyIn, int currPlayerIndex, int turnNumber, CardDTO bloodDiscardTop, CardDTO sandDiscardTop, List<String> inStand) {
+    public GameStateDTO(List<PlayerDTO> players, int chipsPerPlayer, int buyIn, int currPlayerIndex, int turnNumber, int roundNumber, CardDTO bloodDiscardTop, CardDTO sandDiscardTop, List<String> inStand) {
         this.players = players;
         this.chipsPerPlayer = chipsPerPlayer;
         this.buyIn = buyIn;
         this.currPlayerIndex = currPlayerIndex;
         this.turnNumber = turnNumber;
+        this.roundNumber = roundNumber;
         this.bloodDiscardTop = bloodDiscardTop;
         this.sandDiscardTop = sandDiscardTop;
         this.inStand = inStand;
@@ -69,10 +64,18 @@ public class GameStateDTO {
                     g.getBuyIn(),
                     r.getCurrPlayerIndex(),
                     r.getTurnNumber(),
+                    g.getRoundNumber(),
                     (r.getBloodDiscard().isEmpty())? null : r.getTopBloodDiscard().toDTO(),
                     (r.getSandDiscard().isEmpty())? null : r.getTopSandDiscard().toDTO(),
                     r.getInStand().stream().map(Player::getName).toList()
             );
+            if (r.getWinners() != null && !r.getWinners().isEmpty()) {
+                dto.roundFinishedOrder = r.getFinalOrder().stream().map(Player::toDTO).toList();
+                dto.roundWinners = r.getWinners().stream().map(Player::toDTO).toList();
+            }
+            if (r.getNumbersRolled() != null && !r.getNumbersRolled().isEmpty()){
+                dto.numbersRolled = r.getNumbersRolled();
+            }
         } else {
             dto = new GameStateDTO(
                     g.getPlayers().stream().map(Player::toDTO).toList(),
@@ -80,11 +83,14 @@ public class GameStateDTO {
                     g.getBuyIn(),
                     0,
                     0,
+                    0,
                     null,
                     null,
                     new ArrayList<>()
             );
         }
+
+        if (g.getWinner() != null) { dto.winner = g.getWinner().toDTO();}
 
         return dto;
     }

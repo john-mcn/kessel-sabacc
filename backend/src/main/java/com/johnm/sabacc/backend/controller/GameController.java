@@ -7,6 +7,7 @@ import com.johnm.sabacc.backend.domain.player.Player;
 import com.johnm.sabacc.backend.dto.game.ActionRequestDTO;
 import com.johnm.sabacc.backend.dto.game.GameStateDTO;
 import com.johnm.sabacc.backend.dto.player.PlayerDTO;
+import com.johnm.sabacc.backend.exceptions.EntityNotFoundException;
 import com.johnm.sabacc.backend.exceptions.IllegalActionException;
 import com.johnm.sabacc.backend.service.GameManager;
 import com.johnm.sabacc.backend.service.PlayerService;
@@ -30,10 +31,9 @@ public class GameController {
     @PostMapping("/start-game")
     public ResponseEntity<?> createGame(@RequestBody GameStateDTO dto) {
         SabaccGame g = dto.toEntity(); // create SabaccGame without persisting
-        List<Person> players = playerService.getByNames(dto.players.stream().map(PlayerDTO::getName).toList());
-        g.setPeopleToPlay(players);
+        List<Person> peopleToPlay = playerService.getByNames(dto.players.stream().map(PlayerDTO::getName).toList());
+        g.setPeopleToPlay(peopleToPlay);
         manager.createGame(g);
-        g.setup();
         return ResponseEntity.ok(GameStateDTO.fromEntities(g, null));
     }
 
@@ -59,7 +59,7 @@ public class GameController {
                 .map(g -> ResponseEntity.ok(
                         GameStateDTO.fromEntities(g, manager.getCurrentRound().orElse(null))
                 ))
-                .orElseGet(() -> ResponseEntity.notFound().build());
+                .orElseThrow(() -> new EntityNotFoundException("No game in progress"));
     }
 
 

@@ -28,6 +28,13 @@ public class Card {
     public boolean isSylop() { return rank.equals(CardRank.SYLOP); }
     public boolean isImposter() { return rank.equals(CardRank.IMPOSTER); }
 
+    //NOTE fails for Imposter but gameLoop should not calculate rank difference before resolving Imposters
+    public int rankDifference(Card card) {
+        if (card.getRank().equals(CardRank.SYLOP) || rank.equals(CardRank.SYLOP)) { return 0; }
+        int rank = card.getRank().toInt();
+        return Math.abs(rank - this.rank.toInt());
+    }
+
     public CardDTO toDTO() {
         return new CardDTO(
                 EnumUtils.sanitiseStringFromEnum(family.name()),

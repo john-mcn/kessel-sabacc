@@ -3,18 +3,6 @@ body .mt2 {
     padding-bottom: 60px;
 }
 
-/* Card improvements */
-.card {
-    border-radius: 12px !important;
-    border: 1px solid #e2e8f0;
-    transition: 0.2s ease;
-}
-
-.card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 14px rgba(0,0,0,0.1);
-}
-
 /* Buttons */
 button, .btn {
     transition: 0.2s;
@@ -50,4 +38,24 @@ button:hover, .btn:hover {
 }
 .navbar.navbar-gold .nav-link:hover{
     color: white !important;
+}
+
+/* Tables */
+.text-gold {
+    color: #d4af1e;
+}
+.table .table-row-gold > td,
+.table .table-row-gold > th {
+    background-color: #d4af1e !important;
+    color: #525252;
+}
+.table .table-row-lightblue > td,
+.table .table-row-lightblue > th {
+    background-color: #7ac1ff !important;
+    color: #404040;
+}
+
+/* Text */
+.p-before-btn {
+    margin-bottom: 0;
 }

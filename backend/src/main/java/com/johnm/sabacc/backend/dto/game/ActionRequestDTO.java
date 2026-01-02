@@ -6,8 +6,10 @@ public class ActionRequestDTO {
     private String playerName;
     private String action;
     // Attributes depending on action
-    private boolean replaceCard; // whether to replace a drawn card with a hand card
     private Integer tokenIndex; //index in a player's tokens list to play
+    private Integer selectedValue; // number selected for, say, rolling Imposter dice
+
+    public ActionRequestDTO() {}
 
     public ActionRequestDTO(String playerName, String action) {
         this.playerName = playerName;
@@ -21,9 +23,9 @@ public class ActionRequestDTO {
     public GameAction getActionEnum() { return GameAction.fromString(action); }
     public void setAction(String action) { this.action = action; }
 
-    public boolean getReplaceCard() { return replaceCard; }
-    public void setReplaceCard(boolean replaceCard) { this.replaceCard = replaceCard; }
-
     public Integer getTokenIndex() { return tokenIndex; }
     public void setTokenIndex(Integer tokenIndex) { this.tokenIndex = tokenIndex; }
+
+    public Integer getSelectedValue() { return selectedValue; }
+    public void setSelectedValue(Integer selectedValue) { this.selectedValue = selectedValue; }
 }
