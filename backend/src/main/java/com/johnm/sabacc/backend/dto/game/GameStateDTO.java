@@ -27,7 +27,7 @@ public class GameStateDTO {
     public List<PlayerDTO> roundFinishedOrder;
     public List<PlayerDTO> roundWinners;
     public Integer imposterValue;
-    public Integer bestSabacc;
+    public String bestSabacc;
     public boolean impostersResolved;
 
     public GameStateDTO() {}
@@ -42,6 +42,8 @@ public class GameStateDTO {
         this.bloodDiscardTop = bloodDiscardTop;
         this.sandDiscardTop = sandDiscardTop;
         this.inStand = inStand;
+        bestSabacc = CardRank.SYLOP.toString();
+        System.err.println("IS THIS EVER USED?");
     }
 
     public GameStateDTO(List<PlayerDTO> players, int chipsPerPlayer, int buyIn, int currPlayerIndex, int turnNumber, int roundNumber, CardDTO bloodDiscardTop, CardDTO sandDiscardTop, List<String> inStand) {
@@ -55,6 +57,7 @@ public class GameStateDTO {
         this.sandDiscardTop = sandDiscardTop;
         this.inStand = inStand;
         impostersResolved = false;
+        bestSabacc = CardRank.SYLOP.toString();
     }
 
     public static GameStateDTO fromEntities(SabaccGame g, GameRound r) {
@@ -72,7 +75,7 @@ public class GameStateDTO {
                     r.getInStand().stream().map(Player::getName).toList()
             );
             dto.impostersResolved = r.impostersResolved();
-            if (!r.getBestSabacc().equals(CardRank.SYLOP)) { dto.bestSabacc = r.getBestSabacc().toInt(); }
+            dto.bestSabacc = r.getBestSabacc().toString();
             if (r.getWinners() != null && !r.getWinners().isEmpty()) {
                 dto.roundFinishedOrder = r.getFinalOrder().stream().map(Player::toDTO).toList();
                 dto.roundWinners = r.getWinners().stream().map(Player::toDTO).toList();

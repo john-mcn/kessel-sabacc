@@ -54,8 +54,7 @@ const FinishGame = ({ client }) => {
                 </ul>
                 <u>Rewards:</u>
                 <ul>
-                    {/*{game.rewards.map((r) => <li key={r}>{r}</li>)}*/}
-                    <li>{game.rewards}</li>
+                    {game.rewards && game.rewards.map((r) => <li key={r}>{r}</li>)}
                 </ul>
                 <hr/>
 

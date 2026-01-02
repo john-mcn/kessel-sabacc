@@ -96,6 +96,7 @@ public class GameRound {
             Card bloodCard = bloodCards.remove(0);
             Card sandCard = sandCards.remove(1);
             player.setHand(new PlayerHand(bloodCard, sandCard));
+            player.setChipDifference(0);
         }
 
         bloodDraw = bloodCards;
@@ -189,10 +190,10 @@ public class GameRound {
         Card drawn = player.getDrawnCard();
         if (swapWithHand) {
             Card swappedWith = player.getHand().swapCard(player.getDrawnCard());
-            discardPile.add(swappedWith);
+            discardPile.add(0, swappedWith);
             System.out.println("swapped");
         } else {
-            discardPile.add(drawn);
+            discardPile.add(0, drawn);
             System.out.println("discarded");
         }
         player.setDrawnCard(null);
@@ -227,6 +228,7 @@ public class GameRound {
                 for (Player p : players) {
                     // Take 1 (or 0) from player's pot
                     amntToAdd += Math.min(1, p.getPot());
+                    p.setChipDifference(p.getChipDifference() -  amntToAdd);
                     if (p.getPot() > 0) { p.setPot(p.getPot() - 1); }
                 }
                 player.setPot(player.getPot() + amntToAdd);
@@ -236,6 +238,7 @@ public class GameRound {
                 amntToAdd = Math.min(player.getPot(), 2);
                 player.setStock(player.getStock() + amntToAdd);
                 player.setPot(player.getPot() - amntToAdd);
+                player.setChipDifference(player.getChipDifference() + amntToAdd);
                 System.out.println("Retrieved " + amntToAdd);
                 break;
             case EXTRA_REFUND: //TODO repeated code
@@ -243,6 +246,7 @@ public class GameRound {
                 amntToAdd = Math.min(player.getPot(), 3);
                 player.setStock(player.getStock() + amntToAdd);
                 player.setPot(player.getPot() - amntToAdd);
+                player.setChipDifference(player.getChipDifference() + amntToAdd);
                 System.out.println("Retrieved " + amntToAdd);
                 break;
             case GENERAL_AUDIT:
@@ -255,6 +259,7 @@ public class GameRound {
                 break;
             case PRIME_SABACC:
                 // Roll 2 (d6) dice, pick one value as the new best Sabacc
+                //NOTE frontend handles dice rolling and picking value
                 tokensActive.add(selected);
                 bestSabacc = CardRank.fromInt(action.getSelectedValue());
                 break;
@@ -293,12 +298,14 @@ public class GameRound {
                 System.out.println("Player '" + player.getName() + "' hand=" + player.getHand());
             }
 
+            winners = findWinners();
+
             //NOTE accounts for sylops?
-            PlayerHand winningHand = findWinners().get(0).getHand();
             for (Player player : players) {
                 // Winners retrieve all invested chips
-                if (player.getHand().equals(winningHand)) {
+                if (winners.contains(player)) {
                     player.setStock(player.getStock() + player.getPot());
+                    player.setChipDifference(player.getChipDifference() + player.getPot());
                     // Losers with Sabacc hand lose 1 chip
                 } else if (player.getHand().isSabacc()) {
                     if (player.getStock() > 0) {
@@ -307,7 +314,9 @@ public class GameRound {
                     // Losers without Sabacc hand lose chips equal to rank difference
                 } else {
                     int rankDiff = player.getHand().rankDifference();
-                    player.setStock(Math.max(player.getStock() - rankDiff, 0));
+                    int toLose = Math.min(rankDiff, player.getStock());
+                    player.setStock(player.getStock() - toLose);
+                    player.setChipDifference(player.getChipDifference() - toLose);
                 }
 
                 player.setPot(0);
@@ -315,7 +324,6 @@ public class GameRound {
 
             game.setRoundNumber(game.getRoundNumber() + 1);
             finalOrder = sortPlayers();
-            winners = findWinners();
 
             return winners;
         }

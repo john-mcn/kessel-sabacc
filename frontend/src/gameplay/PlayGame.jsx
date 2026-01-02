@@ -97,7 +97,7 @@ const PlayGame = ({ client }) => {
         const roundEnded = game.turnNumber > 3 || game.inStand.length == game.players.length;
         if (game.winner) { nav(`/play/summary`); }
         if (roundEnded) {
-            if (!game.impostersResolved || true) {
+            if (!game.impostersResolved) {
                 nav(`/play/reveal`);
             } else {
                 nav(`/play/round-summary`)
@@ -120,6 +120,7 @@ const PlayGame = ({ client }) => {
                         <th>Name</th>
                         <th>Stock</th>
                         <th>Pot</th>
+                        <th>Chip gain/loss</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -127,6 +128,7 @@ const PlayGame = ({ client }) => {
                         <td>{p.name}</td>
                         <td>{p.stock}</td>
                         <td>{p.pot}</td>
+                        <td>{p.chipDifference >=0? `+${p.chipDifference}` : `${p.chipDifference}`}</td>
                     </tr>)}
                     </tbody>
                 </Table>

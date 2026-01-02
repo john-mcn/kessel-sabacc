@@ -27,7 +27,7 @@ const StartGame = ({ client }) => {
             .then(response => {
                 setGame(response.data);
             }).catch(error => {
-            console.log(error)
+            console.log(error.response.data.message? error.response.data.message : error.message);
         });
     }, [client]);
 
@@ -52,6 +52,7 @@ const StartGame = ({ client }) => {
             chipsPerPlayer: chipsPerPlayer,
             rewards: rewards
         };
+        console.log(payload)
 
         // if (!winnerNames.every(n => players.includes(n))) {
         //     currentErrors.push(winnersArePlayersMsg);
@@ -62,13 +63,13 @@ const StartGame = ({ client }) => {
                 .then((response) => {
                     nav(`/play`)
                 })
-                .catch((e) => console.log(e));
+                .catch((error) => console.log(error.response.data.message? error.response.data.message : error.message));
         } else {
             setErrors(currentErrors)
         }
     };
 
-    if (game) { nav(`/play`) }
+    if (game && !game.winner) { nav(`/play`) }
 
     return (
         <>

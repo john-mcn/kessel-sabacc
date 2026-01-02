@@ -15,8 +15,18 @@ public class PlayerDTO {
     private CardDTO drawnCard;
     private List<String> tokens;
     private int stock, pot;
+    private Integer chipDifference;
 
     public PlayerDTO() {}
+
+    //NOTE this constructor is used by frontend (e.g. "/play/start-game")
+    public PlayerDTO(String name) {
+        this.name = name;
+        this.hand = new ArrayList<>();
+        this.tokens = new ArrayList<>(); // NOTE set these after getting player later
+        this.stock = 0;
+        this.pot = 0;
+    }
 
     public PlayerDTO(String name, List<String> tokens, int stock, int pot) {
         this.name = name;
@@ -24,14 +34,7 @@ public class PlayerDTO {
         this.tokens = tokens;
         this.stock = stock;
         this.pot = pot;
-    }
-
-    public PlayerDTO(String name) {
-        this.name = name;
-        this.hand = new ArrayList<>();
-        this.tokens = new ArrayList<>(); // NOTE set these after getting player later
-        this.stock = 0;
-        this.pot = 0;
+        chipDifference = 0;
     }
 
     public String getName() { return name; }
@@ -52,6 +55,9 @@ public class PlayerDTO {
     public int getStock() { return stock; }
     public void setStock(int stock) { this.stock = stock; }
 
+    public int getChipDifference() { return chipDifference; }
+    public void setChipDifference(int chipDifference) { this.chipDifference = chipDifference; }
+
     public Player toEntity() {
         System.err.println("DTO: " + tokens);
         PlayerHand handEntity = new PlayerHand(
@@ -63,7 +69,7 @@ public class PlayerDTO {
                 tokens.stream().map(ShiftToken::fromString).toList(),
                 stock,
                 pot);
-
+        player.setChipDifference(chipDifference);
         return player;
     }
 }
