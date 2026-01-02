@@ -140,11 +140,12 @@ public class GameRound {
                 break;
             //TODO enforce only playing 1 token per turn
             case PLAY_TOKEN:
-                playToken(currPlayer, action.getTokenIndex());
+                playToken(currPlayer, action.getTokenIndex(), action);
                 break;
             case CHOOSE_IMPOSTER_VALUE:
                 // Choose imposter value upon reveal
                 break;
+            //TODO useless
             case SET_PRIME_RANK:
                 bestSabacc = CardRank.fromInt(valueChosen);
                 break;
@@ -196,7 +197,7 @@ public class GameRound {
         player.setDrawnCard(null);
     }
 
-    public void playToken(Player player, int index) {
+    public void playToken(Player player, int index, ActionRequestDTO action) {
         // If player has no tokens
         if (player.getSelectedTokens().stream().allMatch(Objects::isNull)) {
             throw new IllegalActionException("No tokens to play");
@@ -254,8 +255,7 @@ public class GameRound {
             case PRIME_SABACC:
                 // Roll 2 (d6) dice, pick one value as the new best Sabacc
                 tokensActive.add(selected);
-                int[] diceRoll = GameUtils.roll2d6();
-                numbersRolled = List.of(diceRoll[0], diceRoll[1]);
+                bestSabacc = CardRank.fromInt(action.getSelectedValue());
                 break;
             case MAJOR_FRAUD:
                 // Set imposter value to 6 until next reveal
@@ -266,8 +266,7 @@ public class GameRound {
                 System.err.println("INVALID TOKEN");
         }
 
-        //TODO removed for testing
-        // player.getSelectedTokens().remove(index);
+        player.getSelectedTokens().remove(index);
         System.out.println(player.getName() + " played token " + selected.name());
 
         // TARGET_AUDIT("A player you choose in stand is taxed 3 chips"),

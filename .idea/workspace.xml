@@ -5,33 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f2654150-cc4f-477f-8a0a-56283fa98a30" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/game/ChooseDice.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/gameplay/ActionButton.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/gameplay/FinishGame.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/gameplay/FinishRound.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/SabaccBackendApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/SabaccBackendApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/controller/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/game/GameAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/game/GameAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/game/GameHistory.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/game/GameHistory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/game/GameRound.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/game/GameRound.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/game/SabaccGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/game/SabaccGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/game/components/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/game/components/Card.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/player/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/player/Person.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/player/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/player/PlayerHand.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/player/PlayerHand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/dto/game/ActionRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/dto/game/ActionRequestDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/dto/game/GameHistoryDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/dto/game/GameHistoryDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/dto/game/GameStateDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/dto/game/GameStateDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/dto/game/SabaccGameDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/service/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/service/GameManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/util/GameUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/util/GameUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/AuthedRoutes.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/AuthedRoutes.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/game/Game.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/game/Game.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/game/Games.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/game/Games.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/game/ChooseDice.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/game/ChooseDice.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/gameplay/ActionButton.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/gameplay/ActionButton.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/gameplay/PlayGame.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/gameplay/PlayGame.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/style/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/style/App.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +97,7 @@
       <workItem from="1767196276397" duration="495000" />
       <workItem from="1767196788635" duration="28999000" />
       <workItem from="1767260774686" duration="41238000" />
-      <workItem from="1767348989531" duration="24936000" />
+      <workItem from="1767348989531" duration="28563000" />
     </task>
     <servers />
   </component>

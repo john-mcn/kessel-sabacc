@@ -66,7 +66,8 @@ public class Player extends Person {
     public PlayerDTO toDTO() {
         PlayerDTO playerDTO = new PlayerDTO(
                 name,
-                (selectedTokens == null)? new ArrayList<>() : selectedTokens.stream().map(t -> EnumUtils.sanitiseStringFromEnum(t.name())).toList(),
+                // (selectedTokens == null || selectedTokens.isEmpty())? new ArrayList<>() : selectedTokens.stream().map(t -> (t == null)? null : EnumUtils.sanitiseStringFromEnum(t.name())).toList(),
+                (selectedTokens == null || selectedTokens.isEmpty())? new ArrayList<>() : selectedTokens.stream().map(t -> (t == null)? null : EnumUtils.capitaliseEachWordFromEnum(t.name())).toList(),
                 stock,
                 pot
         );

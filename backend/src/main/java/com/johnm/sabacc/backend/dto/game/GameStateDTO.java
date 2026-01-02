@@ -2,6 +2,7 @@ package com.johnm.sabacc.backend.dto.game;
 
 import com.johnm.sabacc.backend.domain.game.GameRound;
 import com.johnm.sabacc.backend.domain.game.SabaccGame;
+import com.johnm.sabacc.backend.domain.game.components.CardRank;
 import com.johnm.sabacc.backend.domain.player.Person;
 import com.johnm.sabacc.backend.domain.player.Player;
 import com.johnm.sabacc.backend.dto.player.PlayerDTO;
@@ -69,6 +70,7 @@ public class GameStateDTO {
                     (r.getSandDiscard().isEmpty())? null : r.getTopSandDiscard().toDTO(),
                     r.getInStand().stream().map(Player::getName).toList()
             );
+            if (!r.getBestSabacc().equals(CardRank.SYLOP)) { dto.bestSabacc = r.getBestSabacc().toInt(); }
             if (r.getWinners() != null && !r.getWinners().isEmpty()) {
                 dto.roundFinishedOrder = r.getFinalOrder().stream().map(Player::toDTO).toList();
                 dto.roundWinners = r.getWinners().stream().map(Player::toDTO).toList();
