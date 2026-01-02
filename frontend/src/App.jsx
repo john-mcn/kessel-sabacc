@@ -15,6 +15,7 @@ const App = () => {
     const GAME_URL = `${BASE_URL}/games`;
     const GAMEPLAY_URL = `${BASE_URL}/play`;
 
+    //TODO START ROUND when starting game
     const client = {
         // Player routes
         getPlayers: () => axios.get(`${PLAYER_URL}`),
@@ -28,7 +29,10 @@ const App = () => {
         deleteGame: (gameId) => axios.delete(`${GAME_URL}/${gameId}`),
         // Gameplay routes
         startGame: (data) => axios.post(`${GAMEPLAY_URL}/start-game`, data),
+        startRound: () => axios.post(`${GAMEPLAY_URL}/start-round`),
         getGameInProgress: () => axios.get(`${GAMEPLAY_URL}`),
+        performAction: (data) => axios.post(`${GAMEPLAY_URL}/action`, data),
+        showSummary: () => axios.get(`${GAMEPLAY_URL}/summary`),
         // ShiftToken routes
         getTokens: () => axios.get(`${BASE_URL}/tokens`)
     };

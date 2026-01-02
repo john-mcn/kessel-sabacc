@@ -32,7 +32,7 @@ const Games = ({ client }) => {
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Winner/s</th>
+                    <th>Winner</th>
                     <th>Players</th>
                     <th>Buy-In</th>
                     <th>Rewards</th>
@@ -41,11 +41,7 @@ const Games = ({ client }) => {
                 <tbody>
                 {games.map((g) => <tr key={g.id}>
                     <td><GameLink id={g.id}/></td>
-                    <td>
-                        {g.winnerNames.length === 1
-                            ? g.winnerNames
-                            : `[${g.winnerNames.join(", ")}]`}
-                    </td>
+                    <td>{g.winnerName}</td>
                     <td>[{g.playerNames.join(", ")}]</td>
                     <td>{g.buyIn}</td>
                     <td>[{g.rewards}]</td>

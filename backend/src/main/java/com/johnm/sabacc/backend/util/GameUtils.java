@@ -26,7 +26,7 @@ public class GameUtils {
         return allCards;
     }
 
-    public static int[] rollImposterDice() {
+    public static int[] roll2d6() {
         return new int[]{
                 (int) (Math.random() * 6) + 1,
                 (int) (Math.random() * 6) + 1

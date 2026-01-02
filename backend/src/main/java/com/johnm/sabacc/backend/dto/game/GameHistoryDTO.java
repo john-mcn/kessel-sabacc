@@ -7,15 +7,15 @@ import java.util.List;
 public class GameHistoryDTO {
     private Integer id;
     private List<String> playerNames;
-    private List<String> winnerNames;
+    private String winnerName;
     private int buyIn;
     private int chipsPerPlayer;
     private List<String> rewards;
 
-    public GameHistoryDTO(Integer id, List<String> playerNames, List<String> winnerNames, int buyIn, int chipsPerPlayer, List<String> rewards) {
+    public GameHistoryDTO(Integer id, List<String> playerNames, String winnerName, int buyIn, int chipsPerPlayer, List<String> rewards) {
         this.id = id;
         this.playerNames = playerNames;
-        this.winnerNames = winnerNames;
+        this.winnerName = winnerName;
         this.buyIn = buyIn;
         this.chipsPerPlayer = chipsPerPlayer;
         this.rewards = rewards;
@@ -27,8 +27,8 @@ public class GameHistoryDTO {
     public List<String> getPlayerNames() { return playerNames; }
     public void setPlayerNames(List<String> playerNames) { this.playerNames = playerNames; }
 
-    public List<String> getWinnerNames() { return winnerNames; }
-    public void setWinnerNames(List<String> winnerNames) { this.winnerNames = winnerNames; }
+    public String getWinnerName() { return winnerName; }
+    public void setWinnerName(String winnerName) { this.winnerName = winnerName; }
 
     public int getBuyIn() { return buyIn; }
     public void setBuyIn(int buyIn) { this.buyIn = buyIn; }
@@ -42,7 +42,7 @@ public class GameHistoryDTO {
     public GameHistory toEntity() {
         GameHistory gameHistory  = new GameHistory(
                 playerNames,
-                winnerNames,
+                winnerName,
                 buyIn,
                 chipsPerPlayer,
                 rewards);

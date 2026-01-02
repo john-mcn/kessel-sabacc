@@ -1,31 +1,31 @@
 package com.johnm.sabacc.backend.domain.game;
 
-import com.johnm.sabacc.backend.domain.game.components.ShiftToken;
 import com.johnm.sabacc.backend.domain.player.Person;
 import com.johnm.sabacc.backend.domain.player.Player;
 import com.johnm.sabacc.backend.exceptions.IllegalActionException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class SabaccGame {
     private List<Person> peopleToPlay;
     private int buyIn;
     private int chipsPerPlayer;
     private List<String> rewards; //TODO change
-    private List<Person> winners;
+    private Player winner;
     private List<GameRound> rounds;
     private List<Player> players;
+    private int roundNumber;
 
     public SabaccGame() {}
 
     public SabaccGame(List<Person> peopleToPlay, int buyIn, int chipsPerPlayer, List<String> rewards) {
         this.peopleToPlay = peopleToPlay;
-        rounds = null;
+        // rounds = null;
         this.buyIn = buyIn;
         this.chipsPerPlayer = chipsPerPlayer;
         this.rewards = rewards;
+        roundNumber = 0;
     }
 
     public List<Person> getPeopleToPlay() { return peopleToPlay; }
@@ -36,6 +36,9 @@ public class SabaccGame {
     public List<GameRound> getRounds() { return rounds; }
     public void  setRounds(List<GameRound> rounds) { this.rounds = rounds; }
 
+    public int getRoundNumber() { return roundNumber; }
+    public void setRoundNumber(int roundNumber) { this.roundNumber = roundNumber; }
+
     public int getBuyIn() { return buyIn; }
     public void setBuyIn(int buyIn) { this.buyIn = buyIn; }
 
@@ -45,8 +48,8 @@ public class SabaccGame {
     public List<String> getRewards() { return rewards; }
     public void setRewards(List<String> rewards) { this.rewards = rewards; }
 
-    public List<Person> getWinners() { return winners; }
-    public void setWinners(List<Person> winners) { this.winners = winners; }
+    public Player getWinner() { return winner; }
+    public void setWinner(Player winner) { this.winner = winner; }
 
     public void setup() {
         final int TOKEN_AMOUNT = 3;
@@ -58,32 +61,34 @@ public class SabaccGame {
                 throw new IllegalActionException(p.getName() + " has insufficient credits to play.");
             }
             p.setCredits(p.getCredits() - buyIn);
-            // Player player = new Player(p.getName(), p.getCredits(), p.getTokens(), null, new ShiftToken[3]);
-            Player player = new Player(p.getName(), null, null);
+            Player newPlayer = new Player(p.getName(), null, null);
 
-            player.setSelectedTokens(p.getTokens());
-
-            players.add(player);
+            newPlayer.setSelectedTokens(p.getTokens());
+            players.add(newPlayer);
         }
 
         for (Player player : players) {
             player.setStock(chipsPerPlayer);
         }
+
+        roundNumber = 1;
     }
 
-    // public List<Person> runGame() {
-    //     setup();
-    //
-    //     List<Player> winningPlayers = new ArrayList<>();
-    //     while (players.stream().anyMatch(p -> p.getStock() > 0)) {
-    //         GameRound newRound = new GameRound(this);
-    //
-    //         winningPlayers = newRound.runFullRound();
-    //     }
-    //
-    //     winners = winningPlayers.stream().map(p -> (Person) p).toList();
-    //
-    //     System.out.println("!!!WINNERS=" + winners.toString() + "!!!");
-    //     return winners;
-    // }
+    public void endGame() {
+        winner = players.stream().filter(p -> p.getStock() > 0).toList().get(0);
+        winner.setCredits(buyIn * players.size());
+        //Give winner rewards
+    }
+
+    public GameHistory toGameHistory() {
+        GameHistory gameHistory = new GameHistory(
+                players.stream().map(Player::getName).toList(),
+                winner.getName(),
+                buyIn,
+                chipsPerPlayer,
+                rewards
+        );
+
+        return gameHistory;
+    }
 }

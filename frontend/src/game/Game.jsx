@@ -39,16 +39,7 @@ const Game = ({ client }) => {
             <>
                 <BackButton/>
                 <h1>Game {game.id}</h1>
-                <h4><b>Winner/s:</b> {game.winnerNames.length === 1
-                    ? <PlayerLink name={game.winnerNames}/>
-                    : (<>
-                        [{game.winnerNames.map((name, index) => (
-                            <span key={name}>
-                                <PlayerLink name={name} />
-                                {index < game.winnerNames.length - 1 && ", "}
-                            </span>
-                        ))}]
-                    </>)}
+                <h4><b>Winner:</b> {<PlayerLink name={game.winnerName} />}
                 </h4>
                 <h5>Winner pot: {game.buyIn * game.playerNames.length} ({game.buyIn} buy-in)</h5>
                 <hr/>

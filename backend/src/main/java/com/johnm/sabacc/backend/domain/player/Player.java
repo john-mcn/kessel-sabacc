@@ -56,11 +56,18 @@ public class Player extends Person {
         }
     }
 
+    // Remove n chips from player stock
+    public int tax(int taxAmnt) {
+        int amntToRemove = Math.min(taxAmnt, stock);
+        stock -= amntToRemove;
+        return amntToRemove;
+    }
+
     public PlayerDTO toDTO() {
-        System.err.println("Entity: " + tokens);
         PlayerDTO playerDTO = new PlayerDTO(
                 name,
-                (tokens == null)? new ArrayList<>() : tokens.stream().map(t -> EnumUtils.sanitiseStringFromEnum(t.name())).toList(),
+                // (selectedTokens == null || selectedTokens.isEmpty())? new ArrayList<>() : selectedTokens.stream().map(t -> (t == null)? null : EnumUtils.sanitiseStringFromEnum(t.name())).toList(),
+                (selectedTokens == null || selectedTokens.isEmpty())? new ArrayList<>() : selectedTokens.stream().map(t -> (t == null)? null : EnumUtils.capitaliseEachWordFromEnum(t.name())).toList(),
                 stock,
                 pot
         );

@@ -32,6 +32,14 @@ public class PlayerHand {
         sandCard = new Card(CardFamily.SAND, rank);
     }
 
+    // Sabacc if cards are the same rank, or one is a Sylop
+    public boolean isSabacc() {
+        return bloodCard.getRank().equals(sandCard.getRank())
+                || (bloodCard.isSylop() || sandCard.isSylop());
+    }
+
+    public int rankDifference() { return bloodCard.rankDifference(sandCard); }
+
     // Change the existing card of the matching family to the new card, and return the previous card
     public Card swapCard(Card newCard) {
         Card prevCard = null;
@@ -56,5 +64,13 @@ public class PlayerHand {
     @Override
     public String toString() {
         return "{" + bloodCard + ", " + sandCard + "}";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PlayerHand playerHand = (PlayerHand) o;
+        return playerHand.getBloodCard().equals(bloodCard) && playerHand.getSandCard().equals(sandCard);
     }
 }
