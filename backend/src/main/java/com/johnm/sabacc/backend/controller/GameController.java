@@ -6,6 +6,7 @@ import com.johnm.sabacc.backend.domain.player.Person;
 import com.johnm.sabacc.backend.domain.player.Player;
 import com.johnm.sabacc.backend.dto.game.ActionRequestDTO;
 import com.johnm.sabacc.backend.dto.game.GameStateDTO;
+import com.johnm.sabacc.backend.dto.game.ResolveImposterDTO;
 import com.johnm.sabacc.backend.dto.player.PlayerDTO;
 import com.johnm.sabacc.backend.exceptions.EntityNotFoundException;
 import com.johnm.sabacc.backend.exceptions.IllegalActionException;
@@ -62,6 +63,11 @@ public class GameController {
                 .orElseThrow(() -> new EntityNotFoundException("No game in progress"));
     }
 
+    @PostMapping("/resolve-imposters")
+    public ResponseEntity<?> resolveImposter(@RequestBody List<ResolveImposterDTO> dtos) {
+        manager.resolveImposter(dtos);
+        return ResponseEntity.ok().build();
+    }
 
     @PostMapping("/reset")
     public ResponseEntity<?> reset() {

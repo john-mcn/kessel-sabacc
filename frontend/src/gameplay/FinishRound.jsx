@@ -69,6 +69,7 @@ const FinishRound = ({ client }) => {
                     <li>{game.rewards}</li>
                 </ul>
                 <hr/>
+                <p>Best Sabacc: {game.bestSabacc? game.bestSabacc : "Sylop"}</p>
 
                 <h4><span style={{color: "gray"}}>End of Round Results</span></h4>
                 <Table bordered>
@@ -77,6 +78,7 @@ const FinishRound = ({ client }) => {
                         <th>Name</th>
                         <th>Hand</th>
                         <th>Stock</th>
+                        <th>Chip gain/loss</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -84,6 +86,7 @@ const FinishRound = ({ client }) => {
                         <td>{p.name}</td>
                         <td>{p.hand[0].family} {p.hand[0].rank}, {p.hand[1].family} {p.hand[1].rank}</td>
                         <td>{p.stock}</td>
+                        <td>{p.chipDifference}</td>
                     </tr>)}
                     </tbody>
                 </Table>

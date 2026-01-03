@@ -5,6 +5,7 @@ import {Form, FormControl, FormLabel, FormSelect} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 
 const StartGame = ({ client }) => {
+    const [game, setGame] = useState(null);
     const [errors, setErrors] = useState([]);
     const nav = useNavigate();
 
@@ -21,6 +22,12 @@ const StartGame = ({ client }) => {
             }).catch(error => {
             // setError(error)
             console.log(error)
+        });
+        client.getGameInProgress()
+            .then(response => {
+                setGame(response.data);
+            }).catch(error => {
+            console.log(error.response.data.message? error.response.data.message : error.message);
         });
     }, [client]);
 
@@ -45,6 +52,7 @@ const StartGame = ({ client }) => {
             chipsPerPlayer: chipsPerPlayer,
             rewards: rewards
         };
+        console.log(payload)
 
         // if (!winnerNames.every(n => players.includes(n))) {
         //     currentErrors.push(winnersArePlayersMsg);
@@ -55,11 +63,13 @@ const StartGame = ({ client }) => {
                 .then((response) => {
                     nav(`/play`)
                 })
-                .catch((e) => console.log(e));
+                .catch((error) => console.log(error.response.data.message? error.response.data.message : error.message));
         } else {
             setErrors(currentErrors)
         }
     };
+
+    if (game && !game.winner) { nav(`/play`) }
 
     return (
         <>

@@ -94,8 +94,15 @@ const PlayGame = ({ client }) => {
 
     // Show imposter rank (MAJOR_FRAUD)
     if (game) {
+        const roundEnded = game.turnNumber > 3 || game.inStand.length == game.players.length;
         if (game.winner) { nav(`/play/summary`); }
-        // if (game.turnNumber > 3) { nav(`/play/reveal`); }
+        if (roundEnded) {
+            if (!game.impostersResolved) {
+                nav(`/play/reveal`);
+            } else {
+                nav(`/play/round-summary`)
+            }
+        }
         if (game.roundWinners) { nav(`/play/round-summary`); }
 
         const playerNames = game.players.map(p => p.name);
@@ -113,6 +120,7 @@ const PlayGame = ({ client }) => {
                         <th>Name</th>
                         <th>Stock</th>
                         <th>Pot</th>
+                        <th>Chip gain/loss</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -120,6 +128,7 @@ const PlayGame = ({ client }) => {
                         <td>{p.name}</td>
                         <td>{p.stock}</td>
                         <td>{p.pot}</td>
+                        <td>{p.chipDifference >=0? `+${p.chipDifference}` : `${p.chipDifference}`}</td>
                     </tr>)}
                     </tbody>
                 </Table>

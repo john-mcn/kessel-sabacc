@@ -16,6 +16,7 @@ public class Player extends Person {
     private Card drawnCard;
     private List<ShiftToken> selectedTokens;
     private int stock, pot;
+    private Integer chipDifference;
 
     // Full constructor, used for DTO -> entity conversion
     public Player(String name, PlayerHand hand, List<ShiftToken> selectedTokens, int stock, int pot) {
@@ -24,6 +25,7 @@ public class Player extends Person {
         this.selectedTokens = selectedTokens;
         this.stock = stock;
         this.pot = pot;
+        chipDifference = 0;
     }
 
     // Constructor that sets stock and pot to 0, used for initial creation
@@ -46,11 +48,15 @@ public class Player extends Person {
     public int getPot() { return pot; }
     public void setPot(int pot) { this.pot = pot; }
 
+    public int getChipDifference() { return chipDifference; }
+    public void setChipDifference(int chipDifference) { this.chipDifference = chipDifference; }
+
     // Remove 1 chip from stock and add it to pot
     public void spendChip() {
         if (stock > 0) {
             stock--;
             pot++;
+            chipDifference--;
         } else {
             throw new IllegalActionException("INSUFFICIENT CHIPS");
         }
@@ -60,6 +66,7 @@ public class Player extends Person {
     public int tax(int taxAmnt) {
         int amntToRemove = Math.min(taxAmnt, stock);
         stock -= amntToRemove;
+        chipDifference -= amntToRemove;
         return amntToRemove;
     }
 
@@ -71,6 +78,7 @@ public class Player extends Person {
                 stock,
                 pot
         );
+        playerDTO.setChipDifference(chipDifference);
 
         if (hand != null) { playerDTO.setHand(List.of(hand.getBloodCard().toDTO(), hand.getSandCard().toDTO())); }
         if (drawnCard != null) { playerDTO.setDrawnCard(drawnCard.toDTO()); }

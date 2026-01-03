@@ -24,9 +24,6 @@ public class GameRound {
     // Final
     private List<Player> finalOrder;
     private List<Player> winners;
-    private boolean impostersResolved;
-    // Temporary
-    private List<Integer> numbersRolled;
 
     public GameRound() {}
 
@@ -42,7 +39,6 @@ public class GameRound {
         currPlayerIndex = 0;
         turnNumber = 0;
         inStand = new HashSet<>();
-        impostersResolved = false;
     }
 
     public List<Player> getPlayers() { return players; }
@@ -78,12 +74,11 @@ public class GameRound {
     public List<Player> getWinners() { return winners; }
     public void setWinners(List<Player> winners) { this.winners = winners; }
 
-    public boolean getImpostersResolved() { return impostersResolved; }
-    public void setImpostersResolved(boolean impostersResolved) { this.impostersResolved = impostersResolved; }
-
-    // Temporary info
-    public List<Integer> getNumbersRolled() { return numbersRolled; }
-    public void setNumbersRolled(List<Integer> numbersRolled) { this.numbersRolled = numbersRolled; }
+    public boolean roundEnded() { return turnNumber > 3 || inStand.size() == players.size(); }
+    // If imposters have been resolved (and inherently if round has ended)
+    public boolean impostersResolved() {
+        return roundEnded() && players.stream().map(Player::getHand).noneMatch(PlayerHand::hasImposter);
+    }
 
     public void setup() {
         List<Card> fullDeck = GameUtils.fullDeck();
@@ -101,6 +96,7 @@ public class GameRound {
             Card bloodCard = bloodCards.remove(0);
             Card sandCard = sandCards.remove(1);
             player.setHand(new PlayerHand(bloodCard, sandCard));
+            player.setChipDifference(0);
         }
 
         bloodDraw = bloodCards;
@@ -168,7 +164,7 @@ public class GameRound {
             currPlayerIndex++;
         }
 
-        if (turnNumber == 4) {
+        if (roundEnded()) {
             revealCards();
         }
     }
@@ -194,10 +190,10 @@ public class GameRound {
         Card drawn = player.getDrawnCard();
         if (swapWithHand) {
             Card swappedWith = player.getHand().swapCard(player.getDrawnCard());
-            discardPile.add(swappedWith);
+            discardPile.add(0, swappedWith);
             System.out.println("swapped");
         } else {
-            discardPile.add(drawn);
+            discardPile.add(0, drawn);
             System.out.println("discarded");
         }
         player.setDrawnCard(null);
@@ -232,6 +228,7 @@ public class GameRound {
                 for (Player p : players) {
                     // Take 1 (or 0) from player's pot
                     amntToAdd += Math.min(1, p.getPot());
+                    p.setChipDifference(p.getChipDifference() -  amntToAdd);
                     if (p.getPot() > 0) { p.setPot(p.getPot() - 1); }
                 }
                 player.setPot(player.getPot() + amntToAdd);
@@ -241,6 +238,7 @@ public class GameRound {
                 amntToAdd = Math.min(player.getPot(), 2);
                 player.setStock(player.getStock() + amntToAdd);
                 player.setPot(player.getPot() - amntToAdd);
+                player.setChipDifference(player.getChipDifference() + amntToAdd);
                 System.out.println("Retrieved " + amntToAdd);
                 break;
             case EXTRA_REFUND: //TODO repeated code
@@ -248,6 +246,7 @@ public class GameRound {
                 amntToAdd = Math.min(player.getPot(), 3);
                 player.setStock(player.getStock() + amntToAdd);
                 player.setPot(player.getPot() - amntToAdd);
+                player.setChipDifference(player.getChipDifference() + amntToAdd);
                 System.out.println("Retrieved " + amntToAdd);
                 break;
             case GENERAL_AUDIT:
@@ -260,6 +259,7 @@ public class GameRound {
                 break;
             case PRIME_SABACC:
                 // Roll 2 (d6) dice, pick one value as the new best Sabacc
+                //NOTE frontend handles dice rolling and picking value
                 tokensActive.add(selected);
                 bestSabacc = CardRank.fromInt(action.getSelectedValue());
                 break;
@@ -289,65 +289,44 @@ public class GameRound {
 
     public List<Player> revealCards() {
         System.out.println("\n=== Reveal phase ===");
-        if (!impostersResolved && players.stream().map(Player::getHand).anyMatch(h -> h.getBloodCard().isImposter() || h.getSandCard().isImposter())) {
+        if (!impostersResolved()) {
             System.err.println("Imposters not resolved");
-            throw new IllegalActionException("Imposters not resolved");
-        }
+            // throw new IllegalActionException("Imposters not resolved");
+            return null;
+        } else {
+            for (Player player : players) {
+                System.out.println("Player '" + player.getName() + "' hand=" + player.getHand());
+            }
 
-        for (Player player : players) {
-            PlayerHand playerHand = player.getHand();
+            winners = findWinners();
 
-            // Determine Imposter values
-            if (playerHand.getBloodCard().isImposter()) {
-                if (imposterValue == null) {
-                    int[] diceVals = GameUtils.roll2d6();
-                    System.out.println("Imposter dice rolled: " + Arrays.toString(diceVals));
-                    //TODO for now just select the lowest of the two
-                    playerHand.setBloodCard(CardRank.fromInt(Math.min(diceVals[0], diceVals[1])));
+            //NOTE accounts for sylops?
+            for (Player player : players) {
+                // Winners retrieve all invested chips
+                if (winners.contains(player)) {
+                    player.setStock(player.getStock() + player.getPot());
+                    player.setChipDifference(player.getChipDifference() + player.getPot());
+                    // Losers with Sabacc hand lose 1 chip
+                } else if (player.getHand().isSabacc()) {
+                    if (player.getStock() > 0) {
+                        player.spendChip();
+                    }
+                    // Losers without Sabacc hand lose chips equal to rank difference
                 } else {
-                    playerHand.setBloodCard(CardRank.fromInt(imposterValue));
+                    int rankDiff = player.getHand().rankDifference();
+                    int toLose = Math.min(rankDiff, player.getStock());
+                    player.setStock(player.getStock() - toLose);
+                    player.setChipDifference(player.getChipDifference() - toLose);
                 }
-            }
-            if (playerHand.getSandCard().isImposter()) {
-                if (imposterValue == null) {
-                    int[] diceVals = GameUtils.roll2d6();
-                    System.out.println("Imposter d rolled: " + Arrays.toString(diceVals));
-                    // TODO for now just select the lowest of the two
-                    playerHand.setSandCard(CardRank.fromInt(Math.min(diceVals[0], diceVals[1])));
-                } else {
-                    playerHand.setSandCard(CardRank.fromInt(imposterValue));
-                }
+
+                player.setPot(0);
             }
 
-            imposterValue = null;
-            tokensActive = null;
+            game.setRoundNumber(game.getRoundNumber() + 1);
+            finalOrder = sortPlayers();
 
-            System.out.println("Player '" + player.getName() + "' hand=" + player.getHand());
+            return winners;
         }
-
-        //NOTE accounts for sylops?
-        PlayerHand winningHand = findWinners().get(0).getHand();
-        for  (Player player : players) {
-            // Winners retrieve all invested chips
-            if (player.getHand().equals(winningHand)) {
-                player.setStock(player.getStock() + player.getPot());
-            // Losers with Sabacc hand lose 1 chip
-            } else if (player.getHand().isSabacc()) {
-                if (player.getStock() > 0) { player.spendChip(); }
-            // Losers without Sabacc hand lose chips equal to rank difference
-            } else {
-                int rankDiff = player.getHand().rankDifference();
-                player.setStock(Math.max(player.getStock() - rankDiff, 0));
-            }
-
-            player.setPot(0);
-        }
-
-        game.setRoundNumber(game.getRoundNumber() + 1);
-        finalOrder = sortPlayers();
-        winners = findWinners();
-
-        return winners;
     }
 
     //TODO account for token effects (tokensActive)
@@ -365,6 +344,22 @@ public class GameRound {
         List<Player> winners = new ArrayList<>(sortedPlayers.stream().filter(p -> playerComparator.compare(p, winner) == 0).toList());
 
         return winners;
+    }
+
+    public void resolveImposter(Player player, List<Card> toReplace) {
+        PlayerHand playerHand = player.getHand();
+        if (playerHand.getBloodCard().isImposter()) {
+            Card toReplaceBlood = toReplace.stream().filter(Card::isBlood).findFirst()
+                    .orElseThrow(() -> new IllegalArgumentException("Missing blood replacement for player " + player.getName()));
+            playerHand.setBloodCard(toReplaceBlood.getRank());
+        }
+        if (playerHand.getSandCard().isImposter()) {
+            Card toReplaceSand = toReplace.stream().filter(Card::isSand).findFirst()
+                    .orElseThrow(() -> new IllegalArgumentException("Missing sand replacement for player " + player.getName()));
+            playerHand.setSandCard(toReplaceSand.getRank());
+        }
+
+        System.err.println("Player hand after resolving: " + player.getHand());
     }
 
     //TODO expand

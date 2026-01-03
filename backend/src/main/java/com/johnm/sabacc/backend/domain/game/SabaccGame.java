@@ -51,6 +51,10 @@ public class SabaccGame {
     public Player getWinner() { return winner; }
     public void setWinner(Player winner) { this.winner = winner; }
 
+    public List<Player> playersInGame() {
+        return players.stream().filter(p -> p.getStock() > 0).toList();
+    }
+
     public void setup() {
         final int TOKEN_AMOUNT = 3;
 

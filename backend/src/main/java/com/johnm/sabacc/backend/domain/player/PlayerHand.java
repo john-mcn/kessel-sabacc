@@ -38,7 +38,17 @@ public class PlayerHand {
                 || (bloodCard.isSylop() || sandCard.isSylop());
     }
 
+    public boolean hasImposter() {
+        return bloodCard.isImposter() | sandCard.isImposter();
+    }
+
     public int rankDifference() { return bloodCard.rankDifference(sandCard); }
+
+    // To determine if hands are the same for winning (same card or non-Sabacc and same rank (even if swapped)
+    public boolean sameAs(PlayerHand other) {
+        return this.equals(other)
+                || bloodCard.getRank().equals(other.sandCard.getRank()) && sandCard.getRank().equals(other.sandCard.getRank());
+    }
 
     // Change the existing card of the matching family to the new card, and return the previous card
     public Card swapCard(Card newCard) {
