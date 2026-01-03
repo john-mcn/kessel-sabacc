@@ -79,7 +79,6 @@ public class GameManager {
         lock.lock();
         try {
             if (currentRound == null) {
-                System.err.println("CURRENT ROND NULL");
                 throw new IllegalStateException("No round in progress");
             }
             // find player by name
@@ -97,13 +96,6 @@ public class GameManager {
             // delegate to GameRound with action DTO
             currentRound.performAction(request);
 
-            // if (currentRound.roundEnded()) {
-            //     System.err.println("ROUND ENDED");
-            //     currentRound.revealCards();
-            //     if (currentGame.playersInGame().size() == 1) {
-            //         endGame();
-            //     }
-            // }
             if (currentRound.roundEnded()){
                 if (currentGame.playersInGame().size() == 1) {
                     endGame();
@@ -132,7 +124,7 @@ public class GameManager {
             boolean impostersLeft = currentRound.getPlayers().stream().anyMatch(p ->
                     p.getHand().getBloodCard().isImposter() || p.getHand().getSandCard().isImposter());
             if (impostersLeft) {
-                System.err.println("Imposters not resolved");
+                // System.err.println("Imposters not resolved");
                 return;
             }
             if (currentRound.impostersResolved()) {
@@ -149,10 +141,9 @@ public class GameManager {
     public GameStateDTO endGame() {
         lock.lock();
         try {
-            System.err.println("===END GAME===");
-            System.out.println("Players stock>0" + currentGame.getPlayers().stream().filter(p -> p.getStock() > 0).toList());
+            System.out.println("===END GAME===");
             currentGame.endGame();
-            System.err.println("Winner: " +  currentGame.getWinner());
+            System.out.println("Winner: " +  currentGame.getWinner());
             GameHistory gameHistory = currentGame.toGameHistory();
             gameHistoryService.createGame(gameHistory);
             return GameStateDTO.fromEntities(currentGame, currentRound);

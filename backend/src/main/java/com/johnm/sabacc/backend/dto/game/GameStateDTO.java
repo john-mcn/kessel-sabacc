@@ -32,20 +32,6 @@ public class GameStateDTO {
 
     public GameStateDTO() {}
 
-    public GameStateDTO(List<PlayerDTO> players, int chipsPerPlayer, int buyIn, CardDTO bloodDiscardTop, CardDTO sandDiscardTop, List<String> inStand) {
-        this.players = players;
-        this.chipsPerPlayer = chipsPerPlayer;
-        this.buyIn = buyIn;
-        currPlayerIndex = 0;
-        turnNumber = 0;
-        roundNumber = 0;
-        this.bloodDiscardTop = bloodDiscardTop;
-        this.sandDiscardTop = sandDiscardTop;
-        this.inStand = inStand;
-        bestSabacc = CardRank.SYLOP.toString();
-        System.err.println("IS THIS EVER USED?");
-    }
-
     public GameStateDTO(List<PlayerDTO> players, int chipsPerPlayer, int buyIn, int currPlayerIndex, int turnNumber, int roundNumber, CardDTO bloodDiscardTop, CardDTO sandDiscardTop, List<String> inStand) {
         this.players = players;
         this.chipsPerPlayer = chipsPerPlayer;
