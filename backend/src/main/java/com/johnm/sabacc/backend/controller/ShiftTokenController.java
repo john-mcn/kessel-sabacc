@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/tokens")
+@RequestMapping("/api/tokens")
 public class ShiftTokenController {
     private ShiftTokenService shiftTokenService;
 
