@@ -6,15 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f2654150-cc4f-477f-8a0a-56283fa98a30" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/game/GameRound.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/game/GameRound.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/player/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/player/PlayerHand.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/player/PlayerHand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/dto/game/GameStateDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/dto/game/GameStateDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/dto/player/PlayerDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/dto/player/PlayerDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/gameplay/FinishGame.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/gameplay/FinishGame.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/gameplay/FinishRound.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/gameplay/FinishRound.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/gameplay/PlayGame.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/gameplay/PlayGame.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/gameplay/StartGame.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/gameplay/StartGame.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +92,7 @@
       <workItem from="1767196276397" duration="495000" />
       <workItem from="1767196788635" duration="28999000" />
       <workItem from="1767260774686" duration="41238000" />
-      <workItem from="1767348989531" duration="46904000" />
+      <workItem from="1767348989531" duration="47869000" />
     </task>
     <servers />
   </component>
