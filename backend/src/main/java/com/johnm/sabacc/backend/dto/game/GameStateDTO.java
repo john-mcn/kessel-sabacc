@@ -32,6 +32,7 @@ public class GameStateDTO {
 
     public GameStateDTO() {}
 
+    //NOTE used for React
     public GameStateDTO(List<PlayerDTO> players, int chipsPerPlayer, int buyIn, CardDTO bloodDiscardTop, CardDTO sandDiscardTop, List<String> inStand) {
         this.players = players;
         this.chipsPerPlayer = chipsPerPlayer;
@@ -43,7 +44,6 @@ public class GameStateDTO {
         this.sandDiscardTop = sandDiscardTop;
         this.inStand = inStand;
         bestSabacc = CardRank.SYLOP.toString();
-        System.err.println("IS THIS EVER USED?");
     }
 
     public GameStateDTO(List<PlayerDTO> players, int chipsPerPlayer, int buyIn, int currPlayerIndex, int turnNumber, int roundNumber, CardDTO bloodDiscardTop, CardDTO sandDiscardTop, List<String> inStand) {

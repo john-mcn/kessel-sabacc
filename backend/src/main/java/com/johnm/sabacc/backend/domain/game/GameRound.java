@@ -290,7 +290,6 @@ public class GameRound {
     public List<Player> revealCards() {
         System.out.println("\n=== Reveal phase ===");
         if (!impostersResolved()) {
-            System.err.println("Imposters not resolved");
             // throw new IllegalActionException("Imposters not resolved");
             return null;
         } else {
@@ -359,7 +358,7 @@ public class GameRound {
             playerHand.setSandCard(toReplaceSand.getRank());
         }
 
-        System.err.println("Player hand after resolving: " + player.getHand());
+        System.out.println("Player hand after resolving: " + player.getHand());
     }
 
     //TODO expand

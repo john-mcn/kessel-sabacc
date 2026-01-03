@@ -59,7 +59,6 @@ public class PlayerDTO {
     public void setChipDifference(int chipDifference) { this.chipDifference = chipDifference; }
 
     public Player toEntity() {
-        System.err.println("DTO: " + tokens);
         PlayerHand handEntity = new PlayerHand(
                 CardRank.fromString(hand.get(0).getRank()),
                 CardRank.fromString(hand.get(1).getRank()));

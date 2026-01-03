@@ -38,10 +38,6 @@ public class SabaccBackendApplication {
             for (Person person : people) {
                 playerService.createPlayer(person);
             }
-
-            GameHistory testGame = new GameHistory(people.stream().map(Person::getName).toList(), null, 150, 6, List.of("N/A"));
-            testGame.setWinnerNames(people.get(0).getName());
-            gameHistoryService.createGame(testGame);
         };
     }
 

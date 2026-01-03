@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/play")
+@RequestMapping("/api/play")
 public class GameController {
     private final GameManager manager;
     private final PlayerService playerService;
