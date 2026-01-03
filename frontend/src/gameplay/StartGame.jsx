@@ -47,7 +47,6 @@ const StartGame = ({ client }) => {
 
         const payload = {
             players: players,
-            // winnerNames: winnerNames,
             buyIn: buIn,
             chipsPerPlayer: chipsPerPlayer,
             rewards: rewards

@@ -5,21 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f2654150-cc4f-477f-8a0a-56283fa98a30" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/controller/SpaController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/resources/static/Rules.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/resources/static/assets/index-C__lcDoi.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/resources/static/favicon.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/resources/static/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/backend/src/main/resources/data/sabacc-db.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/backend/backend/src/main/resources/data/sabacc-db.mv.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/controller/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/controller/GameHistoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/controller/GameHistoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/controller/PlayerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/controller/PlayerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/controller/ShiftTokenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/controller/ShiftTokenController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/SabaccBackendApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/SabaccBackendApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/dto/game/GameStateDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/dto/game/GameStateDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/resources/data/sabacc-db.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/data/sabacc-db.mv.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/favicon.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/start.bat" beforeDir="false" afterPath="$PROJECT_DIR$/start.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/static/Rules.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/static/assets/index-C__lcDoi.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/static/assets/index-DCXHipPO.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/static/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/static/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/gameplay/StartGame.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/gameplay/StartGame.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/start-dev.bat" beforeDir="false" afterPath="$PROJECT_DIR$/start-dev.bat" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +108,7 @@
       <workItem from="1767260774686" duration="41238000" />
       <workItem from="1767348989531" duration="48438000" />
       <workItem from="1767441919072" duration="2000" />
-      <workItem from="1767441942010" duration="4484000" />
+      <workItem from="1767441942010" duration="5940000" />
     </task>
     <servers />
   </component>
