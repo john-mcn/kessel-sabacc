@@ -6,6 +6,7 @@ import com.johnm.sabacc.backend.domain.game.SabaccGame;
 import com.johnm.sabacc.backend.domain.player.Person;
 import com.johnm.sabacc.backend.domain.player.Player;
 import com.johnm.sabacc.backend.domain.player.PlayerHand;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -15,13 +16,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GameRoundTest {
-
+    
     @Test
     void testSetup() {
         List<Person> people = List.of(
-                new Player("One", 100, null, null, null),
-                new Player("Two", 100, null, null, null),
-                new Player("Three", 100, null, null, null));
+                new Person("One", 100, null),
+                new Person("Two", 100, null),
+                new Person("Three", 100, null));
         SabaccGame testGame = new SabaccGame(people, 50, 4, null);
         testGame.setup();
         GameRound testRound = new GameRound(testGame);
@@ -49,9 +50,9 @@ public class GameRoundTest {
     @Test
     void testSortPlayers() {
         List<Person> people = List.of(
-                new Player("One", 100, null, null, null),
-                new Player("Two", 100, null, null, null),
-                new Player("Three", 100, null, null, null)
+                new Person("One", 100, null),
+                new Person("Two", 100, null),
+                new Person("Three", 100, null)
         );
         SabaccGame testGame = new SabaccGame(people, 50, 4, null);
         testGame.setup();
@@ -68,9 +69,9 @@ public class GameRoundTest {
     @Test
     void findWinners_shouldFindWinner() {
         List<Person> people = List.of(
-                new Player("One", 100, null, null, null),
-                new Player("Two", 100, null, null, null),
-                new Player("Three", 100, null, null, null)
+                new Person("One", 100, null),
+                new Person("Two", 100, null),
+                new Person("Three", 100, null)
         );
         SabaccGame testGame = new SabaccGame(people, 50, 4, null);
         testGame.setup();
@@ -87,13 +88,13 @@ public class GameRoundTest {
 
         assertTrue(winnersCorrect, "Correct winner should be found");
     }
-
+    
     @Test
     void findWinners_shouldFindWinners() {
         List<Person> people = List.of(
-                new Player("One", 100, null, null, null),
-                new Player("Two", 100, null, null, null),
-                new Player("Three", 100, null, null, null)
+                new Person("One", 100, null),
+                new Person("Two", 100, null),
+                new Person("Three", 100, null)
         );
         SabaccGame testGame = new SabaccGame(people, 50, 4, null);
         testGame.setup();

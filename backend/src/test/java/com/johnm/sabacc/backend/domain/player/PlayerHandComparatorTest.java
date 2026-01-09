@@ -27,6 +27,22 @@ public class PlayerHandComparatorTest {
     }
 
     @Test
+    void pureSabacc_shouldBeatPrime() {
+        PlayerHandComparator comparator2 = new PlayerHandComparator(CardRank.FOUR);
+
+        PlayerHand hand1 = new PlayerHand(
+                new Card(CardFamily.BLOOD, CardRank.SYLOP),
+                new Card(CardFamily.SAND, CardRank.SYLOP));
+        PlayerHand hand2 = new PlayerHand(
+                new Card(CardFamily.BLOOD, CardRank.SYLOP),
+                new Card(CardFamily.SAND, CardRank.FOUR));
+
+        int comparison = comparator2.compare(hand1, hand2);
+
+        assertTrue(comparison < 0, "Pure Sabacc should win against Prime Sabacc");
+    }
+
+    @Test
     void impureSylopSabacc_shouldEqualNormalSabacc() {
         PlayerHand hand1 = new PlayerHand(
                 new Card(CardFamily.BLOOD, CardRank.SYLOP),
@@ -105,28 +121,11 @@ public class PlayerHandComparatorTest {
                 new Card(CardFamily.SAND, CardRank.FOUR));
         PlayerHand hand2 = new PlayerHand(
                 new Card(CardFamily.BLOOD, CardRank.SYLOP),
-                new Card(CardFamily.SAND, CardRank.SYLOP));
-
-        int comparison = comparator2.compare(hand1, hand2);
-        System.out.println(comparison);
-
-        assertTrue(comparison < 0, "Best Sabacc should win");
-    }
-
-    @Test
-    void sylopSabaccWithBestSabacc_shouldWin() {
-        PlayerHandComparator comparator2 = new PlayerHandComparator(CardRank.FOUR);
-
-        PlayerHand hand1 = new PlayerHand(
-                new Card(CardFamily.BLOOD, CardRank.SYLOP),
-                new Card(CardFamily.SAND, CardRank.SYLOP));
-        PlayerHand hand2 = new PlayerHand(
-                new Card(CardFamily.BLOOD, CardRank.ONE),
                 new Card(CardFamily.SAND, CardRank.ONE));
 
         int comparison = comparator2.compare(hand1, hand2);
         System.out.println(comparison);
 
-        assertTrue(comparison < 0, "Sylop Sabacc should win (over numerical Sabacc) with best Sabacc");
+        assertTrue(comparison < 0, "Best Sabacc should win");
     }
 }

@@ -28,7 +28,14 @@ public class PlayerHandComparator implements Comparator<PlayerHand> {
         boolean hand1Sabacc = hand1Same || (card1b.isSylop() || card1s.isSylop());
         boolean hand2Sabacc = hand2Same || (card2b.isSylop() || card2s.isSylop());
 
-        // Best Sabacc will always win
+        // Prime Sabacc is an unbeatable hand
+        boolean hand1Prime = hand1Same && card1b.isSylop();
+        boolean hand2Prime = hand2Same && card2b.isSylop();
+        if (hand1Prime && hand2Prime) { return 0; }
+        else if (hand1Prime && !hand2Prime) { return -1; }
+        else if (!hand1Prime && hand2Prime) { return 1; }
+
+        // Otherwise, best Sabacc will always win
         boolean hand1Best = (bestSabacc.equals(CardRank.SYLOP) && hand1Same && card1b.isSylop())
                 || (!bestSabacc.equals(CardRank.SYLOP) && hand1Sabacc && card1b.getRank().equals(bestSabacc) || card1s.getRank().equals(bestSabacc));
         boolean hand2Best = (bestSabacc.equals(CardRank.SYLOP) && hand2Same && card2b.isSylop())
