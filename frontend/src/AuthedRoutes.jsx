@@ -13,6 +13,7 @@ import StartGame from "./gameplay/StartGame.jsx";
 import FinishGame from "./gameplay/FinishGame.jsx";
 import FinishRound from "./gameplay/FinishRound.jsx";
 import RevealCards from "./gameplay/RevealCards.jsx";
+import Contact from "./docs/Contact.jsx";
 
 const AuthedRoutes = ({ client }) => {
     return (
@@ -20,6 +21,7 @@ const AuthedRoutes = ({ client }) => {
             <Routes>
                 <Route path="/" element={<Home client={ client }/>}></Route>
                 <Route path="/rules" element={<Rules client={ client }/>}></Route>
+                <Route path="/contact" element={<Contact client={ client }/>}></Route>
                 {/* Player routes */}
                 <Route path="/players" element={<Players client={ client }/>}></Route>
                 <Route path="/players/:name" element={<Player client={client}/>} />

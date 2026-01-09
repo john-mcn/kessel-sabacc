@@ -7,7 +7,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import AuthedRoutes from "./AuthedRoutes.jsx";
 import NavBar from "./components/NavBar.jsx";
-import Footer from "./components/footer/Footer.jsx";
+import Footer from "./components/Footer.jsx";
 
 const App = () => {
     const BASE_URL = "http://localhost:8080/api";
