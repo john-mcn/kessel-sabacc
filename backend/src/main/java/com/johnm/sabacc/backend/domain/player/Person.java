@@ -31,6 +31,12 @@ public class Person {
         this.tokens = tokens;
     }
 
+    public Person(String username, String password, String role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
+
     public Person(String username, String password, String role, String name, int credits, List<ShiftToken> tokens) {
         this.username = username;
         this.password = password;

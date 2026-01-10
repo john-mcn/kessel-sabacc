@@ -1,6 +1,9 @@
 package com.johnm.sabacc.backend.service;
 
+import com.johnm.sabacc.backend.domain.SecurityUser;
 import com.johnm.sabacc.backend.domain.player.Person;
+import com.johnm.sabacc.backend.dto.UserSignupDTO;
+import com.johnm.sabacc.backend.dto.UserTokenDTO;
 import com.johnm.sabacc.backend.exceptions.EntityNotFoundException;
 import com.johnm.sabacc.backend.repository.PlayerRepository;
 import com.johnm.sabacc.backend.repository.GameHistoryRepository;
@@ -14,13 +17,19 @@ import java.util.List;
 @Transactional
 public class PlayerService {
     private final PlayerRepository playerRepository;
-    private final GameHistoryRepository gameHistoryRepository;
     private final PasswordEncoder passwordEncoder;
+    private JpaUserDetailsService jpaUserDetailsService;
+    private UserTokenService userTokenService;
 
-    public PlayerService(PlayerRepository playerRepository, GameHistoryRepository gameHistoryRepository, PasswordEncoder passwordEncoder) {
+    private static final String ROLE_USER = "ROLE_USER";
+    private static final String ROLE_ADMIN = "ROLE_ADMIN";
+
+    public PlayerService(PlayerRepository playerRepository, PasswordEncoder passwordEncoder,
+                         JpaUserDetailsService jpaUserDetailsService, UserTokenService userTokenService) {
         this.playerRepository = playerRepository;
-        this.gameHistoryRepository = gameHistoryRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jpaUserDetailsService = jpaUserDetailsService;
+        this.userTokenService = userTokenService;
     }
 
     public List<Person> getAll() { return playerRepository.findAll(); }
@@ -40,6 +49,16 @@ public class PlayerService {
         return playerRepository.save(player);
     }
 
+    public UserTokenDTO signupNewUser(UserSignupDTO userSignupDTO) {
+        Person newUser = new Person(
+                userSignupDTO.getUsername(),
+                passwordEncoder.encode(userSignupDTO.getPassword()),
+                ROLE_USER
+        );
+        playerRepository.save(newUser);
+        SecurityUser securityUser = (SecurityUser) jpaUserDetailsService.loadUserByUsername(newUser.getUsername());
+        return userTokenService.generateToken(securityUser.getAuthorities(), newUser.getUsername());
+    }
 
     public Person updatePlayer(Person player) {
         return playerRepository.save(player);

@@ -1,5 +1,6 @@
 package com.johnm.sabacc.backend;
 
+import com.johnm.sabacc.backend.config.RsaKeyProperties;
 import com.johnm.sabacc.backend.domain.game.components.ShiftToken;
 import com.johnm.sabacc.backend.domain.game.GameHistory;
 import com.johnm.sabacc.backend.domain.player.Person;
@@ -10,12 +11,14 @@ import com.johnm.sabacc.backend.service.ShiftTokenService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 
 @SpringBootApplication
+@EnableConfigurationProperties(RsaKeyProperties.class)
 public class SabaccBackendApplication {
 
 	public static void main(String[] args) {
