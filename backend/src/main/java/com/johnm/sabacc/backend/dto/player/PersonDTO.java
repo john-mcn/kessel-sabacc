@@ -28,12 +28,12 @@ public class PersonDTO {
     public List<String> getTokens() { return tokens; }
     public void setTokens(List<String> tokens) { this.tokens = tokens; }
 
-    public Person toEntity() {
-        Person person = new Person();
-        person.setName(name);
-        person.setCredits(credits);
-        person.setTokens(tokens == null? new ArrayList<>() : tokens.stream().map(ShiftToken::fromString).toList());
-
-        return person;
-    }
+    // public Person toEntity() {
+    //     Person person = new Person();
+    //     person.setName(name);
+    //     person.setCredits(credits);
+    //     person.setTokens(tokens == null? new ArrayList<>() : tokens.stream().map(ShiftToken::fromString).toList());
+    //
+    //     return person;
+    // }
 }

@@ -26,15 +26,15 @@ public class PlayerController {
 
     @GetMapping("/{name}")
     public ResponseEntity<PersonDTO> getByName(@PathVariable String name) {
-        PersonDTO playerDTO = playerService.getByName(name).toDto();
+        PersonDTO playerDTO = playerService.getByUsername(name).toDto();
         return ResponseEntity.status(HttpStatus.OK).body(playerDTO);
     }
 
-    @PostMapping({"", "/"})
-    public ResponseEntity<PersonDTO> createPerson(@RequestBody PersonDTO personDTO) {
-        Person player = playerService.createPlayer(personDTO.toEntity());
-        return ResponseEntity.status(HttpStatus.CREATED).body(player.toDto());
-    }
+    // @PostMapping({"", "/"})
+    // public ResponseEntity<PersonDTO> createPerson(@RequestBody PersonDTO personDTO) {
+    //     Person player = playerService.createPlayer(personDTO.toEntity());
+    //     return ResponseEntity.status(HttpStatus.CREATED).body(player.toDto());
+    // }
 
     @DeleteMapping("/{name}")
     public ResponseEntity<Void> deletePlayer(@PathVariable String name) {

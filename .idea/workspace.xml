@@ -5,11 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f2654150-cc4f-477f-8a0a-56283fa98a30" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/docs/Contact.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/SecurityUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/AuthedRoutes.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/AuthedRoutes.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/footer/Footer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Footer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/SabaccBackendApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/SabaccBackendApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/controller/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/controller/PlayerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/controller/PlayerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/player/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/player/Person.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/dto/player/PersonDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/dto/player/PersonDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/repository/PlayerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/repository/PlayerRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/service/PlayerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/service/PlayerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/data/sabacc-db.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/data/sabacc-db.mv.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +115,8 @@
       <workItem from="1767441942010" duration="5940000" />
       <workItem from="1767961562901" duration="2254000" />
       <workItem from="1767974478326" duration="599000" />
-      <workItem from="1767994327710" duration="1165000" />
+      <workItem from="1767994327710" duration="9622000" />
+      <workItem from="1768068271721" duration="3346000" />
     </task>
     <servers />
   </component>
