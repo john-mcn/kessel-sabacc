@@ -1,10 +1,14 @@
 package com.johnm.sabacc.backend.service;
 
+import com.johnm.sabacc.backend.config.Authorities;
 import com.johnm.sabacc.backend.domain.game.GameHistory;
+import com.johnm.sabacc.backend.domain.player.Person;
+import com.johnm.sabacc.backend.exceptions.AccessForbiddenException;
 import com.johnm.sabacc.backend.exceptions.EntityAlreadyExistsException;
 import com.johnm.sabacc.backend.exceptions.EntityNotFoundException;
 import com.johnm.sabacc.backend.repository.GameHistoryRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,9 +17,11 @@ import java.util.List;
 @Transactional
 public class GameHistoryService {
     private final GameHistoryRepository gameHistoryRepository;
+    private final PlayerService playerService;
 
-    public GameHistoryService(GameHistoryRepository gameHistoryRepository) {
+    public GameHistoryService(GameHistoryRepository gameHistoryRepository,  PlayerService playerService) {
         this.gameHistoryRepository = gameHistoryRepository;
+        this.playerService = playerService;
     }
 
     public List<GameHistory> getAll() {
@@ -38,7 +44,13 @@ public class GameHistoryService {
         return gameHistoryRepository.save(sabaccGame);
     }
 
-    public void deleteById(Integer id) {
+    public void deleteById(Integer id, Authentication auth) {
+        Person authedUser = playerService.getByUsername(auth.getName());
+        if (!authedUser.getRole().equals(Authorities.ROLE_ADMIN)) {
+            throw new AccessForbiddenException(
+                    "User '" + authedUser.getUsername() + "' cannot delete game with ID " + id);
+        }
+        System.err.println("USER IS ADMIN: " + authedUser.getUsername() + " ROLE " + authedUser.getRole());
         gameHistoryRepository.deleteById(id);
     }
 }

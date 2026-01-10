@@ -71,6 +71,7 @@ public class Person {
         dto.setName(name);
         dto.setCredits(credits);
         dto.setTokens(tokens == null? new ArrayList<>() : tokens.stream().map(ShiftToken::toString).toList());
+        dto.setUsername(username);
 
         return dto;
     }

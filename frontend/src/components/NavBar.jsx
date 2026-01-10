@@ -1,6 +1,7 @@
 import { DropdownButton, Dropdown, Navbar, Container, Nav } from 'react-bootstrap';
+import {Link} from "react-router-dom";
 
-function NavBar() {
+function NavBar({ logout }) {
     return (
         <Navbar bg="dark" data-bs-theme="dark" className="navbar-gold">
             <Container>
@@ -18,7 +19,7 @@ function NavBar() {
 
                 {/* Right Side */}
                 <Nav className="align-items-center">
-                    <p>Right</p>
+                    <Nav.Link onClick={logout}>Log out</Nav.Link>
                 </Nav>
 
             </Container>

@@ -24,8 +24,11 @@ public class ShiftTokenEntity {
         return new ShiftTokenEntity(EnumUtils.capitaliseEachWordFromEnum(token.name()), token.getDescription());
     }
 
-    public ShiftToken toEnum() {
+    public ShiftToken toEnum() { //TODO any use?
         return ShiftToken.valueOf(EnumUtils.sanitiseString(this.name));
+    }
+    public static ShiftToken toEnum(String tokenName) {
+        return ShiftToken.valueOf(EnumUtils.sanitiseString(tokenName));
     }
 
     public String getName() { return name; }

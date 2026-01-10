@@ -8,12 +8,37 @@ import axios from "axios";
 import AuthedRoutes from "./AuthedRoutes.jsx";
 import NavBar from "./components/NavBar.jsx";
 import Footer from "./components/Footer.jsx";
+import UnauthedRoutes from "./UnauthedRoutes.jsx";
 
 const App = () => {
     const BASE_URL = "http://localhost:8080/api";
     const PLAYER_URL = `${BASE_URL}/players`;
     const GAME_URL = `${BASE_URL}/games`;
     const GAMEPLAY_URL = `${BASE_URL}/play`;
+
+    const nav = useNavigate();
+
+    const [token, setToken] = useState("");
+    const [user, setUser] = useState({});
+
+    const loginHandler = (data) => {
+        setToken(data.token);
+        setUser(data.user);
+
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+        localStorage.setItem("EOView", JSON.stringify(true));
+
+        nav("/");
+    };
+
+    const logout = () => {
+        setToken("");
+        setUser({});
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        nav("/");
+    };
 
     //TODO START ROUND when starting game
     const client = {
@@ -35,15 +60,33 @@ const App = () => {
         resolveImposters: (data) => axios.post(`${GAMEPLAY_URL}/resolve-imposters`, data),
         showSummary: () => axios.get(`${GAMEPLAY_URL}/summary`),
         // ShiftToken routes
-        getTokens: () => axios.get(`${BASE_URL}/tokens`)
+        getTokens: () => axios.get(`${BASE_URL}/tokens`),
+
+        // Login & signup
+        login: (data) => axios({
+            method: "POST",
+            url: `${BASE_URL}/auth/login`,
+            headers: {
+                "Content-Type": "application/json",
+            },
+            data: JSON.stringify(data),
+        }).then((response) => {
+                loginHandler(response.data);
+        }).catch((error) => console.log(error)),
     };
 
     return (
         <>
-            <NavBar/>
-            <Container style={{padding: 15}}>
-                {
-                    <AuthedRoutes client={client}/>
+            <NavBar logout = {logout} />
+            <Container  style={{padding: 15}}>
+                {/*{errorMessage !== "" && (*/}
+                {/*    <Alert className="mt-2" variant="danger">*/}
+                {/*        {errorMessage}*/}
+                {/*    </Alert>*/}
+                {/*)}*/}
+                {token === ""
+                    ? <UnauthedRoutes client={client} token={token} user={user}/>
+                    : <AuthedRoutes client={client} token={token} user={user}/>
                 }
             </Container>
             <Footer/>

@@ -5,19 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f2654150-cc4f-477f-8a0a-56283fa98a30" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/config/RsaKeyProperties.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/controller/AuthController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/dto/UserSignupDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/dto/UserTokenDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/service/JpaUserDetailsService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/service/UserTokenService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/config/Authorities.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/exceptions/AccessForbiddenException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/UnauthedRoutes.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/NotFound.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/login/LoginForm.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/SabaccBackendApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/SabaccBackendApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/config/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/config/GlobalExceptionHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/controller/GameHistoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/controller/GameHistoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/controller/PlayerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/controller/PlayerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/game/components/ShiftTokenEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/game/components/ShiftTokenEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/player/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/player/Person.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/dto/player/PersonDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/dto/player/PersonDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/service/GameHistoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/service/GameHistoryService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/service/PlayerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/service/PlayerService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/resources/data/sabacc-db.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/data/sabacc-db.mv.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/NavBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/NavBar.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +35,7 @@
         <option value="Interface" />
         <option value="CSS File" />
         <option value="Enum" />
+        <option value="Exception" />
         <option value="Class" />
       </list>
     </option>
@@ -114,7 +120,7 @@
       <workItem from="1767961562901" duration="2254000" />
       <workItem from="1767974478326" duration="599000" />
       <workItem from="1767994327710" duration="9622000" />
-      <workItem from="1768068271721" duration="7033000" />
+      <workItem from="1768068271721" duration="13927000" />
     </task>
     <servers />
   </component>

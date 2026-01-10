@@ -1,13 +1,16 @@
 package com.johnm.sabacc.backend.service;
 
+import com.johnm.sabacc.backend.config.Authorities;
 import com.johnm.sabacc.backend.domain.SecurityUser;
 import com.johnm.sabacc.backend.domain.player.Person;
 import com.johnm.sabacc.backend.dto.UserSignupDTO;
 import com.johnm.sabacc.backend.dto.UserTokenDTO;
+import com.johnm.sabacc.backend.exceptions.AccessForbiddenException;
 import com.johnm.sabacc.backend.exceptions.EntityNotFoundException;
 import com.johnm.sabacc.backend.repository.PlayerRepository;
 import com.johnm.sabacc.backend.repository.GameHistoryRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -60,11 +63,27 @@ public class PlayerService {
         return userTokenService.generateToken(securityUser.getAuthorities(), newUser.getUsername());
     }
 
-    public Person updatePlayer(Person player) {
+    public Person updatePlayer(String username, Person player, Authentication auth) {
+        // Players can only update themselves (and admins can update anyone)
+        Person authedPlayer = getByUsername(auth.getName()); //TODO unnecessary, just use auth?
+        if (!authedPlayer.getUsername().equals(player.getUsername())
+                && !authedPlayer.getRole().equals(Authorities.ROLE_ADMIN)) {
+            throw new AccessForbiddenException("User '" + authedPlayer.getUsername()
+                    + "' is not authorized to delete user '" + player.getUsername() + "'");
+        }
+
+        Person storedPlayer = getByUsername(username);
+
+        if (player.getUsername() != null) { storedPlayer.setUsername(player.getUsername()); }
+        if (player.getPassword() != null) { storedPlayer.setPassword(passwordEncoder.encode(player.getPassword())); }
+        if (player.getName() != null) { storedPlayer.setName(player.getName()); }
+        if (player.getTokens() != null) { storedPlayer.setTokens(player.getTokens()); }
+
         return playerRepository.save(player);
     }
 
     public void deletePlayer(String username) {
+        // Users can only delete themselves, admins can delete anyone
         playerRepository.deleteById(username);
     }
 }
