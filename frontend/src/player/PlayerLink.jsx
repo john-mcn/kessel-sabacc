@@ -1,8 +1,8 @@
 import {Link} from "react-router-dom";
 
-const PlayerLink = ({ name }) => {
+const PlayerLink = ({ username, name }) => {
     return (
-        <Link to={`/players/${name}`}>{name}</Link>
+        <Link to={`/players/${username}`}>{name}</Link>
     )
 };
 

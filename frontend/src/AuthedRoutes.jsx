@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import Players from "./player/Players.jsx";
 import Player from "./player/Player.jsx"
 import CreatePlayer from "./player/CreatePlayer.jsx";
@@ -14,17 +14,19 @@ import FinishGame from "./gameplay/FinishGame.jsx";
 import FinishRound from "./gameplay/FinishRound.jsx";
 import RevealCards from "./gameplay/RevealCards.jsx";
 import Contact from "./docs/Contact.jsx";
+import Profile from "./player/Profile.jsx";
 
-const AuthedRoutes = ({ client }) => {
+const AuthedRoutes = ({ client, token, user }) => {
     return (
         <div className="mt2">
             <Routes>
-                <Route path="/" element={<Home client={ client }/>}></Route>
+                <Route path="/" element={<Home client={client} token={token} user={user}/>}></Route>
+                <Route path="/profile" element={<Profile client={client} token={token} user={user}/>}></Route>
                 <Route path="/rules" element={<Rules client={ client }/>}></Route>
                 <Route path="/contact" element={<Contact client={ client }/>}></Route>
                 {/* Player routes */}
-                <Route path="/players" element={<Players client={ client }/>}></Route>
-                <Route path="/players/:name" element={<Player client={client}/>} />
+                <Route path="/players" element={<Players client={client} token={token} user={user}/>}></Route>
+                <Route path="/players/:name" element={<Player client={client} token={token} user={user}/>} />
                 <Route path="/players/create" element={<CreatePlayer client={client}/>} />
                 {/* Game routes */}
                 <Route path="/games" element={<Games client={ client }/>}></Route>

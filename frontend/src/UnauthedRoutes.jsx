@@ -13,7 +13,7 @@ const UnauthedRoutes = ({ client, token, user }) => {
             {/*<Route path="signup" element={<RegisterForm client={client}/>}/>*/}
             {/*<Route path="*" element={<NotFound message={"Invalid access"}/>} />*/}
 
-            <Route path="/players" element={<Players client={ client }/>}></Route>
+            {/*<Route path="/players" element={<Players client={ client }/>}></Route>*/}
 
             {token === ""? <Route path="*" element={<Navigate to="/" replace/>}/> : <></>}
 

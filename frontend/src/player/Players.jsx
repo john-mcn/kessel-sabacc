@@ -7,8 +7,8 @@ import Button from "react-bootstrap/Button";
 import CreatePlayer from "./CreatePlayer.jsx";
 import PlayerLink from "./PlayerLink.jsx";
 
-const Players = ({ client }) => {
-    const [people, setPlayers] = useState([]);
+const Players = ({ client, token, user }) => {
+    const [players, setPlayers] = useState([]);
     const [error, setError] = useState(null)
 
     const Grid = styled.div`
@@ -33,29 +33,34 @@ const Players = ({ client }) => {
         return <div>{error}</div>;
     }
 
-    return (
-        <>
-            <BackButton/><br/><br/>
-            <Link to={`/players/create`}><Button>Create Player</Button></Link>
-            <h1>Players</h1>
-            <Table striped bordered>
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Credits</th>
-                    <th>Tokens</th>
-                </tr>
-                </thead>
-                <tbody>
-                {people.map((p) => <tr key={p.name}>
-                    <td><PlayerLink name={p.name}/></td>
-                    <td>{p.credits}</td>
-                    <td>[{p.tokens.join(", ")}]</td>
-                </tr>)}
-                </tbody>
-            </Table>
-        </>
-    );
+    if (players) {
+        return (
+            <>
+                <BackButton/><br/><br/>
+                <Link to={`/players/create`}><Button>Create Player</Button></Link>
+                <h1>Players</h1>
+                <Table striped bordered>
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Credits</th>
+                        <th>Tokens</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {players.map((p) => <tr key={p.username}>
+                        {(p.username === user.username)
+                            ? <td><Link to="/profile">{p.name}</Link></td>
+                            : <td><PlayerLink username={p.username} name={p.name}/></td>
+                        }
+                        <td>{p.credits}</td>
+                        <td>[{p.tokens.join(", ")}]</td>
+                    </tr>)}
+                    </tbody>
+                </Table>
+            </>
+        );
+    }
 }
 
 export default Players;

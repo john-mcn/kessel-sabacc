@@ -1,7 +1,7 @@
 import { DropdownButton, Dropdown, Navbar, Container, Nav } from 'react-bootstrap';
 import {Link} from "react-router-dom";
 
-function NavBar({ logout }) {
+function NavBar({ logout, user, token }) {
     return (
         <Navbar bg="dark" data-bs-theme="dark" className="navbar-gold">
             <Container>
@@ -18,9 +18,16 @@ function NavBar({ logout }) {
                 </Nav>
 
                 {/* Right Side */}
-                <Nav className="align-items-center">
-                    <Nav.Link onClick={logout}>Log out</Nav.Link>
-                </Nav>
+                {token && token !== "" ? (
+                    <DropdownButton title="Menu" variant="outline-light" align="end">
+                        <Dropdown.Item href="/profile">Profile</Dropdown.Item>
+                        <Dropdown.Divider />
+
+                        <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
+                    </DropdownButton>
+                ) : (
+                    <Nav.Link href="/">Login</Nav.Link>
+                )}
 
             </Container>
         </Navbar>

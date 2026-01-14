@@ -20,6 +20,18 @@ const App = () => {
 
     const [token, setToken] = useState("");
     const [user, setUser] = useState({});
+    const [authReady, setAuthReady] = useState(false);
+
+    const authorisedRequest = (url, method, data = {}) =>
+        axios({
+            method,
+            url: `${url}`,
+            data,
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token") ?? ""}`,
+                ...(data instanceof FormData? {} : {"Content-Type": "application/json"}),
+            },
+        }).catch(e => console.log(e));
 
     const loginHandler = (data) => {
         setToken(data.token);
@@ -40,15 +52,22 @@ const App = () => {
         nav("/");
     };
 
+    useEffect(() => {
+        setToken(localStorage.getItem("token") ?? "");
+        setUser(JSON.parse(localStorage.getItem("user") ?? "{}"));
+        setAuthReady(true);
+    }, []);
+
     //TODO START ROUND when starting game
     const client = {
+        getCurrPlayerURL: () => { `${PLAYER_URL}/${user.username}`; },
         // Player routes
-        getPlayers: () => axios.get(`${PLAYER_URL}`),
-        getPlayer: (name) => axios.get(`${PLAYER_URL}/${name}`),
+        getPlayers: () => authorisedRequest(`${PLAYER_URL}`, "GET"),
+        getPlayer: (username) => authorisedRequest(`${PLAYER_URL}/${username}`, "GET"),
         createPlayer: (data) => axios.post(`${PLAYER_URL}`, data),
-        deletePlayer: (name) => axios.delete(`${PLAYER_URL}/${name}`),
+        deletePlayer: (username) => axios.delete(`${PLAYER_URL}/${username}`),
         // Game routes
-        getGames: () => axios.get(`${GAME_URL}`),
+        getGames: () => authorisedRequest(`${GAME_URL}`, "GET"),
         getGame: (gameId) => axios.get(`${GAME_URL}/${gameId}`),
         // createGame: (data) => axios.post(`${GAME_URL}`, data),
         deleteGame: (gameId) => axios.delete(`${GAME_URL}/${gameId}`),
@@ -60,7 +79,7 @@ const App = () => {
         resolveImposters: (data) => axios.post(`${GAMEPLAY_URL}/resolve-imposters`, data),
         showSummary: () => axios.get(`${GAMEPLAY_URL}/summary`),
         // ShiftToken routes
-        getTokens: () => axios.get(`${BASE_URL}/tokens`),
+        getTokens: () => authorisedRequest(`${BASE_URL}/tokens`, "GET"),
 
         // Login & signup
         login: (data) => axios({
@@ -75,9 +94,11 @@ const App = () => {
         }).catch((error) => console.log(error)),
     };
 
+    if (!authReady) { return <p>Loading...</p>; }
+
     return (
         <>
-            <NavBar logout = {logout} />
+            <NavBar logout={logout} user={user} token={token} />
             <Container  style={{padding: 15}}>
                 {/*{errorMessage !== "" && (*/}
                 {/*    <Alert className="mt-2" variant="danger">*/}
