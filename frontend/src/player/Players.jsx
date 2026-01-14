@@ -49,10 +49,7 @@ const Players = ({ client, token, user }) => {
                     </thead>
                     <tbody>
                     {players.map((p) => <tr key={p.username}>
-                        {(p.username === user.username)
-                            ? <td><Link to="/profile">{p.name}</Link></td>
-                            : <td><PlayerLink username={p.username} name={p.name}/></td>
-                        }
+                        <td><PlayerLink user={user} username={p.username} name={p.name}/></td>
                         <td>{p.credits}</td>
                         <td>[{p.tokens.join(", ")}]</td>
                     </tr>)}
