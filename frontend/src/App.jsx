@@ -31,7 +31,7 @@ const App = () => {
                 Authorization: `Bearer ${localStorage.getItem("token") ?? ""}`,
                 ...(data instanceof FormData? {} : {"Content-Type": "application/json"}),
             },
-        }).catch(e => console.log(e));
+        }).catch(error => console.log(error.response && error.response.data.message? error.response.data.message : error.message));
 
     const loginHandler = (data) => {
         setToken(data.token);
@@ -64,20 +64,20 @@ const App = () => {
         // Player routes
         getPlayers: () => authorisedRequest(`${PLAYER_URL}`, "GET"),
         getPlayer: (username) => authorisedRequest(`${PLAYER_URL}/${username}`, "GET"),
-        createPlayer: (data) => axios.post(`${PLAYER_URL}`, data),
-        deletePlayer: (username) => axios.delete(`${PLAYER_URL}/${username}`),
+        createPlayer: (data) => authorisedRequest(`${PLAYER_URL}`, "POST", data),
+        deletePlayer: (username) => authorisedRequest(`${PLAYER_URL}/${username}`, "DELETE"),
         // Game routes
         getGames: () => authorisedRequest(`${GAME_URL}`, "GET"),
-        getGame: (gameId) => axios.get(`${GAME_URL}/${gameId}`),
+        getGame: (gameId) => authorisedRequest(`${GAME_URL}/${gameId}`, "GET"),
         // createGame: (data) => axios.post(`${GAME_URL}`, data),
-        deleteGame: (gameId) => axios.delete(`${GAME_URL}/${gameId}`),
+        deleteGame: (gameId) => authorisedRequest(`${GAME_URL}/${gameId}`, "DELETE"),
         // Gameplay routes
-        startGame: (data) => axios.post(`${GAMEPLAY_URL}/start-game`, data),
-        startRound: () => axios.post(`${GAMEPLAY_URL}/start-round`),
-        getGameInProgress: () => axios.get(`${GAMEPLAY_URL}`),
-        performAction: (data) => axios.post(`${GAMEPLAY_URL}/action`, data),
-        resolveImposters: (data) => axios.post(`${GAMEPLAY_URL}/resolve-imposters`, data),
-        showSummary: () => axios.get(`${GAMEPLAY_URL}/summary`),
+        startGame: (data) => authorisedRequest(`${GAMEPLAY_URL}/start-game`, "POST",data),
+        startRound: () => authorisedRequest(`${GAMEPLAY_URL}/start-round`, "POST"),
+        getGameInProgress: () => authorisedRequest(`${GAMEPLAY_URL}`, "GET"),
+        performAction: (data) => authorisedRequest(`${GAMEPLAY_URL}/action`, "POST", data),
+        resolveImposters: (data) => authorisedRequest(`${GAMEPLAY_URL}/resolve-imposters`, "POST", data),
+        showSummary: () => authorisedRequest(`${GAMEPLAY_URL}/summary`, "GET"),
         // ShiftToken routes
         getTokens: () => authorisedRequest(`${BASE_URL}/tokens`, "GET"),
 

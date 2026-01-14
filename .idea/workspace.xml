@@ -5,17 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f2654150-cc4f-477f-8a0a-56283fa98a30" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/player/Profile.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/data/sabacc-db.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/data/sabacc-db.mv.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/AuthedRoutes.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/AuthedRoutes.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/UnauthedRoutes.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/UnauthedRoutes.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Home.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/NavBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/NavBar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/player/Player.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/player/Player.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/player/PlayerLink.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/player/PlayerLink.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/player/Players.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/player/Players.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/game/CreateGame.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/game/CreateGame.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/game/Games.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/game/Games.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/gameplay/PlayGame.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/gameplay/PlayGame.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/gameplay/StartGame.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/gameplay/StartGame.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,6 +111,7 @@
       <workItem from="1768068271721" duration="13927000" />
       <workItem from="1768334124221" duration="264000" />
       <workItem from="1768426647899" duration="6332000" />
+      <workItem from="1768433074898" duration="1034000" />
     </task>
     <servers />
   </component>

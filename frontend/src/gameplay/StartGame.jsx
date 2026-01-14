@@ -7,6 +7,7 @@ import Button from "react-bootstrap/Button";
 const StartGame = ({ client }) => {
     const [game, setGame] = useState(null);
     const [errors, setErrors] = useState([]);
+    const [loading, setLoading] = useState(false);
     const nav = useNavigate();
 
     const [playersLst, setPlayerNamesLst] = useState([]);
@@ -25,10 +26,11 @@ const StartGame = ({ client }) => {
         });
         client.getGameInProgress()
             .then(response => {
-                setGame(response.data);
+                if (response) setGame(response.data);
             }).catch(error => {
-            console.log(error.response.data.message? error.response.data.message : error.message);
+            console.log(error.response && error.response.data.message? error.response.data.message : error.message);
         });
+        setLoading(false);
     }, [client]);
 
     const submitHandler = (e) => {
@@ -62,11 +64,13 @@ const StartGame = ({ client }) => {
                 .then((response) => {
                     nav(`/play`)
                 })
-                .catch((error) => console.log(error.response.data.message? error.response.data.message : error.message));
+                .catch((error) => console.log(error.response && error.response.data.message? error.response.data.message : error.message));
         } else {
             setErrors(currentErrors)
         }
     };
+
+    if (loading) { return null; }
 
     if (game && !game.winner) { nav(`/play`) }
 
