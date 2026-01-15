@@ -57,7 +57,7 @@ const PlayGame = ({ client }) => {
                 setPendingTokenAction(null);
             })
             .catch(e => {
-                console.error(e.message);
+                console.log(error.response && error.response.data.message? error.response.data.message : error.message)
             });
     };
 

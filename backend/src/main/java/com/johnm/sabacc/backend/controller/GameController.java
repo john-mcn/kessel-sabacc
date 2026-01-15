@@ -3,7 +3,6 @@ package com.johnm.sabacc.backend.controller;
 import com.johnm.sabacc.backend.domain.game.GameRound;
 import com.johnm.sabacc.backend.domain.game.SabaccGame;
 import com.johnm.sabacc.backend.domain.player.Person;
-import com.johnm.sabacc.backend.domain.player.Player;
 import com.johnm.sabacc.backend.dto.game.ActionRequestDTO;
 import com.johnm.sabacc.backend.dto.game.GameStateDTO;
 import com.johnm.sabacc.backend.dto.game.ResolveImposterDTO;
@@ -32,7 +31,7 @@ public class GameController {
     @PostMapping("/start-game")
     public ResponseEntity<?> createGame(@RequestBody GameStateDTO dto) {
         SabaccGame g = dto.toEntity(); // create SabaccGame without persisting
-        List<Person> peopleToPlay = playerService.getByNames(dto.players.stream().map(PlayerDTO::getName).toList());
+        List<Person> peopleToPlay = playerService.getByUsernames(dto.players.stream().map(PlayerDTO::getName).toList());
         g.setPeopleToPlay(peopleToPlay);
         manager.createGame(g);
         return ResponseEntity.ok(GameStateDTO.fromEntities(g, null));

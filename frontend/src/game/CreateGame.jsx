@@ -6,7 +6,6 @@ import Button from "react-bootstrap/Button";
 
 const CreateGame = ({ client }) => {
     const [errors, setErrors] = useState([]);
-    const winnersArePlayersMsg = "Winners must be players";
     const nav = useNavigate();
 
     const [playerNamesLst, setPlayerNamesLst] = useState([]);

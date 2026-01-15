@@ -1,10 +1,14 @@
 package com.johnm.sabacc.backend.controller;
 
+import com.johnm.sabacc.backend.domain.game.components.ShiftToken;
+import com.johnm.sabacc.backend.domain.game.components.ShiftTokenEntity;
 import com.johnm.sabacc.backend.domain.player.Person;
 import com.johnm.sabacc.backend.dto.player.PersonDTO;
 import com.johnm.sabacc.backend.service.PlayerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,21 +28,44 @@ public class PlayerController {
         return ResponseEntity.ok(playerDTOs);
     }
 
-    @GetMapping("/{name}")
-    public ResponseEntity<PersonDTO> getByName(@PathVariable String name) {
-        PersonDTO playerDTO = playerService.getByName(name).toDto();
+    @GetMapping("/{username}")
+    public ResponseEntity<PersonDTO> getByName(@PathVariable String username) {
+        PersonDTO playerDTO = playerService.getByUsername(username).toDto();
         return ResponseEntity.status(HttpStatus.OK).body(playerDTO);
     }
 
-    @PostMapping({"", "/"})
-    public ResponseEntity<PersonDTO> createPerson(@RequestBody PersonDTO personDTO) {
-        Person player = playerService.createPlayer(personDTO.toEntity());
-        return ResponseEntity.status(HttpStatus.CREATED).body(player.toDto());
+    // @PostMapping({"", "/"})
+    // public ResponseEntity<PersonDTO> createPerson(@RequestBody PersonDTO personDTO) {
+    //     Person newPerson = new Person(
+    //             personDTO.getName(),
+    //             personDTO.getCredits(),
+    //             personDTO.getTokens().stream().map(ShiftTokenEntity::toEnum).toList()
+    //     );
+    //     newPerson.setUsername(personDTO.getUsername());
+    //     newPerson.setPassword(personDTO.get);
+    //     Person player = playerService.createPlayer(newPerson);
+    //     return ResponseEntity.status(HttpStatus.CREATED).body(player.toDto());
+    // }
+
+    @PutMapping("/{username}")
+    public ResponseEntity<PersonDTO> update(@PathVariable String username,
+                                            @RequestBody PersonDTO personDTO, Authentication auth) {
+        Person updatedPerson = new Person(
+                personDTO.getName(),
+                personDTO.getCredits(),
+                personDTO.getTokens().stream().map(ShiftTokenEntity::toEnum).toList()
+        );
+        updatedPerson.setUsername(username);
+
+        Person savedPlayer = playerService.updatePlayer(username, updatedPerson, auth);
+
+        return ResponseEntity.ok().body(savedPlayer.toDto());
     }
 
-    @DeleteMapping("/{name}")
-    public ResponseEntity<Void> deletePlayer(@PathVariable String name) {
-        playerService.deletePlayer(name);
+    @PreAuthorize("hasAuthority(T(com.johnm.sabacc.backend.config.Authorities).ROLE_ADMIN)")
+    @DeleteMapping("/{username}")
+    public ResponseEntity<Void> deletePlayer(@PathVariable String username) {
+        playerService.deletePlayer(username);
         return ResponseEntity.ok().build();
     }
 }

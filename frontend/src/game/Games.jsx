@@ -26,7 +26,6 @@ const Games = ({ client }) => {
     return (
         <>
             <BackButton/><br/><br/>
-            <Link to={`/games/create`}><Button variant="warning">Create Game</Button></Link>
             <h1>Games</h1>
             <Table striped bordered>
                 <thead>

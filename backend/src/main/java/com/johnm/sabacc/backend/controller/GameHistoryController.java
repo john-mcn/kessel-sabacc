@@ -6,6 +6,8 @@ import com.johnm.sabacc.backend.service.PlayerService;
 import com.johnm.sabacc.backend.service.GameHistoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,6 +41,7 @@ public class GameHistoryController {
         return ResponseEntity.ok(gameDTOS);
     }
 
+    @PreAuthorize("hasAuthority(T(com.johnm.sabacc.backend.config.Authorities).ROLE_ADMIN)")
     @PostMapping({"", "/"})
     public ResponseEntity<GameHistoryDTO> createGame(@RequestBody GameHistoryDTO dto) {
         GameHistory sabaccGame = dto.toEntity();
@@ -49,9 +52,10 @@ public class GameHistoryController {
         return ResponseEntity.status(HttpStatus.CREATED).body(gameHistoryDTO);
     }
 
+    @PreAuthorize("hasAuthority(T(com.johnm.sabacc.backend.config.Authorities).ROLE_ADMIN)")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteGame(@PathVariable Integer id) {
-        gameHistoryService.deleteById(id);
+    public ResponseEntity<Void> deleteGame(@PathVariable Integer id, Authentication auth) {
+        gameHistoryService.deleteById(id, auth);
         return ResponseEntity.ok().build();
     }
 }
