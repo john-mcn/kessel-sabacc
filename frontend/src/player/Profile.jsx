@@ -5,10 +5,8 @@ import {Link, useNavigate, useParams} from "react-router-dom";
 import BackButton from "../components/BackButton.jsx";
 import Button from "react-bootstrap/Button";
 
-const Player = ({ client, token, user }) => {
-    //TODO change name -> username, and person -> player; causes error??
-    const { name } = useParams();
-    const [person, setPlayer] = useState(null);
+const Profile = ({ client, token, user }) => {
+    const [player, setPlayer] = useState(null);
     const [error, setError] = useState(null);
 
     const nav  = useNavigate();
@@ -16,13 +14,13 @@ const Player = ({ client, token, user }) => {
     const handleDeletePlayer = (e) => {
         e.preventDefault();
         if (window.confirm("Are you sure you want to delete this player? This action cannot be undone.")) {
-            client.deletePlayer(name)
+            client.deletePlayer(user.username)
                 .then(() => nav("/players"));
         }
     };
 
     useEffect(() => {
-        client.getPlayer(name)
+        client.getPlayer(user.username)
             .then(response => {
                 setPlayer(response.data);
             }).catch(error => {
@@ -35,13 +33,13 @@ const Player = ({ client, token, user }) => {
         return <div>{error}</div>
     }
 
-    if (person) {
+    if (player) {
         return (
             <>
                 <BackButton/>
-                <h1>{person.name}</h1>
-                <p>Credits: {person.credits}</p>
-                <p>Shift Tokens: [{person.tokens.join(", ")}]</p>
+                <h1>Profile ({player.name})</h1>
+                <p>Credits: {player.credits}</p>
+                <p>Shift Tokens: [{player.tokens.join(", ")}]</p>
                 <br/>
                 <Form onSubmit={handleDeletePlayer}>
                     <Button type="submit" variant="danger">Delete</Button>
@@ -51,4 +49,4 @@ const Player = ({ client, token, user }) => {
     }
 };
 
-export default Player;
+export default Profile;

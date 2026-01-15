@@ -1,10 +1,17 @@
 package com.johnm.sabacc.backend.service;
 
+import com.johnm.sabacc.backend.config.Authorities;
+import com.johnm.sabacc.backend.domain.SecurityUser;
 import com.johnm.sabacc.backend.domain.player.Person;
+import com.johnm.sabacc.backend.dto.UserSignupDTO;
+import com.johnm.sabacc.backend.dto.UserTokenDTO;
+import com.johnm.sabacc.backend.exceptions.AccessForbiddenException;
 import com.johnm.sabacc.backend.exceptions.EntityNotFoundException;
 import com.johnm.sabacc.backend.repository.PlayerRepository;
 import com.johnm.sabacc.backend.repository.GameHistoryRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,35 +20,70 @@ import java.util.List;
 @Transactional
 public class PlayerService {
     private final PlayerRepository playerRepository;
-    private final GameHistoryRepository gameHistoryRepository;
+    private final PasswordEncoder passwordEncoder;
+    private JpaUserDetailsService jpaUserDetailsService;
+    private UserTokenService userTokenService;
 
-    public PlayerService(PlayerRepository playerRepository, GameHistoryRepository gameHistoryRepository) {
+    private static final String ROLE_USER = "ROLE_USER";
+    private static final String ROLE_ADMIN = "ROLE_ADMIN";
+
+    public PlayerService(PlayerRepository playerRepository, PasswordEncoder passwordEncoder,
+                         JpaUserDetailsService jpaUserDetailsService, UserTokenService userTokenService) {
         this.playerRepository = playerRepository;
-        this.gameHistoryRepository = gameHistoryRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.jpaUserDetailsService = jpaUserDetailsService;
+        this.userTokenService = userTokenService;
     }
 
     public List<Person> getAll() { return playerRepository.findAll(); }
 
-    public List<Person> getByNames(List<String> names) {
-        return playerRepository.findByNameIn(names);
+    public List<Person> getByUsernames(List<String> usernames) {
+        return playerRepository.findByNameIn(usernames);
     }
 
-    public Person getByName(String name) {
-        return playerRepository.findById(name)
+    public Person getByUsername(String username) {
+        return playerRepository.findById(username)
                 .orElseThrow(() -> new EntityNotFoundException(
-                        "No person with name '" + name + "'"));
+                        "No person with name '" + username + "'"));
     }
 
     public Person createPlayer(Person player) {
+        player.setPassword(passwordEncoder.encode(player.getPassword()));
         return playerRepository.save(player);
     }
 
+    public UserTokenDTO signupNewUser(UserSignupDTO userSignupDTO) {
+        Person newUser = new Person(
+                userSignupDTO.getUsername(),
+                passwordEncoder.encode(userSignupDTO.getPassword()),
+                ROLE_USER
+        );
+        playerRepository.save(newUser);
+        SecurityUser securityUser = (SecurityUser) jpaUserDetailsService.loadUserByUsername(newUser.getUsername());
+        return userTokenService.generateToken(securityUser.getAuthorities(), newUser.getUsername());
+    }
 
-    public Person updatePlayer(Person player) {
+    public Person updatePlayer(String username, Person player, Authentication auth) {
+        // Players can only update themselves (and admins can update anyone)
+        Person authedPlayer = getByUsername(auth.getName()); //TODO unnecessary, just use auth?
+        if (!authedPlayer.getUsername().equals(player.getUsername())
+                && !authedPlayer.getRole().equals(Authorities.ROLE_ADMIN)) {
+            throw new AccessForbiddenException("User '" + authedPlayer.getUsername()
+                    + "' is not authorized to delete user '" + player.getUsername() + "'");
+        }
+
+        Person storedPlayer = getByUsername(username);
+
+        if (player.getUsername() != null) { storedPlayer.setUsername(player.getUsername()); }
+        if (player.getPassword() != null) { storedPlayer.setPassword(passwordEncoder.encode(player.getPassword())); }
+        if (player.getName() != null) { storedPlayer.setName(player.getName()); }
+        if (player.getTokens() != null) { storedPlayer.setTokens(player.getTokens()); }
+
         return playerRepository.save(player);
     }
 
-    public void deletePlayer(String name) {
-        playerRepository.deleteById(name);
+    public void deletePlayer(String username) {
+        // Users can only delete themselves, admins can delete anyone
+        playerRepository.deleteById(username);
     }
 }

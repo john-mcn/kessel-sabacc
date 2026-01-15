@@ -5,13 +5,50 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f2654150-cc4f-477f-8a0a-56283fa98a30" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/config/Authorities.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/config/RsaKeyProperties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/controller/AuthController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/SecurityUser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/dto/UserSignupDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/dto/UserTokenDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/exceptions/AccessForbiddenException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/service/JpaUserDetailsService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/service/UserTokenService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/UnauthedRoutes.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/NotFound.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/docs/Contact.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/login/LoginForm.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/player/Profile.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/backend/src/main/resources/data/sabacc-db.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/backend/backend/src/main/resources/data/sabacc-db.mv.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/backend/src/main/resources/data/sabacc-db.trace.db" beforeDir="false" afterPath="$PROJECT_DIR$/backend/backend/src/main/resources/data/sabacc-db.trace.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/player/PlayerHandComparator.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/player/PlayerHandComparator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/test/java/com/johnm/sabacc/backend/domain/GameRoundTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/test/java/com/johnm/sabacc/backend/domain/GameRoundTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/test/java/com/johnm/sabacc/backend/domain/player/PlayerHandComparatorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/test/java/com/johnm/sabacc/backend/domain/player/PlayerHandComparatorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/Rules.md" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/Rules.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/SabaccBackendApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/SabaccBackendApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/config/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/config/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/controller/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/controller/GameHistoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/controller/GameHistoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/controller/PlayerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/controller/PlayerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/game/components/ShiftTokenEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/game/components/ShiftTokenEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/player/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/player/Person.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/dto/player/PersonDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/dto/player/PersonDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/repository/PlayerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/repository/PlayerRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/service/GameHistoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/service/GameHistoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/service/PlayerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/service/PlayerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/data/sabacc-db.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/data/sabacc-db.mv.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/AuthedRoutes.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/AuthedRoutes.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Home.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/NavBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/NavBar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/footer/Footer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Footer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/game/CreateGame.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/game/CreateGame.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/game/Games.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/game/Games.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/gameplay/PlayGame.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/gameplay/PlayGame.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/gameplay/StartGame.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/gameplay/StartGame.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/player/Player.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/player/Player.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/player/PlayerLink.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/player/PlayerLink.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/player/Players.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/player/Players.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +61,7 @@
         <option value="Interface" />
         <option value="CSS File" />
         <option value="Enum" />
+        <option value="Exception" />
         <option value="Class" />
       </list>
     </option>
@@ -40,100 +78,43 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;JUnit.GameRoundTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PlayerHandComparatorTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PlayerHandComparatorTest.pureSabacc_shouldBeatPrime.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.java in backend.executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;Spring Boot.SabaccBackendApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;development&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/johnk/Documents/code/Projects/sabacc/backend/src/main/resources/static&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.appearance&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2025.2.4\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Spring Boot.SabaccBackendApplication.executor": "Run",
+    "git-widget-placeholder": "Merging development",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/johnk/Documents/code/Projects/sabacc/backend/src/main/resources/static",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "SDKs",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "configurable.group.appearance",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2025.2.4\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\johnk\Documents\code\Projects\sabacc\backend\src\main\resources\static" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\johnk\Documents\code\Projects\sabacc\frontend\src\components" />
       <recent name="C:\Users\johnk\Documents\code\Projects\sabacc\frontend\src\gameplay" />
       <recent name="C:\Users\johnk\Documents\code\Projects\sabacc\frontend\public" />
       <recent name="C:\Users\johnk\Documents\code\Projects\sabacc\frontend\src\docs" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.java in backend">
-    <configuration name="GameRoundTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="backend" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.johnm.sabacc.backend.domain.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.johnm.sabacc.backend.domain" />
-      <option name="MAIN_CLASS_NAME" value="com.johnm.sabacc.backend.domain.GameRoundTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="PlayerHandComparatorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="backend" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.johnm.sabacc.backend.domain.player.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.johnm.sabacc.backend.domain.player" />
-      <option name="MAIN_CLASS_NAME" value="com.johnm.sabacc.backend.domain.player.PlayerHandComparatorTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="PlayerHandComparatorTest.pureSabacc_shouldBeatPrime" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="backend" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.johnm.sabacc.backend.domain.player.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.johnm.sabacc.backend.domain.player" />
-      <option name="MAIN_CLASS_NAME" value="com.johnm.sabacc.backend.domain.player.PlayerHandComparatorTest" />
-      <option name="METHOD_NAME" value="pureSabacc_shouldBeatPrime" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="java in backend" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="backend" />
-      <option name="TEST_OBJECT" value="directory" />
-      <dir value="$PROJECT_DIR$/backend/src/test/java" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager">
     <configuration name="SabaccBackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="backend" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.johnm.sabacc.backend.SabaccBackendApplication" />
@@ -141,14 +122,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="JUnit.java in backend" />
-        <item itemvalue="JUnit.GameRoundTest" />
-        <item itemvalue="JUnit.PlayerHandComparatorTest" />
-        <item itemvalue="JUnit.PlayerHandComparatorTest.pureSabacc_shouldBeatPrime" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -170,9 +143,13 @@
       <workItem from="1767348989531" duration="48438000" />
       <workItem from="1767441919072" duration="2000" />
       <workItem from="1767441942010" duration="5940000" />
-      <workItem from="1767612485933" duration="54000" />
-      <workItem from="1767613121522" duration="606000" />
-      <workItem from="1767953355839" duration="10000" />
+      <workItem from="1767961562901" duration="2254000" />
+      <workItem from="1767974478326" duration="599000" />
+      <workItem from="1767994327710" duration="9622000" />
+      <workItem from="1768068271721" duration="13927000" />
+      <workItem from="1768334124221" duration="264000" />
+      <workItem from="1768426647899" duration="6332000" />
+      <workItem from="1768433074898" duration="1034000" />
     </task>
     <servers />
   </component>

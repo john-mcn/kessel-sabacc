@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PersonDTO {
+    private String username;
+
     private String name;
     private int credits;
     private List<String> tokens;
@@ -19,6 +21,9 @@ public class PersonDTO {
         this.tokens = tokens;
     }
 
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
+
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
@@ -27,13 +32,4 @@ public class PersonDTO {
 
     public List<String> getTokens() { return tokens; }
     public void setTokens(List<String> tokens) { this.tokens = tokens; }
-
-    public Person toEntity() {
-        Person person = new Person();
-        person.setName(name);
-        person.setCredits(credits);
-        person.setTokens(tokens == null? new ArrayList<>() : tokens.stream().map(ShiftToken::fromString).toList());
-
-        return person;
-    }
 }

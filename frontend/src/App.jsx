@@ -7,7 +7,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import AuthedRoutes from "./AuthedRoutes.jsx";
 import NavBar from "./components/NavBar.jsx";
-import Footer from "./components/footer/Footer.jsx";
+import Footer from "./components/Footer.jsx";
+import UnauthedRoutes from "./UnauthedRoutes.jsx";
 
 const App = () => {
     const BASE_URL = "http://localhost:8080/api";
@@ -15,35 +16,98 @@ const App = () => {
     const GAME_URL = `${BASE_URL}/games`;
     const GAMEPLAY_URL = `${BASE_URL}/play`;
 
+    const nav = useNavigate();
+
+    const [token, setToken] = useState("");
+    const [user, setUser] = useState({});
+    const [authReady, setAuthReady] = useState(false);
+
+    const authorisedRequest = (url, method, data = {}) =>
+        axios({
+            method,
+            url: `${url}`,
+            data,
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token") ?? ""}`,
+                ...(data instanceof FormData? {} : {"Content-Type": "application/json"}),
+            },
+        }).catch(error => console.log(error.response && error.response.data.message? error.response.data.message : error.message));
+
+    const loginHandler = (data) => {
+        setToken(data.token);
+        setUser(data.user);
+
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+        localStorage.setItem("EOView", JSON.stringify(true));
+
+        nav("/");
+    };
+
+    const logout = () => {
+        setToken("");
+        setUser({});
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        nav("/");
+    };
+
+    useEffect(() => {
+        setToken(localStorage.getItem("token") ?? "");
+        setUser(JSON.parse(localStorage.getItem("user") ?? "{}"));
+        setAuthReady(true);
+    }, []);
+
     //TODO START ROUND when starting game
     const client = {
+        getCurrPlayerURL: () => { `${PLAYER_URL}/${user.username}`; },
         // Player routes
-        getPlayers: () => axios.get(`${PLAYER_URL}`),
-        getPlayer: (name) => axios.get(`${PLAYER_URL}/${name}`),
-        createPlayer: (data) => axios.post(`${PLAYER_URL}`, data),
-        deletePlayer: (name) => axios.delete(`${PLAYER_URL}/${name}`),
+        getPlayers: () => authorisedRequest(`${PLAYER_URL}`, "GET"),
+        getPlayer: (username) => authorisedRequest(`${PLAYER_URL}/${username}`, "GET"),
+        createPlayer: (data) => authorisedRequest(`${PLAYER_URL}`, "POST", data),
+        deletePlayer: (username) => authorisedRequest(`${PLAYER_URL}/${username}`, "DELETE"),
         // Game routes
-        getGames: () => axios.get(`${GAME_URL}`),
-        getGame: (gameId) => axios.get(`${GAME_URL}/${gameId}`),
+        getGames: () => authorisedRequest(`${GAME_URL}`, "GET"),
+        getGame: (gameId) => authorisedRequest(`${GAME_URL}/${gameId}`, "GET"),
         // createGame: (data) => axios.post(`${GAME_URL}`, data),
-        deleteGame: (gameId) => axios.delete(`${GAME_URL}/${gameId}`),
+        deleteGame: (gameId) => authorisedRequest(`${GAME_URL}/${gameId}`, "DELETE"),
         // Gameplay routes
-        startGame: (data) => axios.post(`${GAMEPLAY_URL}/start-game`, data),
-        startRound: () => axios.post(`${GAMEPLAY_URL}/start-round`),
-        getGameInProgress: () => axios.get(`${GAMEPLAY_URL}`),
-        performAction: (data) => axios.post(`${GAMEPLAY_URL}/action`, data),
-        resolveImposters: (data) => axios.post(`${GAMEPLAY_URL}/resolve-imposters`, data),
-        showSummary: () => axios.get(`${GAMEPLAY_URL}/summary`),
+        startGame: (data) => authorisedRequest(`${GAMEPLAY_URL}/start-game`, "POST",data),
+        startRound: () => authorisedRequest(`${GAMEPLAY_URL}/start-round`, "POST"),
+        getGameInProgress: () => authorisedRequest(`${GAMEPLAY_URL}`, "GET"),
+        performAction: (data) => authorisedRequest(`${GAMEPLAY_URL}/action`, "POST", data),
+        resolveImposters: (data) => authorisedRequest(`${GAMEPLAY_URL}/resolve-imposters`, "POST", data),
+        showSummary: () => authorisedRequest(`${GAMEPLAY_URL}/summary`, "GET"),
         // ShiftToken routes
-        getTokens: () => axios.get(`${BASE_URL}/tokens`)
+        getTokens: () => authorisedRequest(`${BASE_URL}/tokens`, "GET"),
+
+        // Login & signup
+        login: (data) => axios({
+            method: "POST",
+            url: `${BASE_URL}/auth/login`,
+            headers: {
+                "Content-Type": "application/json",
+            },
+            data: JSON.stringify(data),
+        }).then((response) => {
+                loginHandler(response.data);
+        }).catch((error) => console.log(error)),
     };
+
+    if (!authReady) { return <p>Loading...</p>; }
 
     return (
         <>
-            <NavBar/>
-            <Container style={{padding: 15}}>
-                {
-                    <AuthedRoutes client={client}/>
+            <NavBar logout={logout} user={user} token={token} />
+            <Container  style={{padding: 15}}>
+                {/*{errorMessage !== "" && (*/}
+                {/*    <Alert className="mt-2" variant="danger">*/}
+                {/*        {errorMessage}*/}
+                {/*    </Alert>*/}
+                {/*)}*/}
+                {token === ""
+                    ? <UnauthedRoutes client={client} token={token} user={user}/>
+                    : <AuthedRoutes client={client} token={token} user={user}/>
                 }
             </Container>
             <Footer/>
