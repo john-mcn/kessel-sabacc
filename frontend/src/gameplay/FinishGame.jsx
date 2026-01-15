@@ -73,7 +73,7 @@ const FinishGame = ({ client }) => {
                         <td>{p.name}</td>
                         <td>{p.hand[0].family} {p.hand[0].rank}, {p.hand[1].family} {p.hand[1].rank}</td>
                         <td>{p.stock}</td>
-                        <td>{game.winner.name == p.name ? `+${game.buyIn * game.players.length}` : `-${game.buyIn}`}</td>
+                        <td>{game.winner.name == p.name ? `+${game.buyIn - game.buyIn * game.players.length}` : `-${game.buyIn}`}</td>
                     </tr>)}
                     </tbody>
                 </Table>

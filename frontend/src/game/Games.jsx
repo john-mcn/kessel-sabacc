@@ -33,16 +33,16 @@ const Games = ({ client }) => {
                     <th>ID</th>
                     <th>Winner</th>
                     <th>Players</th>
-                    <th>Buy-In</th>
+                    <th>Pot</th>
                     <th>Rewards</th>
                 </tr>
                 </thead>
                 <tbody>
                 {games.map((g) => <tr key={g.id}>
                     <td><GameLink id={g.id}/></td>
-                    <td>{g.winnerName}</td>
+                    <td>{g.winner.name}</td>
                     <td>[{g.playerNames.join(", ")}]</td>
-                    <td>{g.buyIn}</td>
+                    <td>{g.buyIn * g.playerNames.length}</td>
                     <td>[{g.rewards}]</td>
                 </tr>)}
                 </tbody>

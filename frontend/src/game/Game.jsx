@@ -6,7 +6,7 @@ import BackButton from "../components/BackButton.jsx";
 import PlayerLink from "../player/PlayerLink.jsx";
 import Button from "react-bootstrap/Button";
 
-const Game = ({ client }) => {
+const Game = ({ client, token, user }) => {
     const { id } = useParams();
     const [game, setGame] = useState(null);
     const [error, setError] = useState(null);
@@ -35,17 +35,18 @@ const Game = ({ client }) => {
     }
 
     if (game) {
+        const winner = game.winner;
         return (
             <>
                 <BackButton/>
                 <h1>Game {game.id}</h1>
-                <h4><b>Winner:</b> {<PlayerLink name={game.winnerName} />}
+                <h4><b>Winner:</b> {<PlayerLink user={user} username={winner.username} name={winner.name} />}
                 </h4>
                 <h5>Winner pot: {game.buyIn * game.playerNames.length} ({game.buyIn} buy-in)</h5>
                 <hr/>
                 <u>Players:</u>
                 <ul>
-                    {game.playerNames.map((n) => <li key={n}><PlayerLink name={n}/></li>)}
+                    {game.playerNames.map((n) => <li key={n}><PlayerLink user={user} name={n}/></li>)}
                 </ul>
                 <br/>
                 <u>Rewards:</u>

@@ -5,50 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f2654150-cc4f-477f-8a0a-56283fa98a30" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/config/Authorities.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/config/RsaKeyProperties.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/controller/AuthController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/SecurityUser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/dto/UserSignupDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/dto/UserTokenDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/exceptions/AccessForbiddenException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/service/JpaUserDetailsService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/service/UserTokenService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/UnauthedRoutes.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/NotFound.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/docs/Contact.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/login/LoginForm.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/player/Profile.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/SabaccBackendApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/SabaccBackendApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/config/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/config/GlobalExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/config/SecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/controller/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/controller/GameHistoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/controller/GameHistoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/controller/PlayerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/controller/PlayerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/game/components/ShiftTokenEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/game/components/ShiftTokenEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/player/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/player/Person.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/game/GameHistory.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/game/GameHistory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/game/SabaccGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/game/SabaccGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/dto/game/GameHistoryDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/dto/game/GameHistoryDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/dto/player/PersonDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/dto/player/PersonDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/repository/PlayerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/repository/PlayerRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/service/GameHistoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/service/GameHistoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/service/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/service/GameManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/service/PlayerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/service/PlayerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/resources/data/sabacc-db.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/data/sabacc-db.mv.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/data/sabacc-db.trace.db" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/AuthedRoutes.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/AuthedRoutes.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Home.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/NavBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/NavBar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/footer/Footer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Footer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/game/CreateGame.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/game/CreateGame.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/game/Game.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/game/Game.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/game/Games.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/game/Games.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/gameplay/PlayGame.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/gameplay/PlayGame.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/gameplay/StartGame.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/gameplay/StartGame.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/player/Player.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/player/Player.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/player/PlayerLink.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/player/PlayerLink.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/player/Players.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/player/Players.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/gameplay/FinishGame.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/gameplay/FinishGame.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +57,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "Spring Boot.SabaccBackendApplication.executor": "Run",
-    "git-widget-placeholder": "Merging development",
+    "git-widget-placeholder": "development",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "C:/Users/johnk/Documents/code/Projects/sabacc/backend/src/main/resources/static",
     "list.type.of.created.stylesheet": "CSS",

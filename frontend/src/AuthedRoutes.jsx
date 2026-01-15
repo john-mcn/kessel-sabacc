@@ -30,7 +30,7 @@ const AuthedRoutes = ({ client, token, user }) => {
                 <Route path="/players/create" element={<CreatePlayer client={client}/>} />
                 {/* Game routes */}
                 <Route path="/games" element={<Games client={ client }/>}></Route>
-                <Route path="/games/:id" element={<Game client={client}/>} />
+                <Route path="/games/:id" element={<Game client={client} token={token} user={user}/>} />
                 <Route path="/games/create" element={<CreateGame client={client}/>} />
                 {/* Gameplay routes */}
                 <Route path="/play/start-game" element={<StartGame client={client}/>} />

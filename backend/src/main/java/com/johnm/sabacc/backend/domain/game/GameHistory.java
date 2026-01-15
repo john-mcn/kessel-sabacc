@@ -1,6 +1,8 @@
 package com.johnm.sabacc.backend.domain.game;
 
+import com.johnm.sabacc.backend.domain.player.Person;
 import com.johnm.sabacc.backend.dto.game.GameHistoryDTO;
+import com.johnm.sabacc.backend.dto.player.PlayerDTO;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -13,16 +15,19 @@ public class GameHistory {
 
     @ElementCollection
     private List<String> playerNames;
-    private String winnerName;
+
+    @ManyToOne
+    private Person winner;
+
     private int buyIn;
     private int chipsPerPlayer;
     private List<String> rewards; //TODO change
 
     public GameHistory() {}
 
-    public GameHistory(List<String> playerNames, String winnerName, int buyIn, int chipsPerPlayer, List<String> rewards) {
+    public GameHistory(List<String> playerNames, Person winner, int buyIn, int chipsPerPlayer, List<String> rewards) {
         this.playerNames = playerNames;
-        this.winnerName = winnerName;
+        this.winner = winner;
         this.buyIn = buyIn;
         this.chipsPerPlayer = chipsPerPlayer;
         this.rewards = rewards;
@@ -34,8 +39,8 @@ public class GameHistory {
     public List<String> getPlayerNames() { return playerNames; }
     public void setPlayerNames(List<String> playerNames) { this.playerNames = playerNames; }
 
-    public String getWinnerNames() { return winnerName; }
-    public void setWinnerNames(String winnerName) { this.winnerName = winnerName; }
+    public Person getWinnerNames() { return winner; }
+    public void setWinnerNames(Person winner) { this.winner = winner; }
 
     public int getBuyIn() { return buyIn; }
     public void setBuyIn(int buyIn) { this.buyIn = buyIn; }
@@ -50,7 +55,7 @@ public class GameHistory {
         GameHistoryDTO dto = new GameHistoryDTO(
                 id,
                 playerNames,
-                winnerName,
+                (winner == null)? null : winner.toDto(),
                 buyIn,
                 chipsPerPlayer,
                 rewards);
