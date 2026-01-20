@@ -95,7 +95,7 @@ import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import BackButton from "../components/BackButton.jsx";
 import Button from "react-bootstrap/Button";
-import ChooseDice from "../game/ChooseDice.jsx";
+import ChooseDice from "./ChooseDice.jsx";
 
 const roll2d6 = () => [Math.floor(Math.random()*6)+1, Math.floor(Math.random()*6)+1];
 

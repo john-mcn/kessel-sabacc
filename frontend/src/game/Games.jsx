@@ -26,7 +26,7 @@ const Games = ({ client }) => {
     return (
         <>
             <BackButton/><br/><br/>
-            <h1>Games</h1>
+            <h1 className="englibesh">Games</h1>
             <Table striped bordered>
                 <thead>
                 <tr>

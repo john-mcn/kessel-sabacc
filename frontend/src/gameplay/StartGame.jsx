@@ -53,7 +53,6 @@ const StartGame = ({ client }) => {
             chipsPerPlayer: chipsPerPlayer,
             rewards: rewards
         };
-        console.log(payload)
 
         // if (!winnerNames.every(n => players.includes(n))) {
         //     currentErrors.push(winnersArePlayersMsg);
@@ -64,7 +63,14 @@ const StartGame = ({ client }) => {
                 .then((response) => {
                     nav(`/play`)
                 })
-                .catch((error) => console.log(error.response && error.response.data.message? error.response.data.message : error.message));
+                .catch(error => {
+                    console.log(error.response && error.response.data.message ? error.response.data.message : error.message)
+                    setErrors(error)
+                    if (error.response && error.response.data.message.includes("insufficient credits")) {
+                        console.log("what the chungus");
+                        nav("/")
+                    }
+                });
         } else {
             setErrors(currentErrors)
         }
@@ -79,7 +85,7 @@ const StartGame = ({ client }) => {
             <BackButton/>
 
             <Form onSubmit={submitHandler}>
-                <h1>Create New Game</h1>
+                <h1 className="englibesh">New Game</h1>
                 <hr/>
                 <FormLabel column={true} controlId="players" label="Player names">
                     Players: <FormSelect ref={playersRef} multiple required>
@@ -116,6 +122,8 @@ const StartGame = ({ client }) => {
                 </FormLabel>
                 <br/>
                 <br/>
+
+                {errors && <p>{errors}</p>}
 
                 <Button type="submit" variant="primary">Create</Button>
             </Form>

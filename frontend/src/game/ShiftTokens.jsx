@@ -25,7 +25,7 @@ const ShiftTokens = ({ client }) => {
     return (
         <>
             <BackButton/><br/><br/>
-            <h1>Shift Tokens</h1>
+            <h1 className="englibesh">Shift Tokens</h1>
             <Table striped bordered>
                 <thead>
                 <tr>

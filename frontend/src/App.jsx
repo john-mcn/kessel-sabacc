@@ -31,7 +31,7 @@ const App = () => {
                 Authorization: `Bearer ${localStorage.getItem("token") ?? ""}`,
                 ...(data instanceof FormData? {} : {"Content-Type": "application/json"}),
             },
-        }).catch(error => console.log(error.response && error.response.data.message? error.response.data.message : error.message));
+        });
 
     const loginHandler = (data) => {
         setToken(data.token);

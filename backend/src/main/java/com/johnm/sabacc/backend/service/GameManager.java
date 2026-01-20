@@ -39,7 +39,12 @@ public class GameManager {
         try {
             // optional: validate peopleToPlay credits, buyIn, etc.
             this.currentGame = game;
-            game.setup();
+            try {
+                game.setup();
+            } catch (IllegalActionException e) {
+                // resetGame();
+                throw new IllegalActionException (e.getMessage());
+            }
             this.currentRound = startRound();
         } finally {
             lock.unlock();

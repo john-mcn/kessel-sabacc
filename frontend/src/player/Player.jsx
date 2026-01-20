@@ -39,7 +39,7 @@ const Player = ({ client, token, user }) => {
         return (
             <>
                 <BackButton/>
-                <h1>{person.name}</h1>
+                <h1><span className="englibesh">{person.name}</span> ({person.name})</h1>
                 <p>Credits: {person.credits}</p>
                 <p>Shift Tokens: [{person.tokens.join(", ")}]</p>
                 <br/>

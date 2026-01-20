@@ -3,6 +3,8 @@ import { useRef, useState } from "react";
 import { Button, Form, FloatingLabel} from "react-bootstrap";
 
 import { styled } from 'styled-components'
+import Aurebesh from "../components/Aurebesh.jsx";
+import Englibesh from "../components/Englibesh.jsx";
 
 const StyledForm = styled.form`
   display: flex;
@@ -57,7 +59,7 @@ const LoginForm = ({ client }) => {
     return (
         <>
             <StyledForm onSubmit={submitHandler}>
-                <h1>Login</h1>
+                <h1 className="englibesh">Log In</h1>
 
                 <StyledLabel className="mb-3" controlId="username" label="Email address">
                     <Form.Control ref={usernameRef} type="username" placeholder="" required/>
@@ -70,7 +72,7 @@ const LoginForm = ({ client }) => {
                 { (errors?.includes(wrongCredsMsg) && <p className="text-danger">{wrongCredsMsg}</p>) }
 
                 <StyledButton type="submit" variant="primary" size="lg">
-                    Submit
+                    <span className="englibesh">Submit</span>
                 </StyledButton>
             </StyledForm>
         </>

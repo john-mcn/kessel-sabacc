@@ -3,6 +3,23 @@ body .mt2 {
     padding-bottom: 60px;
 }
 
+/* Fonts */
+@font-face {
+    font-family: 'Aurebesh';
+    src: url('fonts/aurebesh/galbasic.ttf');
+}
+.aurebesh {
+    font-family: 'Aurebesh', serif;
+}
+
+@font-face {
+    font-family: 'Englibesh';
+    src: url('fonts/englbesh/englbesh.ttf');
+}
+.englibesh {
+    font-family: 'Englibesh', serif;
+}
+
 /* Buttons */
 button, .btn {
     transition: 0.2s;
@@ -58,4 +75,24 @@ button:hover, .btn:hover {
 /* Text */
 .p-before-btn {
     margin-bottom: 0;
+}
+
+/* Credit symbol */
+.swCredA {
+    font-size: 110%;
+    font-family: "Lucida Grande", Lucida Sans Unicode, GNU Unifont, Verdana, Helvetica, sans serif;
+    letter-spacing: -0.17rem;
+    vertical-align: 0.03em;
+    margin: -0.5em;
+    padding-left: 0.2em;
+}
+
+.swCredB {
+    font-size: 110%;
+    font-family: "Lucida Grande", Lucida Sans Unicode, GNU Unifont, Verdana, Helvetica, sans serif;
+    letter-spacing: -0.2rem;
+    vertical-align: -0.03em;
+    margin: -0.17em;
+    padding-left: -1em;
+    padding-right: 0.4em;
 }
