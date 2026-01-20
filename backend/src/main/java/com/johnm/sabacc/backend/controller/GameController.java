@@ -12,6 +12,7 @@ import com.johnm.sabacc.backend.exceptions.IllegalActionException;
 import com.johnm.sabacc.backend.service.GameManager;
 import com.johnm.sabacc.backend.service.PlayerService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,12 +30,12 @@ public class GameController {
     }
 
     @PostMapping("/start-game")
-    public ResponseEntity<?> createGame(@RequestBody GameStateDTO dto) {
-        SabaccGame g = dto.toEntity(); // create SabaccGame without persisting
+    public ResponseEntity<?> createGame(@RequestBody GameStateDTO dto, Authentication authentication) {
+        SabaccGame game = dto.toEntity(); // create SabaccGame without persisting
         List<Person> peopleToPlay = playerService.getByUsernames(dto.players.stream().map(PlayerDTO::getName).toList());
-        g.setPeopleToPlay(peopleToPlay);
-        manager.createGame(g);
-        return ResponseEntity.ok(GameStateDTO.fromEntities(g, null));
+        game.setPeopleToPlay(peopleToPlay);
+        manager.createGame(game, authentication);
+        return ResponseEntity.ok(GameStateDTO.fromEntities(game, null));
     }
 
     @PostMapping("/start-round")

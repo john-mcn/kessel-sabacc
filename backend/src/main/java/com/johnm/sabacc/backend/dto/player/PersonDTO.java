@@ -32,4 +32,13 @@ public class PersonDTO {
 
     public List<String> getTokens() { return tokens; }
     public void setTokens(List<String> tokens) { this.tokens = tokens; }
+
+    //NOTE does not set username, method used in GameHistoryDTO
+    public Person toEntity() {
+        Person person = new Person(
+                name,
+                credits,
+                tokens.stream().map(ShiftToken::fromString).toList());
+        return person;
+    }
 }

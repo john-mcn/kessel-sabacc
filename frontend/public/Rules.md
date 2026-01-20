@@ -28,6 +28,7 @@ To win a round, a player must have the best hand at the end of 3 turns.
 - If multiple players have the same winning hand they are joint winners and each get back invested chips
 - If a revealed hand has a pair of **Sylop** cards (a *Pure Sabacc*), that is the best hand in the game
 - If no players have a **Sabacc** hand, *and* multiple players have an equal difference in their hand card ranks, then the lowest sum of ranks wins
+- When the 'Prime Sabacc' **Shift Token** is played, a Pure Sabacc still wins over it
 
 The winner takes all invested chips back from their **pot** to their **stock**. Other players lose chips (**stock** -> **pot**):
 - If they have a **Sabacc** hand, they lose 1 chip

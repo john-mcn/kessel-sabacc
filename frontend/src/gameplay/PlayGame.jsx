@@ -5,7 +5,7 @@ import {Alert, Form, FormControl, FormLabel, FormSelect, InputGroup, Table} from
 import Button from "react-bootstrap/Button";
 import PlayerLink from "../player/PlayerLink.jsx";
 import ActionButton from "./ActionButton.jsx";
-import ChooseDice from "../game/ChooseDice.jsx";
+import ChooseDice from "./ChooseDice.jsx";
 
 const PlayGame = ({ client }) => {
     const [game, setGame] = useState(null);
@@ -80,7 +80,7 @@ const PlayGame = ({ client }) => {
     };
 
     if (error) {
-        if (error.response.data.message == "No game in progress") {
+        if (error.response && error.response.data.message === "No game in progress") {
             return (
                 <>
                     <Alert>No game active</Alert>

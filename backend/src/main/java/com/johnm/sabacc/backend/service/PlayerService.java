@@ -69,7 +69,7 @@ public class PlayerService {
         if (!authedPlayer.getUsername().equals(player.getUsername())
                 && !authedPlayer.getRole().equals(Authorities.ROLE_ADMIN)) {
             throw new AccessForbiddenException("User '" + authedPlayer.getUsername()
-                    + "' is not authorized to delete user '" + player.getUsername() + "'");
+                    + "' is not authorized to update user '" + player.getUsername() + "'");
         }
 
         Person storedPlayer = getByUsername(username);
@@ -77,9 +77,10 @@ public class PlayerService {
         if (player.getUsername() != null) { storedPlayer.setUsername(player.getUsername()); }
         if (player.getPassword() != null) { storedPlayer.setPassword(passwordEncoder.encode(player.getPassword())); }
         if (player.getName() != null) { storedPlayer.setName(player.getName()); }
+        storedPlayer.setCredits(player.getCredits());
         if (player.getTokens() != null) { storedPlayer.setTokens(player.getTokens()); }
 
-        return playerRepository.save(player);
+        return playerRepository.save(storedPlayer);
     }
 
     public void deletePlayer(String username) {

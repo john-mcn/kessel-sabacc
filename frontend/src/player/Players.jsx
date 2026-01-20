@@ -6,6 +6,7 @@ import BackButton from "../components/BackButton.jsx";
 import Button from "react-bootstrap/Button";
 import CreatePlayer from "./CreatePlayer.jsx";
 import PlayerLink from "./PlayerLink.jsx";
+import Credits from "../components/Credits.jsx";
 
 const Players = ({ client, token, user }) => {
     const [players, setPlayers] = useState([]);
@@ -38,7 +39,7 @@ const Players = ({ client, token, user }) => {
             <>
                 <BackButton/><br/><br/>
                 <Link to={`/players/create`}><Button>Create Player</Button></Link>
-                <h1>Players</h1>
+                <h1 className="englibesh">Players</h1>
                 <Table striped bordered>
                     <thead>
                     <tr>
@@ -50,7 +51,7 @@ const Players = ({ client, token, user }) => {
                     <tbody>
                     {players.map((p) => <tr key={p.username}>
                         <td><PlayerLink user={user} username={p.username} name={p.name}/></td>
-                        <td>{p.credits}</td>
+                        <td><Credits amount={p.credits}/></td>
                         <td>[{p.tokens.join(", ")}]</td>
                     </tr>)}
                     </tbody>

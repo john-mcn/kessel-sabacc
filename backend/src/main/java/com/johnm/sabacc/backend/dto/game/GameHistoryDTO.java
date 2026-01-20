@@ -1,21 +1,23 @@
 package com.johnm.sabacc.backend.dto.game;
 
 import com.johnm.sabacc.backend.domain.game.GameHistory;
+import com.johnm.sabacc.backend.dto.player.PersonDTO;
+import com.johnm.sabacc.backend.dto.player.PlayerDTO;
 
 import java.util.List;
 
 public class GameHistoryDTO {
     private Integer id;
     private List<String> playerNames;
-    private String winnerName;
+    private PersonDTO winner;
     private int buyIn;
     private int chipsPerPlayer;
     private List<String> rewards;
 
-    public GameHistoryDTO(Integer id, List<String> playerNames, String winnerName, int buyIn, int chipsPerPlayer, List<String> rewards) {
+    public GameHistoryDTO(Integer id, List<String> playerNames, PersonDTO winner, int buyIn, int chipsPerPlayer, List<String> rewards) {
         this.id = id;
         this.playerNames = playerNames;
-        this.winnerName = winnerName;
+        this.winner = winner;
         this.buyIn = buyIn;
         this.chipsPerPlayer = chipsPerPlayer;
         this.rewards = rewards;
@@ -27,8 +29,8 @@ public class GameHistoryDTO {
     public List<String> getPlayerNames() { return playerNames; }
     public void setPlayerNames(List<String> playerNames) { this.playerNames = playerNames; }
 
-    public String getWinnerName() { return winnerName; }
-    public void setWinnerName(String winnerName) { this.winnerName = winnerName; }
+    public PersonDTO getWinner() { return winner; }
+    public void setWinner(PersonDTO winner) { this.winner = winner; }
 
     public int getBuyIn() { return buyIn; }
     public void setBuyIn(int buyIn) { this.buyIn = buyIn; }
@@ -42,7 +44,7 @@ public class GameHistoryDTO {
     public GameHistory toEntity() {
         GameHistory gameHistory  = new GameHistory(
                 playerNames,
-                winnerName,
+                winner.toEntity(),
                 buyIn,
                 chipsPerPlayer,
                 rewards);

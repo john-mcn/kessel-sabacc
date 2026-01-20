@@ -1,12 +1,12 @@
 import {useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import BackButton from "../components/BackButton.jsx";
-import {Form, FormControl, FormLabel, FormSelect} from "react-bootstrap";
+import {Alert, Form, FormControl, FormLabel, FormSelect} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 
 const StartGame = ({ client }) => {
     const [game, setGame] = useState(null);
-    const [errors, setErrors] = useState([]);
+    const [errorMsg, setErrorMsg] = useState(null);
     const [loading, setLoading] = useState(false);
     const nav = useNavigate();
 
@@ -37,6 +37,7 @@ const StartGame = ({ client }) => {
         e.preventDefault();
 
         let currentErrors = [];
+        setErrorMsg(null);
 
         const players = Array.from(
             playersRef.current.selectedOptions,
@@ -53,21 +54,21 @@ const StartGame = ({ client }) => {
             chipsPerPlayer: chipsPerPlayer,
             rewards: rewards
         };
-        console.log(payload)
 
         // if (!winnerNames.every(n => players.includes(n))) {
         //     currentErrors.push(winnersArePlayersMsg);
         // }
-
-        if (currentErrors.length === 0) {
-            client.startGame(payload)
-                .then((response) => {
-                    nav(`/play`)
-                })
-                .catch((error) => console.log(error.response && error.response.data.message? error.response.data.message : error.message));
-        } else {
-            setErrors(currentErrors)
-        }
+        console.log(`NO ERRORS? ${currentErrors.length === 0 && !errorMsg}`)
+        client.startGame(payload)
+            .then((response) => {
+                console.log("NO ERRORS -> PLAY GAME")
+                nav(`/play`)
+            })
+            .catch(error => {
+                const errorMessage = error.response && error.response.data.message ? error.response.data.message : error.message;
+                console.log(errorMessage)
+                setErrorMsg(errorMessage)
+            });
     };
 
     if (loading) { return null; }
@@ -79,7 +80,7 @@ const StartGame = ({ client }) => {
             <BackButton/>
 
             <Form onSubmit={submitHandler}>
-                <h1>Create New Game</h1>
+                <h1 className="englibesh">New Game</h1>
                 <hr/>
                 <FormLabel column={true} controlId="players" label="Player names">
                     Players: <FormSelect ref={playersRef} multiple required>
@@ -116,6 +117,8 @@ const StartGame = ({ client }) => {
                 </FormLabel>
                 <br/>
                 <br/>
+
+                {errorMsg && <Alert variant="danger">{errorMsg}</Alert>}
 
                 <Button type="submit" variant="primary">Create</Button>
             </Form>

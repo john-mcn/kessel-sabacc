@@ -66,6 +66,8 @@ public class SabaccGame {
             }
             p.setCredits(p.getCredits() - buyIn);
             Player newPlayer = new Player(p.getName(), null, null);
+            newPlayer.setUsername(p.getUsername());
+            newPlayer.setCredits(p.getCredits());
 
             newPlayer.setSelectedTokens(p.getTokens());
             players.add(newPlayer);
@@ -80,14 +82,14 @@ public class SabaccGame {
 
     public void endGame() {
         winner = players.stream().filter(p -> p.getStock() > 0).toList().get(0);
-        winner.setCredits(buyIn * players.size());
+        winner.setCredits(winner.getCredits() + (buyIn * players.size()));
         //Give winner rewards
     }
 
     public GameHistory toGameHistory() {
         GameHistory gameHistory = new GameHistory(
                 players.stream().map(Player::getName).toList(),
-                winner.getName(),
+                winner,
                 buyIn,
                 chipsPerPlayer,
                 rewards
