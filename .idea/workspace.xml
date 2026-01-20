@@ -4,21 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f2654150-cc4f-477f-8a0a-56283fa98a30" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/player/PlayerHandComparator.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/domain/player/PlayerHandComparator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/service/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/johnm/sabacc/backend/service/GameManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/data/sabacc-db.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/data/sabacc-db.mv.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/test/java/com/johnm/sabacc/backend/domain/player/PlayerHandComparatorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/test/java/com/johnm/sabacc/backend/domain/player/PlayerHandComparatorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Home.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/game/Game.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/game/Game.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/game/Games.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/game/Games.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/gameplay/FinishGame.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/gameplay/FinishGame.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/gameplay/StartGame.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/gameplay/StartGame.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/player/Player.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/player/Player.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/player/Players.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/player/Players.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/player/Profile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/player/Profile.jsx" afterDir="false" />
-    </list>
+    <list default="true" id="f2654150-cc4f-477f-8a0a-56283fa98a30" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -58,7 +44,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "Spring Boot.SabaccBackendApplication.executor": "Run",
-    "git-widget-placeholder": "development",
+    "git-widget-placeholder": "deployment",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "C:/Users/johnk/Documents/code/Projects/sabacc/backend/src/main/resources/static",
     "list.type.of.created.stylesheet": "CSS",
