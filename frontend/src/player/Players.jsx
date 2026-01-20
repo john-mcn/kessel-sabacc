@@ -56,7 +56,6 @@ const Players = ({ client, token, user }) => {
                     </tr>)}
                     </tbody>
                 </Table>
-                <p>My chungus cost <Credits amount={300}/></p>
             </>
         );
     }

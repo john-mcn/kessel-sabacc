@@ -71,6 +71,20 @@ public class PlayerHandComparatorTest {
     }
 
     @Test
+    void lowerSabaccVsSylop_shouldWin() {
+        PlayerHand hand1 = new PlayerHand(
+                new Card(CardFamily.BLOOD, CardRank.ONE),
+                new Card(CardFamily.SAND, CardRank.ONE));
+        PlayerHand hand2 = new PlayerHand(
+                new Card(CardFamily.BLOOD, CardRank.TWO),
+                new Card(CardFamily.SAND, CardRank.SYLOP));
+
+        int comparison = comparator.compare(hand1, hand2);
+
+        assertTrue(comparison < 0, "Lower Sabacc should win against a worse hand with ONE Sylop");
+    }
+
+    @Test
     void sabacc_shouldWin() {
         PlayerHand hand1 = new PlayerHand(
                 new Card(CardFamily.BLOOD, CardRank.ONE),

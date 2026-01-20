@@ -4,6 +4,7 @@ import {Form, ListGroup, ListGroupItem, Table} from "react-bootstrap";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import BackButton from "../components/BackButton.jsx";
 import Button from "react-bootstrap/Button";
+import Credits from "../components/Credits.jsx";
 
 const Profile = ({ client, token, user }) => {
     const [player, setPlayer] = useState(null);
@@ -37,8 +38,8 @@ const Profile = ({ client, token, user }) => {
         return (
             <>
                 <BackButton/>
-                <h1>Profile ({player.name})</h1>
-                <p>Credits: {player.credits}</p>
+                <h1><span className="englibesh">Your profile</span> ({player.name})</h1>
+                <p>Credits: <Credits amount={player.credits}/></p>
                 <p>Shift Tokens: [{player.tokens.join(", ")}]</p>
                 <br/>
                 <Form onSubmit={handleDeletePlayer}>

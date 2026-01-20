@@ -14,7 +14,6 @@ const Home = ({ client, token, user }) => {
             <Link to={`/play/start-game`}><Button variant="primary">Play a Game</Button></Link>
             <br/>
             <hr/>
-            <Alert variant="danger">TODO Players insufficient chips</Alert>
         </>
     );
 }

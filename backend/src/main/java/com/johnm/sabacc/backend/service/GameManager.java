@@ -4,6 +4,7 @@ import com.johnm.sabacc.backend.domain.game.GameHistory;
 import com.johnm.sabacc.backend.domain.game.GameRound;
 import com.johnm.sabacc.backend.domain.game.SabaccGame;
 import com.johnm.sabacc.backend.domain.game.components.Card;
+import com.johnm.sabacc.backend.domain.player.Person;
 import com.johnm.sabacc.backend.domain.player.Player;
 import com.johnm.sabacc.backend.dto.game.*;
 import com.johnm.sabacc.backend.exceptions.IllegalActionException;
@@ -38,6 +39,15 @@ public class GameManager {
         lock.lock();
         try {
             // optional: validate peopleToPlay credits, buyIn, etc.
+            List<Person> invalidCredits = game.getPeopleToPlay().stream()
+                    .filter(p -> p.getCredits() < game.getBuyIn())
+                    .toList();
+            if (!invalidCredits.isEmpty()) {
+                throw new IllegalActionException(
+                        "Players with insufficient credits: "
+                                + invalidCredits.stream().map(Person::getName).toList());
+            }
+
             this.currentGame = game;
             try {
                 game.setup();

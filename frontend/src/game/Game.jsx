@@ -5,6 +5,7 @@ import {Link, useNavigate, useParams} from "react-router-dom";
 import BackButton from "../components/BackButton.jsx";
 import PlayerLink from "../player/PlayerLink.jsx";
 import Button from "react-bootstrap/Button";
+import Credits from "../components/Credits.jsx";
 
 const Game = ({ client, token, user }) => {
     const { id } = useParams();
@@ -42,7 +43,7 @@ const Game = ({ client, token, user }) => {
                 <h1>Game {game.id}</h1>
                 <h4><b>Winner:</b> {<PlayerLink user={user} username={winner.username} name={winner.name} />}
                 </h4>
-                <h5>Winner pot: {game.buyIn * game.playerNames.length} ({game.buyIn} buy-in)</h5>
+                <h5>Winner pot: <Credits amount={game.buyIn * game.playerNames.length}/> (<Credits amount={game.buyIn}/> buy-in)</h5>
                 <hr/>
                 <u>Players:</u>
                 <ul>

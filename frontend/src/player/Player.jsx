@@ -4,11 +4,12 @@ import {Form, ListGroup, ListGroupItem, Table} from "react-bootstrap";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import BackButton from "../components/BackButton.jsx";
 import Button from "react-bootstrap/Button";
+import Credits from "../components/Credits.jsx";
 
 const Player = ({ client, token, user }) => {
     //TODO change name -> username, and person -> player; causes error??
     const { name } = useParams();
-    const [person, setPlayer] = useState(null);
+    const [player, setPlayer] = useState(null);
     const [error, setError] = useState(null);
 
     const nav  = useNavigate();
@@ -35,13 +36,13 @@ const Player = ({ client, token, user }) => {
         return <div>{error}</div>
     }
 
-    if (person) {
+    if (player) {
         return (
             <>
                 <BackButton/>
-                <h1><span className="englibesh">{person.name}</span> ({person.name})</h1>
-                <p>Credits: {person.credits}</p>
-                <p>Shift Tokens: [{person.tokens.join(", ")}]</p>
+                <h1><span className="englibesh">{player.name}</span> ({player.name})</h1>
+                <p>Credits: <Credits amount={player.credits}/></p>
+                <p>Shift Tokens: [{player.tokens.join(", ")}]</p>
                 <br/>
                 <Form onSubmit={handleDeletePlayer}>
                     <Button type="submit" variant="danger">Delete</Button>

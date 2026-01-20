@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import GameLink from "./GameLink.jsx";
 import BackButton from "../components/BackButton.jsx";
 import Button from "react-bootstrap/Button";
+import Credits from "../components/Credits.jsx";
 
 const Games = ({ client }) => {
     const [games, setGames] = useState([]);
@@ -42,7 +43,7 @@ const Games = ({ client }) => {
                     <td><GameLink id={g.id}/></td>
                     <td>{g.winner.name}</td>
                     <td>[{g.playerNames.join(", ")}]</td>
-                    <td>{g.buyIn * g.playerNames.length}</td>
+                    <td><Credits amount={g.buyIn * g.playerNames.length}/></td>
                     <td>[{g.rewards}]</td>
                 </tr>)}
                 </tbody>

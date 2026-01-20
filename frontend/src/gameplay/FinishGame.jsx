@@ -5,6 +5,7 @@ import {Alert, Form, FormControl, FormLabel, FormSelect, Table} from "react-boot
 import Button from "react-bootstrap/Button";
 import PlayerLink from "../player/PlayerLink.jsx";
 import ActionButton from "./ActionButton.jsx";
+import Credits from "../components/Credits.jsx";
 
 const FinishGame = ({ client }) => {
     const { id } = useParams();
@@ -42,7 +43,7 @@ const FinishGame = ({ client }) => {
             <>
                 <BackButton/>
                 <h1>Game {game.id} Summary</h1>
-                <h5>Credit pot: {game.buyIn * game.players.length} <b>|</b> Chips/player: {game.chipsPerPlayer}</h5>
+                <h5>Credit pot: <Credits amount={game.buyIn * game.players.length}/> <b>|</b> Chips/player: {game.chipsPerPlayer}</h5>
                 <u>Players:</u>
                 <ul>
                     {playerNames.map((n) => {
@@ -73,7 +74,11 @@ const FinishGame = ({ client }) => {
                         <td>{p.name}</td>
                         <td>{p.hand[0].family} {p.hand[0].rank}, {p.hand[1].family} {p.hand[1].rank}</td>
                         <td>{p.stock}</td>
-                        <td>{game.winner.name == p.name ? `+${game.buyIn - game.buyIn * game.players.length}` : `-${game.buyIn}`}</td>
+                        <td>{
+                            game.winner.name === p.name
+                                ? `+${Math.abs(game.buyIn - game.buyIn * game.players.length)}`
+                                : `-${game.buyIn}`
+                        }</td>
                     </tr>)}
                     </tbody>
                 </Table>
