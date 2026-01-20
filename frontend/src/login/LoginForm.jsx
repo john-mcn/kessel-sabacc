@@ -61,7 +61,7 @@ const LoginForm = ({ client }) => {
             <StyledForm onSubmit={submitHandler}>
                 <h1 className="englibesh">Log In</h1>
 
-                <StyledLabel className="mb-3" controlId="username" label="Email address">
+                <StyledLabel className="mb-3" controlId="username" label="Username">
                     <Form.Control ref={usernameRef} type="username" placeholder="" required/>
                 </StyledLabel>
 

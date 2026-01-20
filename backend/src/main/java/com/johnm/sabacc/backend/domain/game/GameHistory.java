@@ -21,11 +21,13 @@ public class GameHistory {
 
     private int buyIn;
     private int chipsPerPlayer;
-    private List<String> rewards; //TODO change
+
+    @OneToOne
+    private Rewards rewards;
 
     public GameHistory() {}
 
-    public GameHistory(List<String> playerNames, Person winner, int buyIn, int chipsPerPlayer, List<String> rewards) {
+    public GameHistory(List<String> playerNames, Person winner, int buyIn, int chipsPerPlayer, Rewards rewards) {
         this.playerNames = playerNames;
         this.winner = winner;
         this.buyIn = buyIn;
@@ -48,8 +50,8 @@ public class GameHistory {
     public int getChipsPerPlayer() { return chipsPerPlayer; }
     public void setChipsPerPlayer(int chipsPerPlayer) { this.chipsPerPlayer = chipsPerPlayer; }
 
-    public List<String> getRewards() { return rewards; }
-    public void setRewards(List<String> rewards) { this.rewards = rewards; }
+    public Rewards getRewards() { return rewards; }
+    public void setRewards(Rewards rewards) { this.rewards = rewards; }
 
     public GameHistoryDTO toDTO() {
         GameHistoryDTO dto = new GameHistoryDTO(

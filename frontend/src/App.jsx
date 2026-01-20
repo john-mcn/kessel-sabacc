@@ -72,6 +72,7 @@ const App = () => {
         // createGame: (data) => axios.post(`${GAME_URL}`, data),
         deleteGame: (gameId) => authorisedRequest(`${GAME_URL}/${gameId}`, "DELETE"),
         // Gameplay routes
+        getGamePresets: () => authorisedRequest(`${BASE_URL}/presets`, "GET"),
         startGame: (data) => authorisedRequest(`${GAMEPLAY_URL}/start-game`, "POST",data),
         startRound: () => authorisedRequest(`${GAMEPLAY_URL}/start-round`, "POST"),
         getGameInProgress: () => authorisedRequest(`${GAMEPLAY_URL}`, "GET"),
@@ -80,6 +81,9 @@ const App = () => {
         showSummary: () => authorisedRequest(`${GAMEPLAY_URL}/summary`, "GET"),
         // ShiftToken routes
         getTokens: () => authorisedRequest(`${BASE_URL}/tokens`, "GET"),
+        // Syndicate
+        getSyndicates: () => authorisedRequest(`${BASE_URL}/syndicates`, "GET"),
+        getSyndicate: (name) => authorisedRequest(`${BASE_URL}/syndicates/${name}`, "GET"),
 
         // Login & signup
         login: (data) => axios({

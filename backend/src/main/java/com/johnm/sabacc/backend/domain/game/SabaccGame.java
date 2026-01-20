@@ -11,15 +11,17 @@ public class SabaccGame {
     private List<Person> peopleToPlay;
     private int buyIn;
     private int chipsPerPlayer;
-    private List<String> rewards; //TODO change
+    private Rewards rewards;
     private Player winner;
     private List<GameRound> rounds;
     private List<Player> players;
     private int roundNumber;
+    private GamePreset preset;
+
 
     public SabaccGame() {}
 
-    public SabaccGame(List<Person> peopleToPlay, int buyIn, int chipsPerPlayer, List<String> rewards) {
+    public SabaccGame(List<Person> peopleToPlay, int buyIn, int chipsPerPlayer, Rewards rewards) {
         this.peopleToPlay = peopleToPlay;
         // rounds = null;
         this.buyIn = buyIn;
@@ -27,6 +29,28 @@ public class SabaccGame {
         this.rewards = rewards;
         roundNumber = 0;
     }
+
+    public SabaccGame(GamePreset preset, List<Person> peopleToPlay) {
+        List<Person> peopleInvalidRep = peopleToPlay.stream().filter(p ->
+                p.getDawnRep() < preset.getDawnRepReq()
+                        || p.getHuttRep() < preset.getHuttRepReq()
+                        || p.getPykeRep() < preset.getPykeRepReq()).toList();
+        if (!peopleInvalidRep.isEmpty()) {
+            throw new IllegalActionException(
+                    "Players with insufficient reputation: " + peopleInvalidRep);
+        }
+
+        this.preset = preset;
+        buyIn = preset.getBuyIn();
+        chipsPerPlayer = preset.getChipsPerPlayer();
+        rewards = preset.getRewards();
+        roundNumber = 0;
+
+        this.peopleToPlay = peopleToPlay;
+    }
+
+    public GamePreset getPreset() { return preset; }
+    public void setPreset(GamePreset preset) { this.preset = preset; }
 
     public List<Person> getPeopleToPlay() { return peopleToPlay; }
     public void setPeopleToPlay(List<Person> peopleToPlay) { this.peopleToPlay = peopleToPlay; }
@@ -45,8 +69,8 @@ public class SabaccGame {
     public int getChipsPerPlayer() { return chipsPerPlayer; }
     public void setChipsPerPlayer(int chipsPerPlayer) {  this.chipsPerPlayer = chipsPerPlayer; }
 
-    public List<String> getRewards() { return rewards; }
-    public void setRewards(List<String> rewards) { this.rewards = rewards; }
+    public Rewards getRewards() { return rewards; }
+    public void setRewards(Rewards rewards) { this.rewards = rewards; }
 
     public Player getWinner() { return winner; }
     public void setWinner(Player winner) { this.winner = winner; }
@@ -83,7 +107,18 @@ public class SabaccGame {
     public void endGame() {
         winner = players.stream().filter(p -> p.getStock() > 0).toList().get(0);
         winner.setCredits(winner.getCredits() + (buyIn * players.size()));
-        //Give winner rewards
+        // Handle winner & loser reputation change
+        if (rewards != null) {
+            winner.setDawnRep(winner.getDawnRep() + rewards.getWinningDawnRepChange());
+            winner.setHuttRep(winner.getHuttRep() + rewards.getWinningHuttRepChange());
+            winner.setPykeRep(winner.getPykeRep() + rewards.getWinningPykeRepChange());
+
+            for (Player loser: players.stream().filter(p -> p.getStock() <= 0).toList()) {
+                loser.setDawnRep(loser.getDawnRep() + rewards.getLosingDawnRepChange());
+                loser.setHuttRep(loser.getHuttRep() + rewards.getLosingHuttRepChange());
+                loser.setPykeRep(loser.getPykeRep() + rewards.getLosingPykeRepChange());
+            }
+        }
     }
 
     public GameHistory toGameHistory() {

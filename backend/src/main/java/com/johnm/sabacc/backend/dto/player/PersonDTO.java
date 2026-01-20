@@ -13,6 +13,8 @@ public class PersonDTO {
     private int credits;
     private List<String> tokens;
 
+    private int huttRep, pykeRep, dawnRep;
+
     public PersonDTO() {}
 
     public PersonDTO(String name, int credits, List<String> tokens) {
@@ -24,6 +26,7 @@ public class PersonDTO {
     public String getUsername() { return username; }
     public void setUsername(String username) { this.username = username; }
 
+    // Game and player
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
@@ -33,12 +36,25 @@ public class PersonDTO {
     public List<String> getTokens() { return tokens; }
     public void setTokens(List<String> tokens) { this.tokens = tokens; }
 
+    // Reputation
+    public int getHuttRep() { return huttRep; }
+    public void setHuttRep(int huttRep) { this.huttRep = Math.min(huttRep, 100); }
+
+    public int getPykeRep() { return pykeRep; }
+    public void setPykeRep(int pykeRep) { this.pykeRep = Math.min(pykeRep, 100); }
+
+    public int getDawnRep() { return dawnRep; }
+    public void setDawnRep(int dawnRep) { this.dawnRep = Math.min(dawnRep, 100); }
+
     //NOTE does not set username, method used in GameHistoryDTO
     public Person toEntity() {
         Person person = new Person(
                 name,
                 credits,
                 tokens.stream().map(ShiftToken::fromString).toList());
+        person.setHuttRep(huttRep);
+        person.setPykeRep(pykeRep);
+        person.setDawnRep(dawnRep);
         return person;
     }
 }

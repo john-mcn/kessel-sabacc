@@ -1,6 +1,7 @@
 package com.johnm.sabacc.backend.dto.game;
 
 import com.johnm.sabacc.backend.domain.game.GameRound;
+import com.johnm.sabacc.backend.domain.game.Rewards;
 import com.johnm.sabacc.backend.domain.game.SabaccGame;
 import com.johnm.sabacc.backend.domain.game.components.CardRank;
 import com.johnm.sabacc.backend.domain.player.Person;
@@ -14,7 +15,7 @@ public class GameStateDTO {
     //TODO change to private and make getters
     public int buyIn;
     public int chipsPerPlayer;
-    public List<String> rewards; //TODO change
+    public Rewards rewards;
     public List<PlayerDTO> players;
     public PlayerDTO winner;
     public int roundNumber;

@@ -3,10 +3,12 @@ import {useNavigate} from "react-router-dom";
 import BackButton from "../components/BackButton.jsx";
 import {Alert, Form, FormControl, FormLabel, FormSelect} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
+import Credits from "../components/Credits.jsx";
 
 const StartGame = ({ client }) => {
     const [game, setGame] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
+    const [presets, setPresets] = useState([]);
     const [loading, setLoading] = useState(false);
     const nav = useNavigate();
 
@@ -14,7 +16,7 @@ const StartGame = ({ client }) => {
     const playersRef = useRef([]);
     const buyInRef = useRef(null);
     const chipsPerPlayerRef = useRef(null);
-    const rewardsRef = useRef([]);
+    // const rewardsRef = useRef([]);
 
     useEffect(() => {
         client.getPlayers()
@@ -27,6 +29,12 @@ const StartGame = ({ client }) => {
         client.getGameInProgress()
             .then(response => {
                 if (response) setGame(response.data);
+            }).catch(error => {
+            console.log(error.response && error.response.data.message? error.response.data.message : error.message);
+        });
+        client.getGamePresets()
+            .then(response => {
+                setPresets(response.data);
             }).catch(error => {
             console.log(error.response && error.response.data.message? error.response.data.message : error.message);
         });
@@ -43,16 +51,15 @@ const StartGame = ({ client }) => {
             playersRef.current.selectedOptions,
             option => ({ name: option.value })
         );
-        // const winnerNames = Array.from(winnerNamesRef.current.selectedOptions, option => option.value);
         const buIn = Number(buyInRef.current.value);
         const chipsPerPlayer = Number(chipsPerPlayerRef.current.value);
-        const rewards = rewardsRef.current.value.split(",");
+        // const rewards = rewardsRef.current.value.split(",");
 
         const payload = {
             players: players,
             buyIn: buIn,
             chipsPerPlayer: chipsPerPlayer,
-            rewards: rewards
+            // rewards: rewards
         };
 
         // if (!winnerNames.every(n => players.includes(n))) {
@@ -75,13 +82,14 @@ const StartGame = ({ client }) => {
 
     if (game && !game.winner) { nav(`/play`) }
 
+    console.log(presets[0]);
     return (
         <>
             <BackButton/>
 
+            <h1 className="englibesh">New Game</h1>
+            <h2>Create a Custom Game</h2>
             <Form onSubmit={submitHandler}>
-                <h1 className="englibesh">New Game</h1>
-                <hr/>
                 <FormLabel column={true} controlId="players" label="Player names">
                     Players: <FormSelect ref={playersRef} multiple required>
                     {playersLst.map(p => (
@@ -90,17 +98,6 @@ const StartGame = ({ client }) => {
                 </FormSelect>
                 </FormLabel>
                 <br/>
-
-                {/*/!*TODO validation for 'winner subset players'*!/*/}
-                {/*<FormLabel column={true} controlId="winnerNames" label="Winner names">*/}
-                {/*    Winners: <FormSelect ref={winnerNamesRef} multiple required>*/}
-                {/*    {playersLst.map(n => (*/}
-                {/*        <option key={`winner:${n.name}`}>{n.name}</option>*/}
-                {/*    ))}*/}
-                {/*</FormSelect>*/}
-                {/*    { (errors?.includes(winnersArePlayersMsg) && (<p className="text-danger">{winnersArePlayersMsg}</p>)) }*/}
-                {/*</FormLabel>*/}
-                {/*<br/>*/}
 
                 <FormLabel column={true} controlId="buyIn" label="Buy-in">
                     Buy-in: <FormControl ref={buyInRef} type="number" placeholder={0} required/>
@@ -112,9 +109,9 @@ const StartGame = ({ client }) => {
                 </FormLabel>
                 <br/>
 
-                <FormLabel column={true} controlId="rewards" label="Rewards">
-                    Rewards: <FormControl ref={rewardsRef} type="text" placeholder=""/>
-                </FormLabel>
+                {/*<FormLabel column={true} controlId="rewards" label="Rewards">*/}
+                {/*    Rewards: <FormControl ref={rewardsRef} type="text" placeholder=""/>*/}
+                {/*</FormLabel>*/}
                 <br/>
                 <br/>
 
@@ -122,6 +119,22 @@ const StartGame = ({ client }) => {
 
                 <Button type="submit" variant="primary">Create</Button>
             </Form>
+
+            <hr/>
+
+            <h2>Play a Standard Game</h2>
+            {presets.map((preset) => <>
+                <ul>
+                    <li>ID: {preset.id}</li>
+                    <li>Buy-in: <Credits amount={preset.buyIn}/></li>
+                    <li>Chips/player: {preset.chipsPerPlayer}</li>
+                    <li>Reputation requirements:&nbsp;
+                        {preset.dawnRepReq === 0? `` : `Crimson Dawn: ${preset.dawnRepReq}%`}
+                        {preset.huttRepReq === 0? `` : `Hutt Clan: ${preset.huttRepReq}%`}
+                        {preset.pykeRepReq === 0? `` : `Pyke Syndicate: ${preset.pykeRepReq}%`}
+                    </li>
+                </ul>
+            </>)}
         </>
     )
 };

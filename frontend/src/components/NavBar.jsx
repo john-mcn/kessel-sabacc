@@ -15,6 +15,7 @@ function NavBar({ logout, user, token }) {
                     <Nav.Link href="/games">Games</Nav.Link>
                     <Nav.Link href="/players">Players</Nav.Link>
                     <Nav.Link href="/tokens">Shift Tokens</Nav.Link>
+                    <Nav.Link href="/syndicates">Syndicates</Nav.Link>
                 </Nav>
 
                 {/* Right Side */}

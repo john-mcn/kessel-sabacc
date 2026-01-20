@@ -1,6 +1,7 @@
 package com.johnm.sabacc.backend.dto.game;
 
 import com.johnm.sabacc.backend.domain.game.GameHistory;
+import com.johnm.sabacc.backend.domain.game.Rewards;
 import com.johnm.sabacc.backend.dto.player.PersonDTO;
 import com.johnm.sabacc.backend.dto.player.PlayerDTO;
 
@@ -12,9 +13,9 @@ public class GameHistoryDTO {
     private PersonDTO winner;
     private int buyIn;
     private int chipsPerPlayer;
-    private List<String> rewards;
+    private Rewards rewards;
 
-    public GameHistoryDTO(Integer id, List<String> playerNames, PersonDTO winner, int buyIn, int chipsPerPlayer, List<String> rewards) {
+    public GameHistoryDTO(Integer id, List<String> playerNames, PersonDTO winner, int buyIn, int chipsPerPlayer, Rewards rewards) {
         this.id = id;
         this.playerNames = playerNames;
         this.winner = winner;
@@ -38,8 +39,8 @@ public class GameHistoryDTO {
     public int getChipsPerPlayer() { return chipsPerPlayer; }
     public void setChipsPerPlayer(int chipsPerPlayer) { this.chipsPerPlayer = chipsPerPlayer; }
 
-    public List<String> getRewards() { return rewards; }
-    public void setRewards(List<String> rewards) { this.rewards = rewards; }
+    public Rewards getRewards() { return rewards; }
+    public void setRewards(Rewards rewards) { this.rewards = rewards; }
 
     public GameHistory toEntity() {
         GameHistory gameHistory  = new GameHistory(

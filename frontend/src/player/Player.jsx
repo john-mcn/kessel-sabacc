@@ -7,7 +7,6 @@ import Button from "react-bootstrap/Button";
 import Credits from "../components/Credits.jsx";
 
 const Player = ({ client, token, user }) => {
-    //TODO change name -> username, and person -> player; causes error??
     const { name } = useParams();
     const [player, setPlayer] = useState(null);
     const [error, setError] = useState(null);
@@ -43,6 +42,12 @@ const Player = ({ client, token, user }) => {
                 <h1><span className="englibesh">{player.name}</span> ({player.name})</h1>
                 <p>Credits: <Credits amount={player.credits}/></p>
                 <p>Shift Tokens: [{player.tokens.join(", ")}]</p>
+                <u>Reputation:</u>
+                <ul>
+                    <li><Link to="/syndicates/crimson_dawn">Crimson Dawn</Link>: {player.dawnRep}%</li>
+                    <li><Link to="/syndicates/hutt">Hutt Cartel</Link>: {player.huttRep}%</li>
+                    <li><Link to="/syndicates/pyke">Pyke Syndicate</Link>: {player.pykeRep}%</li>
+                </ul>
                 <br/>
                 <Form onSubmit={handleDeletePlayer}>
                     <Button type="submit" variant="danger">Delete</Button>

@@ -38,7 +38,7 @@ public class GameManager {
         this.authentication = authentication;
         lock.lock();
         try {
-            // optional: validate peopleToPlay credits, buyIn, etc.
+            // Validate player credits
             List<Person> invalidCredits = game.getPeopleToPlay().stream()
                     .filter(p -> p.getCredits() < game.getBuyIn())
                     .toList();
@@ -47,6 +47,9 @@ public class GameManager {
                         "Players with insufficient credits: "
                                 + invalidCredits.stream().map(Person::getName).toList());
             }
+
+            //NOTE player reputation validation in SabaccGame constructor
+
 
             this.currentGame = game;
             try {

@@ -46,6 +46,7 @@ const Players = ({ client, token, user }) => {
                         <th>Name</th>
                         <th>Credits</th>
                         <th>Tokens</th>
+                        <th>Avg. Rep</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -53,6 +54,7 @@ const Players = ({ client, token, user }) => {
                         <td><PlayerLink user={user} username={p.username} name={p.name}/></td>
                         <td><Credits amount={p.credits}/></td>
                         <td>[{p.tokens.join(", ")}]</td>
+                        <td>{(p.dawnRep + p.huttRep + p.pykeRep) / 3}%</td>
                     </tr>)}
                     </tbody>
                 </Table>

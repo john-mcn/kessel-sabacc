@@ -41,6 +41,12 @@ const Profile = ({ client, token, user }) => {
                 <h1><span className="englibesh">Your profile</span> ({player.name})</h1>
                 <p>Credits: <Credits amount={player.credits}/></p>
                 <p>Shift Tokens: [{player.tokens.join(", ")}]</p>
+                <u>Reputation:</u>
+                <ul>
+                    <li><Link to="/syndicates/crimson_dawn">Crimson Dawn</Link>: {player.dawnRep}%</li>
+                    <li><Link to="/syndicates/hutt">Hutt Cartel</Link>: {player.huttRep}%</li>
+                    <li><Link to="/syndicates/pyke">Pyke Syndicate</Link>: {player.pykeRep}%</li>
+                </ul>
                 <br/>
                 <Form onSubmit={handleDeletePlayer}>
                     <Button type="submit" variant="danger">Delete</Button>

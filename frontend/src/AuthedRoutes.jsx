@@ -15,6 +15,8 @@ import FinishRound from "./gameplay/FinishRound.jsx";
 import RevealCards from "./gameplay/RevealCards.jsx";
 import Contact from "./docs/Contact.jsx";
 import Profile from "./player/Profile.jsx";
+import Syndicate from "./syndicates/Syndicate.jsx";
+import Syndicates from "./syndicates/Syndicates.jsx";
 
 const AuthedRoutes = ({ client, token, user }) => {
     return (
@@ -40,6 +42,11 @@ const AuthedRoutes = ({ client, token, user }) => {
                 <Route path="/play/summary" element={<FinishGame client={client}/>} />
                 {/* Shift Token routes */}
                 <Route path="/tokens" element={<ShiftTokens client={client}/>}/>
+                {/* Syndicate routes */}
+                <Route path="/syndicates" element={<Syndicates client={client} token={token} user={user}/>}/>
+                <Route path="/syndicates/crimson_dawn" element={<Syndicate client={client} token={token} user={user} syndName="crimson_dawn"/>}/>
+                <Route path="/syndicates/hutt" element={<Syndicate client={client} token={token} user={user} syndName="hutt"/>}/>
+                <Route path="/syndicates/pyke" element={<Syndicate client={client} token={token} user={user} syndName="pyke"/>}/>
             </Routes>
         </div>
     )
