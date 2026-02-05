@@ -11,7 +11,7 @@ if errorlevel 1 (
     exit /b 1
 )
 
-if not exist backend\mvnw (
+if not exist server\mvnw (
     echo mvnw not found in backend folder
     pause
     exit /b 1
@@ -36,8 +36,8 @@ cd ..
 
 REM Copy React build to Spring Boot static folder
 echo Copying React build to Spring Boot static folder...
-if exist backend\src\main\resources\static rmdir /s /q backend\src\main\resources\static
-mkdir backend\src\main\resources\static
+if exist server\src\main\resources\static rmdir /s /q server\src\main\resources\static
+mkdir server\src\main\resources\static
 
 if not exist client\dist (
     echo React build folder not found
@@ -45,7 +45,7 @@ if not exist client\dist (
     exit /b 1
 )
 
-xcopy client\dist\* backend\src\main\resources\static\ /E /I /Y
+xcopy client\dist\* server\src\main\resources\static\ /E /I /Y
 if errorlevel 1 (
     echo Failed to copy React build to static folder
     pause
@@ -54,7 +54,7 @@ if errorlevel 1 (
 
 REM Start backend in new terminal
 echo Starting Spring Boot server...
-start "" cmd /k "cd backend && call .\mvnw spring-boot:run -Dmaven.test.skip=true"
+start "" cmd /k "cd server && call .\mvnw spring-boot:run -Dmaven.test.skip=true"
 
 REM Wait for server to start then open in browser
 echo Waiting 8 seconds for Spring Boot to start...

@@ -1,0 +1,13 @@
+package com.johnm.sabacc.server;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class SabaccBackendApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}

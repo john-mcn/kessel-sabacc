@@ -50,7 +50,7 @@ mkdir backend\src\main\resources\static
 
 ```shell
 # From the root folder
-cd \server\backend\
+cd \server\
 .\mvnw -U clean verify # Installs dependencies
 .\mvnw spring-boot:run # Runs local backend server
 ```
@@ -63,7 +63,7 @@ This can be done manually by the following commands:
 
 Run the backend (will start on http://localhost:8080)
 ```shell
-cd .\server\backend\
+cd .\server\
 .\mvnw -U clean verify # Installs dependencies
 .\mvnw spring-boot:run # Runs local backend server
 ```
