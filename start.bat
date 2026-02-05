@@ -19,7 +19,7 @@ if not exist backend\mvnw (
 
 REM Build React frontend
 echo Building React frontend...
-cd frontend
+cd client
 call npm install --no-progress
 if errorlevel 1 (
     echo npm install failed
@@ -39,13 +39,13 @@ echo Copying React build to Spring Boot static folder...
 if exist backend\src\main\resources\static rmdir /s /q backend\src\main\resources\static
 mkdir backend\src\main\resources\static
 
-if not exist frontend\dist (
+if not exist client\dist (
     echo React build folder not found
     pause
     exit /b 1
 )
 
-xcopy frontend\dist\* backend\src\main\resources\static\ /E /I /Y
+xcopy client\dist\* backend\src\main\resources\static\ /E /I /Y
 if errorlevel 1 (
     echo Failed to copy React build to static folder
     pause
